@@ -47,9 +47,9 @@
                 <form id="welcome-form" onsubmit="return false;">
                     <!-- Player Name Group -->
                     <div class="input-group">
-                        <label for="player-name"><i class="fas fa-user-shield"></i> اسم اللاعب</label>
+                        <label for="player-name"><i class="fas fa-user-tie"></i> اسم قائد الفريق</label>
                         <div class="input-wrapper">
-                            <input type="text" id="player-name" placeholder="أدخل اسمك الرمزي..." autocomplete="off">
+                            <input type="text" id="player-name" placeholder="أدخل اسم قائد الفريق الرمزي..." autocomplete="off">
                             <span class="input-focus-line"></span>
                         </div>
                     </div>
@@ -66,6 +66,22 @@
                             <span class="select-arrow"><i class="fas fa-caret-down"></i></span>
                             <span class="input-focus-line"></span>
                         </div>
+                    </div>
+
+                    <!-- Team Members Group (Dynamic) -->
+                    <div class="input-group" id="team-members-group" style="display: none; opacity: 0; transition: opacity 0.4s ease, transform 0.4s ease; transform: translateY(-10px);">
+                        <label for="member-name-input"><i class="fas fa-user-plus"></i> إضافة أعضاء الفريق</label>
+                        <div class="input-wrapper" style="display: flex; gap: 10px; width: 100%;">
+                            <div style="position: relative; flex-grow: 1;">
+                                <input type="text" id="member-name-input" placeholder="أدخل اسم العضو واضغط + ..." autocomplete="off">
+                                <span class="input-focus-line"></span>
+                            </div>
+                            <button type="button" id="btn-add-member" class="btn-add-member" style="background: rgba(var(--neon-main-rgb), 0.1); border: 1px solid var(--neon-main); border-radius: 8px; color: var(--neon-main); padding: 0 15px; cursor: pointer;">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                        <!-- Container for member badges -->
+                        <div id="members-list-container" style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; width: 100%;"></div>
                     </div>
 
                     <!-- Audio Synth Feedback Toggle -->

@@ -400,6 +400,46 @@ select option:disabled {
     color: #ff0055;
 }
 
+/* Team Members dynamic tags style */
+.btn-add-member {
+    transition: all 0.3s ease;
+}
+.btn-add-member:hover {
+    background: rgba(var(--neon-main-rgb), 0.25) !important;
+    box-shadow: 0 0 10px var(--neon-main);
+    color: #fff !important;
+}
+.member-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(var(--neon-main-rgb), 0.08);
+    border: 1px solid rgba(var(--neon-main-rgb), 0.3);
+    color: var(--text-color);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    box-shadow: 0 0 8px rgba(var(--neon-main-rgb), 0.1);
+    animation: badge-fade-in 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    transition: border-color var(--transition-speed) ease, background-color var(--transition-speed) ease;
+}
+@keyframes badge-fade-in {
+    from { opacity: 0; transform: translateY(5px) scale(0.95); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.member-badge .remove-member {
+    cursor: pointer;
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    transition: color 0.2s ease;
+    display: flex;
+    align-items: center;
+}
+.member-badge .remove-member:hover {
+    color: #ff0055;
+}
+
 /* 7. Audio Synth Toggle Widget */
 .audio-toggle {
     display: flex;
@@ -683,6 +723,12 @@ select option:disabled {
 
 /* Responsive adjustments */
 @media(max-width: 480px) {
+    .system-status {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px 15px;
+    }
+
     .glass-card {
         padding: 30px 20px;
     }

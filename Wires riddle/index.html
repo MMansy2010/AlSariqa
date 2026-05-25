@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام الأسلاك الأمني - اختراق</title>
+    <style>
+        :root {
+            --bg-color: #0d0e15;
+            --panel-color: #1a1c29;
+            --neon-red: #ff0055;
+            --neon-green: #00ff66;
+        }
+        body {
+            background-color: var(--bg-color);
+            color: #fff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .panel {
+            background: var(--panel-color);
+            border: 2px solid var(--neon-red);
+            box-shadow: 0 0 20px rgba(255, 0, 85, 0.2);
+            border-radius: 12px;
+            padding: 25px;
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+        h1 {
+            color: var(--neon-red);
+            font-size: 24px;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(255, 0, 85, 0.5);
+        }
+        .rules {
+            background: rgba(0, 0, 0, 0.4);
+            border-right: 4px solid var(--neon-red);
+            padding: 15px;
+            text-align: right;
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            border-radius: 4px;
+        }
+        .wires-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin: 30px 0;
+            padding: 10px;
+            background: #000;
+            border-radius: 8px;
+        }
+        .wire-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 5px 10px;
+        }
+        .wire-label {
+            font-weight: bold;
+            width: 80px;
+            text-align: right;
+        }
+        .wire {
+            flex-grow: 1;
+            height: 12px;
+            margin: 0 15px;
+            border-radius: 6px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .wire.red { background: #ff3333; box-shadow: 0 0 8px #ff3333; }
+        .wire.blue { background: #3333ff; box-shadow: 0 0 8px #3333ff; }
+        .wire.yellow { background: #ffff33; box-shadow: 0 0 8px #ffff33; }
+        .wire.black { background: #555555; box-shadow: 0 0 8px #555555; }
+        .wire.purple { background: #9933ff; box-shadow: 0 0 8px #9933ff; }
+        .wire.green { background: #33ff33; box-shadow: 0 0 8px #33ff33; }
+        .wire.cut {
+            opacity: 0.2;
+            box-shadow: none !important;
+            text-decoration: line-through;
+            transform: scaleX(0.9);
+        }
+        .btn-cut {
+            background: #222;
+            border: 1px solid #444;
+            color: #aaa;
+            padding: 4px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        .wire.cut + .btn-cut {
+            background: var(--neon-green);
+            color: #000;
+            border-color: var(--neon-green);
+        }
+    </style>
+</head>
+<body>
+    <div class="panel">
+        <h1>🛠️ واجهة تعديل الأسلاك الأمنية</h1>
+        <p style="color: #aaa; font-size: 14px; margin-top: 0;">اضغط على زر قطع السلك لاستبعاده بناءً على المعطيات</p>
+        <div class="rules">
+            <strong>⚠️ قواعد الاستبعاد الجمركية لتفادي الانفجار:</strong><br>
+            1. السلك المطلوب ليس من ألوان علم مصر الأساسية (استبعد <b>الأحمر</b> و<b>الأسود</b> و<b>الأصفر</b>).<br>
+            2. السلك المطلوب لا يقع عند الأطراف (ليس أول سلك ولا آخر سلك).<br>
+            3. السلك المطلوب ليس لونه خليطاً بين الأحمر والأزرق (استبعد <b>البنفسجي</b>).<br>
+            4. السلك المتبقي هو مفتاح الحل.. اكتب لونه في الموقع الأساسي!
+        </div>
+        <div class="wires-container">
+            <div class="wire-row"><span class="wire-label" style="color: #ff3333;">أحمر</span><div class="wire red" id="w1"></div><button class="btn-cut" onclick="toggleWire('w1')">قطع/تراجع</button></div>
+            <div class="wire-row"><span class="wire-label" style="color: #3333ff;">أزرق</span><div class="wire blue" id="w2"></div><button class="btn-cut" onclick="toggleWire('w2')">قطع/تراجع</button></div>
+            <div class="wire-row"><span class="wire-label" style="color: #33ff33;">أخضر</span><div class="wire green" id="w3"></div><button class="btn-cut" onclick="toggleWire('w3')">قطع/تراجع</button></div>
+            <div class="wire-row"><span class="wire-label" style="color: #9933ff;">بنفسجي</span><div class="wire purple" id="w4"></div><button class="btn-cut" onclick="toggleWire('w4')">قطع/تراجع</button></div>
+            <div class="wire-row"><span class="wire-label" style="color: #ffff33;">أصفر</span><div class="wire yellow" id="w5"></div><button class="btn-cut" onclick="toggleWire('w5')">قطع/تراجع</button></div>
+            <div class="wire-row"><span class="wire-label" style="color: #888;">أسود</span><div class="wire black" id="w6"></div><button class="btn-cut" onclick="toggleWire('w6')">قطع/تراجع</button></div>
+        </div>
+        <p style="font-size: 13px; color: #888;">ملاحظة: هذا النظام مستقل، بعد معرفة السلك الصحيح اذهب للموقع الرئيسي لادخاله.</p>
+    </div>
+    <script src="game.js"></script>
+    <script>
+        function toggleWire(id) {
+            const wire = document.getElementById(id);
+            wire.classList.toggle('cut');
+        }
+    </script>
+</body>
+</html>

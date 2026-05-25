@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تحدي العيد 🔐 | غرفة اللغز</title>
+    <title>تحدي العيد 🔐 | غرفة التحكم</title>
     <!-- Google Fonts: Cairo -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,9 +12,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <style>
-        /* Specific tweaks for game view to show the result */
         .dashboard-card {
             text-align: center;
+            position: relative;
+            overflow: hidden;
         }
         .player-badge {
             background: rgba(255, 255, 255, 0.05);
@@ -23,7 +24,7 @@
             padding: 15px;
             margin: 20px 0;
             display: inline-block;
-            min-width: 200px;
+            min-width: 220px;
         }
         .team-indicator {
             font-size: 1.2rem;
@@ -31,6 +32,85 @@
             color: var(--neon-main);
             text-shadow: 0 0 10px var(--neon-main);
             margin-top: 5px;
+        }
+        .level-header {
+            font-size: 1rem;
+            font-weight: 800;
+            color: var(--neon-main);
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+        .riddle-container {
+            margin: 20px 0;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--text-color);
+            background: rgba(0, 0, 0, 0.25);
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid rgba(var(--neon-main-rgb), 0.2);
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.5);
+            transition: all 0.5s ease;
+        }
+        .answer-section {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-top: 15px;
+            justify-content: center;
+        }
+        .answer-section input[type="text"] {
+            flex: 1;
+            max-width: 320px;
+            background: rgba(0,0,0,0.35);
+            border: 1px solid rgba(var(--neon-main-rgb),0.25);
+            border-radius: 8px;
+            padding: 12px 14px;
+            color: var(--text-color);
+            font-size: 1rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        .answer-section input[type="text"]:focus {
+            outline: none;
+            border-color: var(--neon-main);
+            box-shadow: 0 0 10px rgba(var(--neon-main-rgb), 0.5);
+        }
+        .answer-section button {
+            background: var(--neon-main);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 24px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+        .answer-section button:hover {
+            box-shadow: 0 0 15px var(--neon-main);
+            transform: translateY(-2px);
+        }
+        .hint-btn {
+            background: rgba(var(--neon-main-rgb),0.1);
+            color: var(--text-color);
+            border: 1px solid rgba(var(--neon-main-rgb),0.3);
+            border-radius: 8px;
+            padding: 8px 18px;
+            cursor: pointer;
+            margin-top: 15px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .hint-btn:hover:not(:disabled) {
+            background: rgba(var(--neon-main-rgb),0.25);
+            box-shadow: 0 0 10px rgba(var(--neon-main-rgb), 0.2);
+        }
+        .hint-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            border-color: rgba(255,255,255,0.1);
+            color: var(--text-muted);
         }
         .timer-placeholder {
             font-family: monospace;
@@ -40,11 +120,11 @@
             text-shadow: 0 0 15px var(--neon-main);
             margin: 25px 0;
             letter-spacing: 2px;
-            animation: timer-pulse 1s infinite alternate;
+            animation: timer-pulse 1.2s infinite alternate;
         }
         @keyframes timer-pulse {
-            from { opacity: 0.8; transform: scale(0.98); }
-            to { opacity: 1; transform: scale(1.02); }
+            from { opacity: 0.85; transform: scale(0.99); }
+            to { opacity: 1; transform: scale(1.01); }
         }
         .back-link {
             font-size: 0.85rem;
@@ -53,11 +133,107 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            margin-top: 20px;
+            margin-top: 25px;
             transition: color 0.3s ease;
         }
         .back-link:hover {
             color: var(--neon-main);
+        }
+        .success-flash {
+            animation: green-glow 0.8s ease-out;
+        }
+        @keyframes green-glow {
+            0% { box-shadow: 0 0 0px #2ecc71; }
+            50% { box-shadow: 0 0 25px #2ecc71; }
+            100% { box-shadow: 0 0 0px #2ecc71; }
+        }
+        .win-screen {
+            text-align: center;
+            padding: 20px;
+        }
+        .win-icon {
+            font-size: 4rem;
+            color: #2ecc71;
+            text-shadow: 0 0 20px rgba(46, 204, 113, 0.6);
+            margin-bottom: 20px;
+            animation: bounce 1s infinite alternate;
+        }
+        @keyframes bounce {
+            from { transform: translateY(0); }
+            to { transform: translateY(-10px); }
+        }
+        .hint-badge {
+            background: rgba(230, 126, 34, 0.15);
+            border: 1px solid #e67e22;
+            color: #e67e22;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            margin-top: 10px;
+            display: inline-block;
+        }
+
+        /* Violent screen shake animation */
+        .shake-heavy {
+            animation: heavy-shake 0.15s infinite;
+        }
+        @keyframes heavy-shake {
+            0% { transform: translate(1px, 1px) rotate(0deg); }
+            10% { transform: translate(-1px, -2px) rotate(-1deg); }
+            20% { transform: translate(-3px, 0px) rotate(1deg); }
+            30% { transform: translate(0px, 2px) rotate(0deg); }
+            40% { transform: translate(1px, -1px) rotate(1deg); }
+            50% { transform: translate(-1px, 2px) rotate(-1deg); }
+            60% { transform: translate(-3px, 1px) rotate(0deg); }
+            70% { transform: translate(2px, 1px) rotate(-1deg); }
+            80% { transform: translate(-1px, -1px) rotate(1deg); }
+            90% { transform: translate(2px, 2px) rotate(0deg); }
+            100% { transform: translate(1px, -2px) rotate(-1deg); }
+        }
+
+        /* Panic blood-red pulsing mode */
+        body.panic-red {
+            background-color: #120005 !important;
+            --neon-main: #ff0033 !important;
+            --neon-main-rgb: 255, 0, 51 !important;
+            animation: blood-pulse 0.8s infinite alternate;
+        }
+        @keyframes blood-pulse {
+            from {
+                box-shadow: inset 0 0 40px rgba(255, 0, 51, 0.4);
+            }
+            to {
+                box-shadow: inset 0 0 100px rgba(255, 0, 51, 0.8);
+            }
+        }
+
+        /* Game Over screen overlay */
+        .game-over-screen {
+            background: rgba(10, 0, 0, 0.98);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #ff0055;
+            padding: 30px;
+            text-align: center;
+            animation: fade-in 1s forwards;
+        }
+        @keyframes fade-in {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .panic-timer-style {
+            font-size: 5rem !important;
+            color: #ff0033 !important;
+            text-shadow: 0 0 25px #ff0033 !important;
         }
     </style>
 </head>
@@ -73,41 +249,98 @@
     <div class="container">
         <!-- System Status Bar -->
         <div class="system-status">
-            <span class="status-node"><i class="fas fa-key"></i> الألغاز مغلقة</span>
+            <span class="status-node" id="puzzle-status"><i class="fas fa-lock"></i> الألغاز نشطة</span>
             <span class="status-node"><i class="fas fa-shield-halved"></i> الجلسة: نشطة</span>
             <span class="status-node time-node" id="live-time">00:00:00</span>
         </div>
 
         <!-- Dashboard Card -->
-        <div class="glass-card dashboard-card">
+        <div class="glass-card dashboard-card" id="main-dashboard">
             <!-- Corner Accents -->
             <div class="card-accent top-left"></div>
             <div class="card-accent top-right"></div>
             <div class="card-accent bottom-left"></div>
             <div class="card-accent bottom-right"></div>
 
-            <div class="card-content">
-                <h1 class="main-title">بروتوكول الهروب ⏱️</h1>
-                <p class="subtitle">شاشة التحكم الرئيسية والعداد المرعب</p>
+            <div class="card-content" style="position: relative;">
+                
+                <!-- Game Over Overlay -->
+                <div id="game-over-overlay" class="game-over-screen" style="display: none;">
+                    <div style="font-size: 5rem; margin-bottom: 20px;"><i class="fas fa-skull-crossbones"></i></div>
+                    <h2 style="font-size: 2.2rem; font-weight: 900; margin-bottom: 15px;">بووووم! 💀</h2>
+                    <p style="font-size: 1.25rem; line-height: 1.7; max-width: 450px;">
+                        للأسف القنبلة فرقعت فيكم على آخر ثانية.. هارد لاك يا وحوش، الـ Game Master كسب الجولة دي!
+                    </p>
+                    <a href="index.html" class="hint-btn" style="text-decoration: none; margin-top: 25px; border-color: #ff0055; background: rgba(255,0,85,0.15); color: #fff;">
+                        محاولة جديدة 🔄
+                    </a>
+                </div>
+
+                <h1 class="main-title" id="game-main-title">بروتوكول الهروب ⏱️</h1>
+                <p class="subtitle" id="game-sub-title">شاشة التحكم الرئيسية والعداد المرعب</p>
 
                 <!-- Player Details -->
-                <div class="player-badge" style="max-width: 100%;">
-                    <div style="font-size: 0.85rem; color: var(--text-muted);">العميل الموثّق:</div>
-                    <div id="player-display-name" style="font-size: 1.4rem; font-weight: 700; margin: 5px 0; word-break: break-word;">-- loading --</div>
-                    <div id="player-display-team" class="team-indicator">-- loading --</div>
+                <div class="player-badge" id="player-badge-panel">
+                    <div>
+                        <div style="font-size: 0.85rem; color: var(--text-muted);">قائد الفريق:</div>
+                        <div id="player-display-name" style="font-size: 1.4rem; font-weight: 700; margin: 3px 0; word-break: break-word;">-- loading --</div>
+                    </div>
+                    <div id="members-display-container" style="display: none; border-top: 1px solid rgba(var(--neon-main-rgb), 0.15); padding-top: 8px; margin-top: 5px;">
+                        <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 5px;">أعضاء الفريق:</div>
+                        <div id="members-display-list" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 6px;"></div>
+                    </div>
+                    <div id="player-display-team" class="team-indicator" style="border-top: 1px solid rgba(var(--neon-main-rgb), 0.15); padding-top: 8px; margin-top: 8px;">-- loading --</div>
                 </div>
 
-                <!-- Horror Timer (Placeholder for the next step) -->
-                <div style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px;">
+                <!-- Level Container -->
+                <div id="active-gameplay-section">
+                    <div class="level-header" id="current-level-title">المرحلة الأولى</div>
+                    <div class="riddle-container" id="riddle-text">-- جاري تحميل اللغز --</div>
+
+                    <!-- Morse Code reference table (Level 5 Blue only) -->
+                    <div id="morse-table-container" style="display: none; margin: 15px 0; background: rgba(0,0,0,0.4); border: 1px solid rgba(var(--neon-main-rgb), 0.2); padding: 15px; border-radius: 8px; font-size: 0.85rem; font-family: monospace;">
+                        <div style="font-weight: 700; margin-bottom: 8px; color: var(--neon-main); font-family: 'Cairo', sans-serif;">جدول مرجع شفرة مورس (Morse Code Table)</div>
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; text-align: center; color: #fff;">
+                            <div>A: •-</div><div>B: -•••</div><div>C: -•-•</div>
+                            <div>D: -••</div><div>E: •</div><div>F: ••-•</div>
+                            <div>G: --•</div><div>H: ••••</div><div>I: ••</div>
+                            <div>J: •---</div><div>K: -•-</div><div>L: •-••</div>
+                            <div>M: --</div><div>N: -•</div><div>O: ---</div>
+                            <div>P: •--•</div><div>Q: --•-</div><div>R: •-•</div>
+                            <div>S: •••</div><div>T: -</div><div>U: ••-</div>
+                            <div>V: •••-</div><div>W: •--</div><div>X: -••-</div>
+                            <div>Y: -•--</div><div>Z: --••</div>
+                        </div>
+                    </div>
+                    
+                    <div class="answer-section" id="normal-answer-controls">
+                        <input type="text" id="answer-input" placeholder="أدخل الإجابة هنا..." autocomplete="off" />
+                        <button id="btn-submit-answer">تحقق</button>
+                    </div>
+                    <button class="hint-btn" id="btn-hint">طلب مساعدة 💡</button>
+                    <div id="hint-display-area"></div>
+                </div>
+
+                <!-- Win / Game Completed Screen -->
+                <div id="win-section" class="win-screen" style="display: none;">
+                    <div class="win-icon"><i class="fas fa-trophy"></i></div>
+                    <h2 style="color: #2ecc71; font-weight: 900; margin-bottom: 10px;">تمت المهمة بنجاح! 🎉</h2>
+                    <p style="font-size: 1.15rem; line-height: 1.7; max-width: 500px; margin: 0 auto 20px;" id="victory-text-display">
+                        تهانينا الحارة! لقد تمكنتم من فك التشفير والتغلب على التدمير الذاتي في الوقت المناسب. أنتم ملوك الاختراق والهروب! 👑
+                    </p>
+                </div>
+
+                <!-- Horror Timer -->
+                <div style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 25px;" id="timer-icon-label">
                     <i class="fas fa-hourglass-half"></i> الوقت المتبقي للتدمير الذاتي
                 </div>
-                <div class="timer-placeholder" id="countdown-timer">60:00</div>
+                <div class="timer-placeholder" id="countdown-timer">45:00</div>
 
-                <div style="background: rgba(var(--neon-main-rgb), 0.05); padding: 15px; border-radius: 8px; border: 1px dashed rgba(var(--neon-main-rgb), 0.3); font-size: 0.85rem; line-height: 1.6;">
-                    🔓 <span style="font-weight: 700;">النظام معطل مؤقتاً:</span> تم تفعيل شاشة البداية بنجاح! في الخطوة القادمة، سنقوم ببرمجة العداد التنازلي التفاعلي وعرض قائمة الألغاز المرعبة.
+                <div style="background: rgba(var(--neon-main-rgb), 0.05); padding: 12px; border-radius: 8px; border: 1px dashed rgba(var(--neon-main-rgb), 0.3); font-size: 0.85rem; line-height: 1.6; margin-top: 20px;" id="security-note-panel">
+                    🔒 <span style="font-weight: 700;">ملاحظة أمنية:</span> سيتم حفظ تقدمك ووقتك بدقة عالية حتى لو قمت بتحديث الصفحة.
                 </div>
 
-                <a href="index.html" class="back-link">
+                <a href="index.html" class="back-link" id="home-back-link">
                     <i class="fas fa-arrow-right"></i> العودة لشاشة الترحيب وتعديل الفريق
                 </a>
             </div>
@@ -115,7 +348,133 @@
     </div>
 
     <script>
-        // Update live time clock in dashboard
+        // 1. Audio State & Web Audio API Synthesizer (Strict Event Binding)
+        let audioCtx = null;
+        function initAudioContext() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+        }
+
+        function playSynthSound(type) {
+            try {
+                initAudioContext();
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                
+                const now = audioCtx.currentTime;
+                
+                if (type === 'click') {
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(800, now);
+                    osc.frequency.exponentialRampToValueAtTime(100, now + 0.1);
+                    gain.gain.setValueAtTime(0.15, now);
+                    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.1);
+                    osc.start(now);
+                    osc.stop(now + 0.1);
+                } 
+                else if (type === 'error') {
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(130, now);
+                    osc.frequency.linearRampToValueAtTime(80, now + 0.25);
+                    gain.gain.setValueAtTime(0.2, now);
+                    gain.gain.linearRampToValueAtTime(0.01, now + 0.3);
+                    osc.start(now);
+                    osc.stop(now + 0.3);
+                } 
+                else if (type === 'success') {
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(523.25, now); // C5
+                    osc.frequency.setValueAtTime(659.25, now + 0.1); // E5
+                    osc.frequency.setValueAtTime(783.99, now + 0.2); // G5
+                    gain.gain.setValueAtTime(0.15, now);
+                    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.45);
+                    osc.start(now);
+                    osc.stop(now + 0.45);
+                }
+                else if (type === 'fake-win') {
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(523.25, now); // C5
+                    osc.frequency.setValueAtTime(659.25, now + 0.15); // E5
+                    osc.frequency.setValueAtTime(783.99, now + 0.3); // G5
+                    osc.frequency.setValueAtTime(1046.5, now + 0.45); // C6
+                    
+                    gain.gain.setValueAtTime(0.15, now);
+                    gain.gain.exponentialRampToValueAtTime(0.01, now + 1.2);
+                    osc.start(now);
+                    osc.stop(now + 1.2);
+                }
+                else if (type === 'explosion') {
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(90, now);
+                    osc.frequency.exponentialRampToValueAtTime(20, now + 1.5);
+                    
+                    const osc2 = audioCtx.createOscillator();
+                    const gain2 = audioCtx.createGain();
+                    osc2.type = 'triangle';
+                    osc2.frequency.setValueAtTime(60, now);
+                    osc2.frequency.linearRampToValueAtTime(10, now + 1.8);
+                    
+                    osc2.connect(gain2);
+                    gain2.connect(audioCtx.destination);
+                    gain2.gain.setValueAtTime(0.3, now);
+                    gain2.gain.exponentialRampToValueAtTime(0.001, now + 1.8);
+                    
+                    gain.gain.setValueAtTime(0.3, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 1.5);
+                    
+                    osc.start(now);
+                    osc.stop(now + 1.5);
+                    osc2.start(now);
+                    osc2.stop(now + 1.8);
+                }
+            } catch (e) {
+                console.warn('Audio Synthesis blocked or failed:', e);
+            }
+        }
+
+        // 2. Loop alarm synthesizer for Levels 6 panic mode
+        let alarmInterval = null;
+        function startAlarmSound() {
+            if (alarmInterval) return;
+            initAudioContext();
+            
+            alarmInterval = setInterval(() => {
+                try {
+                    const now = audioCtx.currentTime;
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    
+                    osc.type = 'sawtooth';
+                    const freq = Math.floor(now * 4) % 2 === 0 ? 550 : 440;
+                    osc.frequency.setValueAtTime(freq, now);
+                    
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    
+                    gain.gain.setValueAtTime(0.08, now);
+                    gain.gain.linearRampToValueAtTime(0.001, now + 0.18);
+                    
+                    osc.start(now);
+                    osc.stop(now + 0.2);
+                } catch(e) {}
+            }, 250);
+        }
+
+        function stopAlarmSound() {
+            if (alarmInterval) {
+                clearInterval(alarmInterval);
+                alarmInterval = null;
+            }
+        }
+
+        // 3. Update live clock in dashboard
         function updateClock() {
             const now = new Date();
             const hrs = String(now.getHours()).padStart(2, '0');
@@ -127,23 +486,594 @@
         updateClock();
         setInterval(updateClock, 1000);
 
-        // Retrieve player details from localStorage
+        // 4. Retrieve Player & Team Details
         const name = localStorage.getItem('escape_room_player_name') || 'غير معروف';
-        const team = localStorage.getItem('escape_room_player_team') || 'default';
+        const team = localStorage.getItem('escape_room_player_team') || localStorage.getItem('selectedTeam') || 'default';
 
-        // Apply team theme dynamically to this page as well!
+        // Apply Team Theme & Set Glow Colors
         if (team === 'blue') {
             document.body.className = 'theme-blue';
             document.getElementById('player-display-team').textContent = 'الفريق الأزرق 🟦';
+            document.documentElement.style.setProperty('--neon-main', '#00d2ff');
+            document.documentElement.style.setProperty('--neon-main-rgb', '0, 210, 255');
         } else if (team === 'red') {
             document.body.className = 'theme-red';
             document.getElementById('player-display-team').textContent = 'الفريق الأحمر 🟥';
+            document.documentElement.style.setProperty('--neon-main', '#ff0055');
+            document.documentElement.style.setProperty('--neon-main-rgb', '255, 0, 85');
         } else {
             document.body.className = 'theme-default';
             document.getElementById('player-display-team').textContent = 'لم يتم اختيار فريق';
         }
 
         document.getElementById('player-display-name').textContent = name;
+
+        // Display team members
+        const membersJSON = localStorage.getItem('escape_room_team_members');
+        let members = [];
+        if (membersJSON) {
+            try {
+                members = JSON.parse(membersJSON) || [];
+            } catch(e) {
+                members = [];
+            }
+        }
+        
+        const membersContainer = document.getElementById('members-display-container');
+        const membersList = document.getElementById('members-display-list');
+        
+        if (membersContainer && membersList && members.length > 0) {
+            membersContainer.style.display = 'block';
+            members.forEach(member => {
+                const badge = document.createElement('span');
+                badge.className = 'member-badge';
+                badge.textContent = member;
+                badge.style.fontSize = '0.75rem';
+                badge.style.padding = '4px 10px';
+                membersList.appendChild(badge);
+            });
+        }
+
+        // 5. Game levels structure & riddles
+        const levelsData = {
+            1: {
+                title: "المرحلة الأولى: فك تشفير الكروت 🔑",
+                blue: {
+                    text: "المهمة بدأت! 3 عناصر من الكروت السوداء المعلمة بالشريط الأزرق هربت في زوايا الغرفة.. ابحث عنهم واجمع أرقامهم السرية معاً لتفتح بوابة العبور!",
+                    answer: ["11"],
+                    hintCode: "BT65",
+                    hint: "فتش ورا الستارة، تحت المخدة، وخلف شاشة التلفزيون"
+                },
+                red: {
+                    text: "العيدية لا تأتي بالسهل! 3 ورقات مالية مفقودة تحمل الشعار الأحمر استقرت في الغرفة.. اعثر عليها واجمع قيمتها المالية الإجمالية لتثبت جدارتك!",
+                    answer: ["215"],
+                    hintCode: "RT43",
+                    hint: "فتش خلف البراويز، جوة إيد الباب، وتحت زاوية السجادة"
+                }
+            },
+            2: {
+                title: "المرحلة الثانية: التفتيش البصري والتركيب 👁️",
+                blue: {
+                    text: "عاش يا أبطال! ليفل 2 محتاج تركيز بصري حاد. فتشوا عن الشريط الأزرق المخفي في الأوضة، هتلاقوا جملة مكتوبة بالشقلوب (من الشمال لليمين).. اقرأوها صح واكتبوها بالترتيب والمسافات المظبوطة!",
+                    answer: ["مدرسة القرع المباشر"],
+                    hintCode: "BT99",
+                    hint: "فتش ورا البرواز أو ضهر الباب، واقرا الكلام من الشمال لليمين حرف حرف!"
+                },
+                red: {
+                    text: "الله ينور! ملفات تيم الأحمر حصل فيها اختراق وفيه حروف ضايعة.. فتشوا عن الشريط الأحمر المخفي في الأوضة، كملوا الحروف الناقصة واكتبوا الجملة السرية كاملة بالمسافات المظبوطة!",
+                    answer: ["جمهورية الموز المتحدة"],
+                    hintCode: "RT88",
+                    hint: "فتش تحت الكنبة أو ورا الكومودينو، وركّز في الحروف الناقصة عشان تقفل اسم الجمهورية!"
+                }
+            },
+            3: {
+                title: "المرحلة الثالثة: حساب الأرقام وحل العقدة الحاسوبية 🧮",
+                blue: {
+                    text: "الماضي يعود ليطاردكم! 💀 تذكروا كروت الأونو الثلاثة التي عثرتم عليها في البداية.. اضربوا الرقمين الأكبر في بعضهما، واطرحوا من الناتج مربع الرقم الأصغر.. ثم اضربوا القيمة الإجمالية في مجموع الكروت الثلاثة معاً لتفتح بوابة العبور!",
+                    answer: ["220"],
+                    hintCode: "BT12",
+                    hint: "الحسبة كالتالي: (7 × 3) ناقص 1.. والناتج اضربه في 11!"
+                },
+                red: {
+                    text: "الحكومة قررت تفرض ضريبة على أموالكم! 💸 خذوا أكبر ورقة مالية عثرتم عليها واقسموها على حاصل ضرب الورقتين الصغيرتين.. والناتج الذي ستحصلون عليه، اضربوه في مربع مجموع الورقتين الصغيرتين معاً!",
+                    answer: ["900"],
+                    hintCode: "RT55",
+                    hint: "الحسبة كالتالي: (200 ÷ 50) والناتج اضربه في مربع الـ 15 اللي هو 225!"
+                }
+            },
+            4: {
+                title: "المرحلة الرابعة: الروابط والرموز الخفية 🧩",
+                blue: {
+                    text: "بوابة العبور تم تفتيتها لـ 5 قطع زرقاء مشتتة في أركان الغرفة! 🧩 كل قطعة عثرتم عليها تحمل كلمة دلالية (Clue).. اجمعوا القطع الخمسة، اربطوا الكلمات الغامضة ببعضها، واكتبوا اسم الشيء النهائي الذي تدل عليه هذه الكلمات!",
+                    answer: ["الروتر", "الراوتر"],
+                    hintCode: "BT44",
+                    hint: "الكلمات هي (حرارة، سرعة، نور، ميجابايت، سلك).. فكر في جهاز تكنولوجي في البيت كلنا بنجري وراه لما يفصل!"
+                },
+                red: {
+                    text: "الكنز المفقود! 🪙 5 عملات معدنية تحمل الشعار الأحمر مبعثرة في الغرفة.. كل عملة تعثرون عليها تحمل كلمة دلالية (Clue).. اعثروا على العملات الخمسة، اربطوا الكلمات الغامضة ببعضها، واكتبوا اسم الشيء النهائي الذي تدل عليه هذه الكلمات!",
+                    answer: ["العداد", "عداد الكهرباء"],
+                    hintCode: "RT33",
+                    hint: "الكلمات هي (كارت، رصيد، كيلووات، شريحة، إنذار).. فكر في حاجة في الشقة لو رصيدها خلص البيت كله بيضلم!"
+                }
+            },
+            5: {
+                title: "المرحلة الخامسة: فك شفرات ومضات النور والأسلاك 📟",
+                blue: {
+                    text: "الظلام يحرس الأسرار! 📟 شفرة مورس تم تشفيرها داخل ملف فيديو سري لا يمتلكه سوى الـ Game Master.. اعثروا عليه في مكان ما، واطلبوا رؤية الفيديو بحذر، ثم ركزوا في ومضات النور وترجموها باستخدام الجدول واكتبوا الكلمة السرية بالإنجليزية هنا!",
+                    answer: ["SOS"],
+                    hintCode: "BT55",
+                    hint: "الـ Game Master هو الشخص اللي بيدير اللعبة معاكم.. روحوا له وخليه يوريكم الفيديو، وركزوا: 3 ومضات سريعة (S) و3 بطيئة (O)!"
+                },
+                red: {
+                    text: "النظام محمي بجدار ناري معقد! 🟥 هناك رمز QR كودي مخفي بعناية في أرجاء الغرفة.. ابحثوا عنه في كل زاوية وقوموا بمسحه بالموبايل للدخول واجهة الأسلاك الخارجية. حلوا لغز الاستبعاد هناك، ثم عودوا واكتبوا لون السلك النهائي الصحيح باللغة العربية!",
+                    answer: ["الأخضر", "الاخضر"],
+                    hintCode: "RT44",
+                    hint: "الـ QR ملزوق على حاجة ورقية بتسحبوا منها في الأوضة.. امسحوه وهناك ركزوا في شروط الاستبعاد عشان تطلعوا السلك الصح!"
+                }
+            },
+            6: {
+                title: "المرحلة السادسة: لغز الدمج الكبير المزدوج 🧮",
+                blue: {
+                    text: "العد التنازلي النهائي بدأ! 🚨 القنبلة لن تتوقف إلا بكود الدمج الرئيسي.. اجمعوا شفرات رحلتكم بالترتيب الإلزامي وبدون مسافات: (مجموع كروت الأونو في ليفل 1) + (عدد حروف اسم مدرستكم المعكوس في ليفل 2 بدون حساب المسافة) + (الناتج النهائي لمعادلة الأونو في ليفل 3) + (الكلمة النهائية لقطع البازل في ليفل 4) + (الكلمة السرية لشفرة مورس في ليفل 5)!",
+                    answer: ["1113220الروترSOS", "1113220الراوترSOS"]
+                },
+                red: {
+                    text: "العد التنازلي النهائي بدأ! 🚨 القنبلة لن تتوقف إلا بكود الدمج الرئيسي.. اجمعوا شفرات رحلتكم بالترتيب الإلزامي وبدون مسافات: (إجمالي الأموال في ليفل 1) + (عدد حروف اسم جمهوريتكم المعكوس في ليفل 2 بدون حساب المسافة) + (الناتج النهائي للحسبة الجمركية في ليفل 3) + (الشيء النهائي لعملات الكنز في ليفل 4) + (لون السلك الصحيح في ليفل 5)!",
+                    answer: ["21512900العدادالأخضر", "21512900العدادالاخضر"]
+                }
+            }
+        };
+
+        // Determine active level based on localStorage
+        let currentLevel = 1;
+        if (localStorage.getItem(team + '_level_6') === 'passed') {
+            currentLevel = 7; // Victory Completed Screen
+        } else if (localStorage.getItem(team + '_level_5') === 'passed') {
+            currentLevel = 6;
+        } else if (localStorage.getItem(team + '_level_4') === 'passed') {
+            currentLevel = 5;
+        } else if (localStorage.getItem(team + '_level_3') === 'passed') {
+            currentLevel = 4;
+        } else if (localStorage.getItem(team + '_level_2') === 'passed') {
+            currentLevel = 3;
+        } else if (localStorage.getItem(team + '_level_1') === 'passed') {
+            currentLevel = 2;
+        }
+
+        // 6. Arabic string normalization
+        function normalizeArabic(text) {
+            if (!text) return '';
+            return text
+                .trim()
+                .replace(/\s+/g, ' ')
+                .replace(/[أإآٱ]/g, 'ا')
+                .replace(/ة/g, 'ه')
+                .replace(/ى/g, 'ي')
+                .replace(/ئ/g, 'ي')
+                .replace(/ؤ/g, 'و');
+        }
+
+        // 7. General countdown timer setup
+        const totalDurationMs = 2700 * 1000;
+        let timerEnd = localStorage.getItem('escape_room_timer_end');
+        if (!timerEnd) {
+            timerEnd = Date.now() + totalDurationMs;
+            localStorage.setItem('escape_room_timer_end', timerEnd);
+        } else {
+            timerEnd = parseInt(timerEnd, 10);
+        }
+
+        const timerEl = document.getElementById('countdown-timer');
+
+        function formatTime(sec) {
+            const m = Math.floor(sec / 60).toString().padStart(2, '0');
+            const s = (sec % 60).toString().padStart(2, '0');
+            return `${m}:${s}`;
+        }
+
+        // 8. Panic mode and general ticking state machine
+        let isPanicActive = localStorage.getItem('escape_room_panic_active') === 'true';
+        let panicTimerEnd = localStorage.getItem('escape_room_panic_timer_end');
+        if (panicTimerEnd) {
+            panicTimerEnd = parseInt(panicTimerEnd, 10);
+        }
+
+        function updateTimerDisplay() {
+            const now = Date.now();
+            
+            if (currentLevel > 6) {
+                const winTimeSaved = parseInt(localStorage.getItem('escape_room_win_time') || now, 10);
+                let diffSecs = Math.max(0, Math.floor((timerEnd - winTimeSaved) / 1000));
+                timerEl.textContent = formatTime(diffSecs);
+                clearInterval(timerInterval);
+                return;
+            }
+
+            if (isPanicActive) {
+                timerEl.classList.add('panic-timer-style');
+                document.getElementById('timer-icon-label').innerHTML = '<i class="fas fa-bomb"></i> العداد التنازلي للتفجير الفعلي!';
+                
+                let remainingPanic = Math.max(0, Math.floor((panicTimerEnd - now) / 1000));
+                timerEl.textContent = formatTime(remainingPanic);
+
+                if (remainingPanic <= 0) {
+                    clearInterval(timerInterval);
+                    stopAlarmSound();
+                    playSynthSound('explosion');
+                    document.body.classList.add('shake-heavy');
+                    document.getElementById('game-over-overlay').style.display = 'flex';
+                }
+            } else {
+                let remaining = Math.max(0, Math.floor((timerEnd - now) / 1000));
+                timerEl.textContent = formatTime(remaining);
+
+                if (remaining <= 0) {
+                    clearInterval(timerInterval);
+                    document.body.classList.add('shake');
+                    setTimeout(() => document.body.classList.remove('shake'), 800);
+                    timerEl.style.color = '#ff0055';
+                    timerEl.style.textShadow = '0 0 15px #ff0055';
+                    alert('انتهى الوقت! فشلت المهمة والتدمير الذاتي قد بدأ!');
+                }
+            }
+        }
+
+        const timerInterval = setInterval(updateTimerDisplay, 1000);
+        updateTimerDisplay();
+
+        // 9. Load & Render Level Setup
+        function renderActiveLevel() {
+            const gameplayControls = document.getElementById('active-gameplay-section');
+            const winSection = document.getElementById('win-section');
+            const hintDisplayArea = document.getElementById('hint-display-area');
+            const hintBtn = document.getElementById('btn-hint');
+            const morseContainer = document.getElementById('morse-table-container');
+
+            hintDisplayArea.innerHTML = '';
+            hintBtn.disabled = false;
+            document.getElementById('answer-input').value = '';
+            morseContainer.style.display = 'none';
+
+            if (currentLevel > 6) {
+                gameplayControls.style.display = 'none';
+                winSection.style.display = 'block';
+                document.getElementById('victory-text-display').textContent = 'مبرووووك يا وحوووش بجد بقى! 🎉 الهروب العظيم تم بنجاح بعد ما نجحتوا في الفخ الأخير للـ Game Master! عديتوا المستحيل.. اخرجوا فكوا الحصار وادخلوا كلوا العيدية بالهنا والشفا!';
+                const statusNode = document.getElementById('puzzle-status');
+                if (statusNode) statusNode.innerHTML = '<i class="fas fa-unlock"></i> تم فك التشفير بالكامل';
+                
+                if (!localStorage.getItem('escape_room_win_time')) {
+                    localStorage.setItem('escape_room_win_time', Date.now());
+                }
+                return;
+            }
+
+            const levelData = levelsData[currentLevel];
+            let arabLevelName = "المرحلة الأولى";
+            if (currentLevel === 2) arabLevelName = "المرحلة الثانية";
+            if (currentLevel === 3) arabLevelName = "المرحلة الثالثة";
+            if (currentLevel === 4) arabLevelName = "المرحلة الرابعة";
+            if (currentLevel === 5) arabLevelName = "المرحلة الخامسة";
+            if (currentLevel === 6) arabLevelName = "المرحلة السادسة";
+
+            document.getElementById('current-level-title').textContent = `${arabLevelName}: ${levelData.title}`;
+            
+            if (team === 'blue' || team === 'red') {
+                if (currentLevel === 6) {
+                    hintBtn.style.display = 'none';
+                    if (!isPanicActive) {
+                        // Level 6 Master Riddle
+                        document.getElementById('riddle-text').textContent = levelData[team].text;
+                        document.getElementById('answer-input').placeholder = "أدخل كود الدمج الرئيسي هنا...";
+                    } else {
+                        // Level 6 Panic Sudden Death Twist
+                        document.getElementById('game-main-title').textContent = "🚨 اختراق النظام 🚨";
+                        document.getElementById('game-sub-title').textContent = "فتيل القنبلة نشط الآن!";
+                        document.getElementById('answer-input').placeholder = "أدخل رمز تعطيل الفتيل هنا...";
+                        
+                        if (team === 'blue') {
+                            document.getElementById('riddle-text').textContent = 'لتعطيل الفتيل فوراً: اضربوا أرقام كروت الأونو الثلاثة التي عثرتم عليها في البداية معاً في بعضها، ثم اضربوا الناتج النهائي في رقم المستوى الحالي وهو (6) واكتبوا الشفرة فوراً!';
+                        } else {
+                            document.getElementById('riddle-text').textContent = 'لتعطيل الفتيل فوراً: اجمعوا قيمتي أصغر ورقتين ماليتين عثرتم عليهما في البداية معاً، ثم اضربوا الناتج النهائي في رقم المستوى الحالي وهو (6) واكتبوا الشفرة فوراً!';
+                        }
+                    }
+                } else {
+                    document.getElementById('riddle-text').textContent = levelData[team].text;
+                    hintBtn.style.display = 'inline-block';
+                }
+            } else {
+                document.getElementById('riddle-text').textContent = 'لم يتم تحديد فريق بنجاح، يرجى العودة للرئيسية.';
+                gameplayControls.style.display = 'none';
+            }
+
+            if (currentLevel === 5 && team === 'blue') {
+                morseContainer.style.display = 'block';
+            }
+
+            // Restore used hint
+            const hintKey = `hint_level_${currentLevel}_used`;
+            if (localStorage.getItem(hintKey) === 'true') {
+                hintBtn.disabled = true;
+                const hintText = levelData[team].hint;
+                hintDisplayArea.innerHTML = `<div class="hint-badge"><i class="fas fa-lightbulb"></i> المساعدة المستعادة: ${hintText}</div>`;
+            }
+        }
+
+        renderActiveLevel();
+
+        // Restore panic states on reload
+        if (isPanicActive) {
+            document.body.classList.add('panic-red');
+            document.body.classList.add('shake-heavy');
+            startAlarmSound();
+            renderActiveLevel();
+        }
+
+        // 10. Transitions
+        function executeLevelTransitionOverlay(completedLevel, nextLevel, callback) {
+            const overlay = document.createElement('div');
+            overlay.className = 'cyber-transition-overlay';
+            const teamColor = team === 'blue' ? '#00f3ff' : '#ff0055';
+            const teamNameText = team === 'blue' ? 'تيم الأزرق 🟦' : 'تيم الأحمر 🟥';
+
+            let arabLevelNameCompleted = "الأولى";
+            if (completedLevel === 2) arabLevelNameCompleted = "الثانية";
+            if (completedLevel === 3) arabLevelNameCompleted = "الثالثة";
+            if (completedLevel === 4) arabLevelNameCompleted = "الرابعة";
+            if (completedLevel === 5) arabLevelNameCompleted = "الخامسة";
+            if (completedLevel === 6) arabLevelNameCompleted = "السادسة";
+
+            let arabLevelNameNext = "الثانية";
+            if (nextLevel === 3) arabLevelNameNext = "الثالثة";
+            if (nextLevel === 4) arabLevelNameNext = "الرابعة";
+            if (nextLevel === 5) arabLevelNameNext = "الخامسة";
+            if (nextLevel === 6) arabLevelNameNext = "السادسة";
+
+            let titleText = `تم تخطي المرحلة ${arabLevelNameCompleted} بنجاح! 🎉`;
+            let subtitleText = nextLevel <= 6 ? `جاري تهيئة تشفير المرحلة ${arabLevelNameNext}...` : 'تم إبطال مفعول الفتيل بنجاح! 🔓';
+            let iconClass = nextLevel <= 6 ? 'fa-shield-halved' : 'fa-trophy';
+
+            overlay.innerHTML = `
+                <div class="overlay-content" style="color: ${teamColor}; text-shadow: 0 0 12px ${teamColor}">
+                    <div style="font-size: 4rem; margin-bottom: 20px; animation: bounce 1.2s infinite alternate;"><i class="fas ${iconClass}"></i></div>
+                    <div style="font-size: 2.2rem; font-weight: 900; margin-bottom: 10px;">إنجاز عظيم! ⚡</div>
+                    <div style="font-size: 1.5rem; font-weight: 800; margin-bottom: 15px;">${titleText}</div>
+                    <div style="font-size: 0.95rem; opacity: 0.8; margin-bottom: 5px;">الفريق: ${teamNameText}</div>
+                    <div style="font-size: 1.1rem; opacity: 0.9; margin-bottom: 30px; font-weight: 700;">${subtitleText}</div>
+                    
+                    <div class="loading-bar" style="border-color: rgba(${team === 'blue' ? '0, 243, 255' : '255, 0, 85'}, 0.4)">
+                        <div class="loading-bar-fill" id="level-progress-bar-fill" style="background-color: ${teamColor}; box-shadow: 0 0 10px ${teamColor}; width: 0%;"></div>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(overlay);
+            overlay.offsetWidth;
+            overlay.classList.add('active');
+            
+            try {
+                initAudioContext();
+                const now = audioCtx.currentTime;
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(200, now);
+                osc.frequency.exponentialRampToValueAtTime(1000, now + 1.5);
+                gain.connect(audioCtx.destination);
+                osc.connect(gain);
+                gain.gain.setValueAtTime(0.01, now);
+                gain.gain.exponentialRampToValueAtTime(0.1, now + 1.2);
+                gain.gain.linearRampToValueAtTime(0.001, now + 1.5);
+                osc.start(now);
+                osc.stop(now + 1.6);
+            } catch(e) {}
+
+            setTimeout(() => {
+                const bar = document.getElementById('level-progress-bar-fill');
+                if (bar) bar.style.width = '100%';
+            }, 100);
+
+            setTimeout(() => {
+                overlay.classList.remove('active');
+                setTimeout(() => {
+                    overlay.remove();
+                    if (callback) callback();
+                }, 500);
+            }, 1800);
+        }
+
+        // Helper for validation checking
+        function checkCorrect(inputVal, correctList) {
+            const normalizedUser = normalizeArabic(inputVal).toLowerCase();
+            for (let i = 0; i < correctList.length; i++) {
+                const normalizedCorrect = normalizeArabic(correctList[i]).toLowerCase();
+                if (normalizedUser === normalizedCorrect) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        // 11. Answer Validation & Sudden Death Twist Logic
+        document.getElementById('btn-submit-answer').addEventListener('click', (e) => {
+            initAudioContext();
+            
+            if (currentLevel > 6) return;
+
+            const inputEl = document.getElementById('answer-input');
+            let userAns = inputEl.value.trim();
+            
+            if (team === 'blue' && currentLevel === 5) {
+                userAns = userAns.toUpperCase();
+            } else {
+                userAns = normalizeArabic(userAns);
+            }
+            
+            if (!userAns) return;
+
+            const levelData = levelsData[currentLevel];
+            let isCorrect = false;
+
+            if (currentLevel === 6) {
+                if (!isPanicActive) {
+                    // Step 1: Check Master Code
+                    isCorrect = checkCorrect(userAns, levelData[team].answer);
+                } else {
+                    // Step 2: Check defuse code
+                    const defuseAns = team === 'blue' ? "126" : "90";
+                    isCorrect = (userAns === defuseAns);
+                }
+            } else {
+                // Normal Levels
+                isCorrect = checkCorrect(userAns, levelData[team].answer);
+            }
+
+            if (isCorrect) {
+                if (currentLevel === 6 && !isPanicActive) {
+                    // Trigger Deceptive Fake Win
+                    inputEl.classList.add('success-flash');
+                    playSynthSound('fake-win');
+                    
+                    // Disable interface during deceptive win
+                    inputEl.disabled = true;
+                    document.getElementById('btn-submit-answer').disabled = true;
+
+                    setTimeout(() => {
+                        inputEl.classList.remove('success-flash');
+                        inputEl.disabled = false;
+                        document.getElementById('btn-submit-answer').disabled = false;
+
+                        // SUDDENLY trigger panic mode
+                        isPanicActive = true;
+                        panicTimerEnd = Date.now() + 60 * 1000;
+                        localStorage.setItem('escape_room_panic_active', 'true');
+                        localStorage.setItem('escape_room_panic_timer_end', panicTimerEnd);
+                        
+                        document.body.classList.add('panic-red');
+                        document.body.classList.add('shake-heavy');
+                        startAlarmSound();
+                        
+                        alert('ههههه.. فاكرين إنكم كدّة كسبتوا؟! 😈 النظام اتهكر من جديد، القنبلة فيها فتيل سري وباقي دقيقة واحدة على الانفجار الحقيقي! حلوا اللغز ده فوراً وإلا كل تعبكم ضاع!');
+                        
+                        renderActiveLevel();
+                    }, 3000);
+
+                } else {
+                    // Real success for normal levels or defuse logic
+                    inputEl.classList.add('success-flash');
+                    playSynthSound('success');
+
+                    setTimeout(() => {
+                        inputEl.classList.remove('success-flash');
+                        
+                        // Stop Panic alarm loop
+                        if (currentLevel === 6 && isPanicActive) {
+                            isPanicActive = false;
+                            localStorage.setItem('escape_room_panic_active', 'false');
+                            stopAlarmSound();
+                            document.body.classList.remove('panic-red');
+                            document.body.classList.remove('shake-heavy');
+                        }
+
+                        // Save level state
+                        localStorage.setItem(team + '_level_' + currentLevel, 'passed');
+                        
+                        const completed = currentLevel;
+                        currentLevel++;
+                        
+                        executeLevelTransitionOverlay(completed, currentLevel, () => {
+                            renderActiveLevel();
+                        });
+                    }, 800);
+                }
+
+            } else {
+                // Failure
+                inputEl.classList.add('shake');
+                playSynthSound('error');
+                setTimeout(() => inputEl.classList.remove('shake'), 800);
+                
+                let errorMessages = [];
+
+                if (currentLevel === 3) {
+                    errorMessages = [
+                        "الحسابات دي مش مظبوطة خالص! يظهر محتاجين آلة حاسبة من العهد القديم... 🧮🤖",
+                        "الناتج غلط! فكروا في المعادلة تاني، الماث بيعيط في الزاوية... 😭📐",
+                        "فشل التحقق الرقمي! راجعوا الأرقام والعمليات الحسابية كويس! ❌🧠"
+                    ];
+                } else if (currentLevel === 4) {
+                    errorMessages = [
+                        "الاستنتاج ده بعيد خالص! فكروا في الروابط والكلمات كويس! 🧐🧩",
+                        "الرابط غير صحيح! حاولوا تربطوا القطع بذكاء أكبر! 🧠❌",
+                        "النظام يرفض هذا التفسير! دققوا في معاني الكلمات! 🔍🚪"
+                    ];
+                } else if (currentLevel === 5) {
+                    errorMessages = [
+                        "إشارة الشفرة خاطئة! راقبوا الومضات أو الأسلاك بتركيز أكبر! 📟💥",
+                        "فشل فك تشفير الشفرة! النظام مغلق، راجعوا التفاصيل مجدداً! 🔒🔌",
+                        "المدخلات لا تتوافق مع البروتوكول الأمني! دققوا في شروط الاستبعاد أو ومضات النور! ⚡🔬"
+                    ];
+                } else if (currentLevel === 6) {
+                    if (!isPanicActive) {
+                        errorMessages = [
+                            "كود الدمج الرئيسي غير صحيح! فتشوا واجمعوا شفرات الرحلة بالترتيب الدقيق! ❌🔑",
+                            "الدمج فشل! تأكدوا من جمع قيم وأحرف المراحل السابقة بدون مسافات! 🔍🚨",
+                            "رمز النظام الرئيسي مرفوض! راجع الشفرات السابقة للاندماج الأمني! 🔒❌"
+                        ];
+                    } else {
+                        errorMessages = [
+                            "غلط! الفتيل بيتحرق بسرعة أسرع، شغلوا عقولكم! 💣💥",
+                            "رمز الإلغاء غلط! القنبلة مش هترحم، ركزوا في العمليات الرياضية! 🧠🧨",
+                            "خطأ فادح! النظام يعيد العد التنازلي التدميري، دقق في الشفرة! ⚠️💀"
+                        ];
+                    }
+                } else {
+                    errorMessages = [
+                        "رمز المرور غير صحيح! استمروا بالبحث وتحدوا الصعاب. 🤖",
+                        "فشل التوثيق الأمني! تأكد من الحروف والمسافات وجرب تاني. ⚠️",
+                        "النظام يرفض هذه الإجابة! فتشوا أعمق في أسرار الغرفة! 🔒"
+                    ];
+                }
+
+                const randomMsg = errorMessages[Math.floor(Math.random() * errorMessages.length)];
+                alert(randomMsg);
+            }
+        });
+
+        // 12. Hint / Promo-Code System
+        document.getElementById('btn-hint').addEventListener('click', (e) => {
+            initAudioContext();
+            
+            if (currentLevel > 6) return;
+
+            const hintKey = `hint_level_${currentLevel}_used`;
+            if (localStorage.getItem(hintKey) === 'true') return;
+
+            const promo = prompt('أدخل كود الترويج لتنشيط مساعدة هذا المستوى:');
+            if (!promo) return;
+
+            const levelData = levelsData[currentLevel];
+            const correctPromo = levelData[team].hintCode;
+
+            if (promo.trim().toUpperCase() === correctPromo) {
+                localStorage.setItem(hintKey, 'true');
+                
+                timerEnd -= 180 * 1000;
+                localStorage.setItem('escape_room_timer_end', timerEnd);
+                updateTimerDisplay();
+
+                const hintBtn = document.getElementById('btn-hint');
+                hintBtn.disabled = true;
+                playSynthSound('click');
+
+                const hintDisplayArea = document.getElementById('hint-display-area');
+                hintDisplayArea.innerHTML = `<div class="hint-badge"><i class="fas fa-lightbulb"></i> المساعدة: ${levelData[team].hint}</div>`;
+                
+                alert(`كود صحيح! تم خصم 3 دقائق من وقتكم المتبقي. المساعدة: ${levelData[team].hint}`);
+            } else {
+                alert('كود ترويجي غير صحيح! النظام يحذر من إدخال أكواد عشوائية.');
+                playSynthSound('error');
+            }
+        });
     </script>
 </body>
 </html>

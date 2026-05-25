@@ -15,6 +15,92 @@ document.addEventListener('DOMContentLoaded', () => {
     const toast = document.getElementById('cyber-toast');
     const toastMessage = document.getElementById('toast-message');
 
+    // Team Members dynamic elements
+    const teamMembersGroup = document.getElementById('team-members-group');
+    const inputMemberName = document.getElementById('member-name-input');
+    const btnAddMember = document.getElementById('btn-add-member');
+    const membersListContainer = document.getElementById('members-list-container');
+    
+    let teamMembers = [];
+
+    // Render team members tags list
+    function renderMembers() {
+        membersListContainer.innerHTML = '';
+        teamMembers.forEach((member, index) => {
+            const badge = document.createElement('div');
+            badge.className = 'member-badge';
+            badge.innerHTML = `
+                <span>${member}</span>
+                <span class="remove-member" data-index="${index}"><i class="fas fa-xmark"></i></span>
+            `;
+            membersListContainer.appendChild(badge);
+        });
+
+        // Add delete click listeners
+        const removeBtns = membersListContainer.querySelectorAll('.remove-member');
+        removeBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const idx = parseInt(btn.getAttribute('data-index'));
+                teamMembers.splice(idx, 1);
+                renderMembers();
+                playSynthSound('click');
+            });
+        });
+    }
+
+    function addMember() {
+        const nameVal = inputMemberName.value.trim();
+        if (!nameVal) return;
+        
+        teamMembers.push(nameVal);
+        renderMembers();
+        inputMemberName.value = '';
+        inputMemberName.focus();
+        playSynthSound('click');
+    }
+
+    btnAddMember.addEventListener('click', addMember);
+    inputMemberName.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            addMember();
+        }
+    });
+
+    // Load saved player details if available (Premium UX enhancement)
+    const savedName = localStorage.getItem('escape_room_player_name');
+    const savedTeam = localStorage.getItem('escape_room_player_team');
+    const savedMembers = localStorage.getItem('escape_room_team_members');
+    
+    if (savedName) {
+        inputName.value = savedName;
+    }
+    if (savedTeam) {
+        selectTeam.value = savedTeam;
+        body.classList.remove('theme-blue', 'theme-red');
+        if (savedTeam === 'blue') {
+            body.classList.add('theme-blue');
+        } else if (savedTeam === 'red') {
+            body.classList.add('theme-red');
+        }
+        
+        // Show team members group since team is pre-selected
+        teamMembersGroup.style.display = 'flex';
+        setTimeout(() => {
+            teamMembersGroup.style.opacity = '1';
+            teamMembersGroup.style.transform = 'translateY(0)';
+        }, 50);
+    }
+
+    if (savedMembers) {
+        try {
+            teamMembers = JSON.parse(savedMembers) || [];
+            renderMembers();
+        } catch (e) {
+            teamMembers = [];
+        }
+    }
+
     // 2. Audio State & Web Audio API Synthesizer
     let audioEnabled = true;
     let audioCtx = null;
@@ -150,8 +236,29 @@ document.addEventListener('DOMContentLoaded', () => {
         
         if (team === 'blue') {
             body.classList.add('theme-blue');
+            // Show members list group with transition
+            teamMembersGroup.style.display = 'flex';
+            // Force reflow
+            teamMembersGroup.offsetHeight;
+            teamMembersGroup.style.opacity = '1';
+            teamMembersGroup.style.transform = 'translateY(0)';
         } else if (team === 'red') {
             body.classList.add('theme-red');
+            // Show members list group with transition
+            teamMembersGroup.style.display = 'flex';
+            // Force reflow
+            teamMembersGroup.offsetHeight;
+            teamMembersGroup.style.opacity = '1';
+            teamMembersGroup.style.transform = 'translateY(0)';
+        } else {
+            // Hide members list group
+            teamMembersGroup.style.opacity = '0';
+            teamMembersGroup.style.transform = 'translateY(-10px)';
+            setTimeout(() => {
+                if (selectTeam.value === '') {
+                    teamMembersGroup.style.display = 'none';
+                }
+            }, 400);
         }
         
         // Play theme switch visual / sound feedback
@@ -196,7 +303,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Check if name is blank
         if (!nameVal) {
-            showToast('🚨 فشل النظام: يرجى إدخال اسم اللاعب لتنشيط بروتوكول التحدي!', currentThemeIsBlue);
+            showToast('🚨 فشل النظام: يرجى إدخال اسم قائد الفريق لتنشيط بروتوكول التحدي!', currentThemeIsBlue);
             inputName.focus();
             return;
         }
@@ -211,6 +318,32 @@ document.addEventListener('DOMContentLoaded', () => {
         // Success: Store to localStorage
         localStorage.setItem('escape_room_player_name', nameVal);
         localStorage.setItem('escape_room_player_team', teamVal);
+        localStorage.setItem('escape_room_team_members', JSON.stringify(teamMembers));
+        
+        // Clean all previous session states
+        localStorage.removeItem('escape_room_timer_end');
+        localStorage.removeItem('escape_room_timer_remaining');
+        localStorage.removeItem('escape_room_solved');
+        localStorage.removeItem('blue_level_1');
+        localStorage.removeItem('blue_level_2');
+        localStorage.removeItem('blue_level_3');
+        localStorage.removeItem('blue_level_4');
+        localStorage.removeItem('blue_level_5');
+        localStorage.removeItem('blue_level_6');
+        localStorage.removeItem('red_level_1');
+        localStorage.removeItem('red_level_2');
+        localStorage.removeItem('red_level_3');
+        localStorage.removeItem('red_level_4');
+        localStorage.removeItem('red_level_5');
+        localStorage.removeItem('red_level_6');
+        localStorage.removeItem('hint_level_1_used');
+        localStorage.removeItem('hint_level_2_used');
+        localStorage.removeItem('hint_level_3_used');
+        localStorage.removeItem('hint_level_4_used');
+        localStorage.removeItem('hint_level_5_used');
+        localStorage.removeItem('escape_room_win_time');
+        localStorage.removeItem('escape_room_panic_active');
+        localStorage.removeItem('escape_room_panic_timer_end');
         
         playSynthSound('success');
         
@@ -227,11 +360,15 @@ document.addEventListener('DOMContentLoaded', () => {
         const teamText = team === 'blue' ? 'الفريق الأزرق 🟦' : 'الفريق الأحمر 🟥';
         const teamColor = team === 'blue' ? '#00f3ff' : '#ff0055';
         
+        const membersCount = teamMembers.length;
+        const membersText = membersCount > 0 ? `أعضاء الفريق: ${teamMembers.join('، ')}` : 'لا يوجد أعضاء إضافيين';
+
         overlay.innerHTML = `
             <div class="overlay-content" style="color: ${teamColor}; text-shadow: 0 0 12px ${teamColor}">
                 <div style="font-size: 3rem; margin-bottom: 20px;"><i class="fas fa-shield-halved"></i></div>
                 <div style="font-size: 1.6rem; font-weight: 900; margin-bottom: 10px;">تم التحقق من الهوية ✅</div>
-                <div style="font-size: 0.95rem; opacity: 0.8; margin-bottom: 5px;">العميل الرمزي: ${name}</div>
+                <div style="font-size: 0.95rem; opacity: 0.8; margin-bottom: 5px;">قائد الفريق: ${name}</div>
+                <div style="font-size: 0.85rem; opacity: 0.7; margin-bottom: 5px; max-width: 300px; text-align: center; word-break: break-word;">${membersText}</div>
                 <div style="font-size: 0.95rem; opacity: 0.8; margin-bottom: 25px;">بروتوكول القفل: ${teamText}</div>
                 
                 <div style="font-size: 0.8rem; letter-spacing: 2px; margin-bottom: 10px;">تفعيل نظام فك التشفير الهروبي...</div>
