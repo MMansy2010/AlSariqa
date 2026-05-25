@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تحدي العيد 🔐 | بروتوكول الهروب</title>
+    <!-- Google Fonts: Cairo -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Cyberpunk Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="theme-default">
+    <!-- Ambient Cyber Glows -->
+    <div class="cyber-glow glow-1" id="glow-bg-1"></div>
+    <div class="cyber-glow glow-2" id="glow-bg-2"></div>
+    
+    <!-- Cyber Grid Overlay -->
+    <div class="cyber-grid"></div>
+    <div class="cyber-scanlines"></div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- System Status Bar -->
+        <div class="system-status">
+            <span class="status-node"><i class="fas fa-satellite-dish"></i> اتصال آمن: نشط</span>
+            <span class="status-node"><i class="fas fa-microchip"></i> بروتوكول الهروب v3.2.0</span>
+            <span class="status-node time-node" id="live-time">00:00:00</span>
+        </div>
+
+        <!-- Glassmorphic Card -->
+        <div class="glass-card" id="welcome-card">
+            <!-- Card Header Corner Accents -->
+            <div class="card-accent top-left"></div>
+            <div class="card-accent top-right"></div>
+            <div class="card-accent bottom-left"></div>
+            <div class="card-accent bottom-right"></div>
+
+            <div class="card-content">
+                <!-- Title with glowing effect -->
+                <h1 class="main-title" id="welcome-title">تحدي العيد 🔐</h1>
+                <p class="subtitle">نظام تفعيل بروتوكول الهروب العائلي</p>
+
+                <!-- Form -->
+                <form id="welcome-form" onsubmit="return false;">
+                    <!-- Player Name Group -->
+                    <div class="input-group">
+                        <label for="player-name"><i class="fas fa-user-shield"></i> اسم اللاعب</label>
+                        <div class="input-wrapper">
+                            <input type="text" id="player-name" placeholder="أدخل اسمك الرمزي..." autocomplete="off">
+                            <span class="input-focus-line"></span>
+                        </div>
+                    </div>
+
+                    <!-- Team Select Group -->
+                    <div class="input-group">
+                        <label for="player-team"><i class="fas fa-users-viewfinder"></i> اختر فريقك</label>
+                        <div class="select-wrapper">
+                            <select id="player-team">
+                                <option value="" disabled selected hidden>-- اضغط لاختيار الفريق --</option>
+                                <option value="blue" class="opt-blue">الفريق الأزرق 🟦</option>
+                                <option value="red" class="opt-red">الفريق الأحمر 🟥</option>
+                            </select>
+                            <span class="select-arrow"><i class="fas fa-caret-down"></i></span>
+                            <span class="input-focus-line"></span>
+                        </div>
+                    </div>
+
+                    <!-- Audio Synth Feedback Toggle -->
+                    <div class="audio-toggle" id="audio-toggle">
+                        <i class="fas fa-volume-high" id="audio-icon"></i>
+                        <span>المؤثرات الصوتية: نشطة</span>
+                    </div>
+
+                    <!-- CTA Button -->
+                    <button type="button" class="btn-start" id="btn-start">
+                        <span class="btn-glow-container">
+                            <span class="btn-glow-layer"></span>
+                        </span>
+                        <span class="btn-text">تفعيل بروتوكول الهروب ⏱️</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Subtle footer -->
+        <footer class="cyber-footer">
+            <span>تحذير: بمجرد بدء التحدي سيتم قفل النظام تلقائياً وبدء العد التنازلي.</span>
+        </footer>
+    </div>
+
+    <!-- Custom Cyber Alert Toast -->
+    <div class="cyber-toast" id="cyber-toast">
+        <div class="toast-icon-wrapper">
+            <i class="fas fa-triangle-exclamation"></i>
+        </div>
+        <div class="toast-body">
+            <h4 class="toast-title">فشل المصادقة</h4>
+            <p class="toast-desc" id="toast-message">اسم اللاعب مطلوب لتفعيل النظام.</p>
+        </div>
+        <div class="toast-border"></div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
