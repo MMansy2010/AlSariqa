@@ -334,7 +334,7 @@
                 <div style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 25px;" id="timer-icon-label">
                     <i class="fas fa-hourglass-half"></i> الوقت المتبقي للتدمير الذاتي
                 </div>
-                <div class="timer-placeholder" id="countdown-timer">45:00</div>
+                <div class="timer-placeholder" id="countdown-timer">30:00</div>
 
                 <div style="background: rgba(var(--neon-main-rgb), 0.05); padding: 12px; border-radius: 8px; border: 1px dashed rgba(var(--neon-main-rgb), 0.3); font-size: 0.85rem; line-height: 1.6; margin-top: 20px;" id="security-note-panel">
                     🔒 <span style="font-weight: 700;">ملاحظة أمنية:</span> سيتم حفظ تقدمك ووقتك بدقة عالية حتى لو قمت بتحديث الصفحة.
@@ -654,7 +654,7 @@
         }
 
         // 7. General countdown timer setup
-        const totalDurationMs = 2700 * 1000;
+        const totalDurationMs = 1800 * 1000;
         let timerEnd = localStorage.getItem('escape_room_timer_end');
         if (!timerEnd) {
             timerEnd = Date.now() + totalDurationMs;
