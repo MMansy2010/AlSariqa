@@ -235,6 +235,39 @@
             color: #ff0033 !important;
             text-shadow: 0 0 25px #ff0033 !important;
         }
+        body.fake-win-green {
+            background-color: #021a0e !important;
+            --neon-main: #2ecc71 !important;
+            --neon-main-rgb: 46, 204, 113 !important;
+            --neon-sec: #27ae60 !important;
+            --neon-sec-rgb: 39, 174, 96 !important;
+            transition: all 0.5s ease;
+        }
+        body.fake-win-green .glass-card {
+            background: rgba(10, 35, 20, 0.7) !important;
+            border-color: rgba(46, 204, 113, 0.4) !important;
+            box-shadow: 
+                0 15px 35px rgba(0, 0, 0, 0.5),
+                0 0 25px rgba(46, 204, 113, 0.2) !important;
+        }
+        body.fake-win-green .card-accent {
+            border-color: #2ecc71 !important;
+            filter: drop-shadow(0 0 4px #2ecc71) !important;
+        }
+        @keyframes trophy-bounce {
+            from { transform: translateY(0) scale(1); filter: drop-shadow(0 0 5px rgba(241,196,15,0.6)); }
+            to { transform: translateY(-12px) scale(1.05); filter: drop-shadow(0 0 20px rgba(241,196,15,1)); }
+        }
+        @keyframes green-btn-pulse {
+            0% {
+                box-shadow: 0 0 8px #2ecc71, inset 0 0 4px #2ecc71;
+                background: rgba(46,204,113,0.1);
+            }
+            100% {
+                box-shadow: 0 0 22px #2ecc71, inset 0 0 10px #2ecc71;
+                background: rgba(46,204,113,0.25);
+            }
+        }
     </style>
 </head>
 <body class="theme-default">
@@ -290,6 +323,29 @@
                         <div id="members-display-list" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 6px;"></div>
                     </div>
                     <div id="player-display-team" class="team-indicator" style="border-top: 1px solid rgba(var(--neon-main-rgb), 0.15); padding-top: 8px; margin-top: 8px;">-- loading --</div>
+                </div>
+
+                <!-- Fake Win Container -->
+                <div id="fake-win-container" style="display: none; width: 100%; text-align: center; padding: 20px 0;">
+                    <div class="fake-win-trophy" style="font-size: 5.5rem; color: #f1c40f; text-shadow: 0 0 25px #f1c40f; animation: trophy-bounce 1.2s infinite alternate; margin-bottom: 25px;">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <h2 style="color: #2ecc71; font-weight: 900; font-size: 1.6rem; line-height: 1.6; margin-bottom: 25px; text-shadow: 0 0 15px rgba(46,204,113,0.5);">
+                        🎉 مبروووك! تم إبطال القنبلة بنجاح وتفكيك النظام الأمني!
+                    </h2>
+                    
+                    <button id="btn-claim-prize" class="btn-start" style="max-width: 320px; margin: 10px auto;">
+                        <div class="btn-glow-container" style="border-color: #2ecc71; box-shadow: 0 0 12px #2ecc71, inset 0 0 6px #2ecc71; background: rgba(46,204,113,0.15); animation: green-btn-pulse 1.5s infinite alternate;"></div>
+                        <span class="btn-text" style="color: #fff; text-shadow: 0 0 8px rgba(255,255,255,0.8);">اضغط هنا لاستلام الجائزة والعيدية 🎁</span>
+                    </button>
+
+                    <div id="deceptive-progress-container" style="display: none; width: 100%; max-width: 350px; margin: 25px auto 0;">
+                        <div id="deceptive-subtext" style="font-size: 0.95rem; color: #2ecc71; margin-bottom: 12px; font-weight: 700; transition: color 0.3s ease;">جاري تجهيز المكافأة وفك تشفير صندوق العيدية...</div>
+                        <div class="deceptive-bar-bg" style="width: 100%; height: 22px; background: rgba(0,0,0,0.5); border: 1px solid rgba(46,204,113,0.4); border-radius: 11px; overflow: hidden; position: relative; transition: border-color 0.3s ease;">
+                            <div id="deceptive-bar-fill" style="width: 0%; height: 100%; background: linear-gradient(90deg, #2ecc71, #27ae60); box-shadow: 0 0 10px #2ecc71; transition: width 4.5s cubic-bezier(0.25, 0.8, 0.25, 1); border-radius: 11px;"></div>
+                            <div id="deceptive-percent" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 0.85rem; font-weight: 900; color: #fff; font-family: monospace; text-shadow: 0 0 4px #000;">0%</div>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Level Container -->
@@ -437,6 +493,81 @@
             } catch (e) {
                 console.warn('Audio Synthesis blocked or failed:', e);
             }
+        }
+
+        // Glitch audio helper
+        function playGlitchSound() {
+            try {
+                initAudioContext();
+                const now = audioCtx.currentTime;
+                // Generate a series of rapid beep-glitches
+                for (let i = 0; i < 6; i++) {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    
+                    osc.type = i % 2 === 0 ? 'sawtooth' : 'square';
+                    osc.frequency.setValueAtTime(100 + Math.random() * 800, now + i * 0.08);
+                    gain.gain.setValueAtTime(0.3, now + i * 0.08);
+                    gain.gain.exponentialRampToValueAtTime(0.01, now + i * 0.08 + 0.07);
+                    
+                    osc.start(now + i * 0.08);
+                    osc.stop(now + i * 0.08 + 0.08);
+                }
+            } catch(e) {}
+        }
+
+        // Arabic numeral normalization helper
+        function convertArabicNumerals(str) {
+            if (!str) return '';
+            const arabicNums = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
+            return str.replace(/[٠-٩]/g, d => arabicNums.indexOf(d));
+        }
+
+        // Glitch transition helper
+        function triggerGlitchAndSuddenDeath() {
+            playGlitchSound();
+            
+            const fill = document.getElementById('deceptive-bar-fill');
+            if (fill) {
+                fill.style.transition = 'none';
+                fill.style.background = '#ff0033';
+                fill.style.boxShadow = '0 0 20px #ff0033';
+            }
+            const bg = document.querySelector('.deceptive-bar-bg');
+            if (bg) {
+                bg.style.borderColor = 'rgba(255, 0, 51, 0.7)';
+            }
+            const subtext = document.getElementById('deceptive-subtext');
+            if (subtext) {
+                subtext.style.color = '#ff0033';
+                subtext.textContent = "❌ فشل النظام! تم اختراق بروتوكول الحماية الخفي!";
+            }
+            
+            document.body.classList.add('shake-heavy');
+            document.body.classList.add('panic-red');
+            startAlarmSound();
+            
+            // Instantly transition gameplay screen to panic mode
+            setTimeout(() => {
+                const fakeWin = document.getElementById('fake-win-container');
+                if (fakeWin) fakeWin.style.display = 'none';
+                document.body.classList.remove('fake-win-green');
+                
+                document.getElementById('player-badge-panel').style.display = 'block';
+                document.getElementById('active-gameplay-section').style.display = 'block';
+                document.getElementById('countdown-timer').style.display = 'block';
+                document.getElementById('timer-icon-label').style.display = 'block';
+                document.getElementById('security-note-panel').style.display = 'block';
+                
+                isPanicActive = true;
+                panicTimerEnd = Date.now() + 60 * 1000;
+                localStorage.setItem('escape_room_panic_active', 'true');
+                localStorage.setItem('escape_room_panic_timer_end', panicTimerEnd);
+                
+                renderActiveLevel();
+            }, 1500);
         }
 
         // 2. Loop alarm synthesizer for Levels 6 panic mode
@@ -590,7 +721,7 @@
                     hint: "الكلمات هي (حرارة، سرعة، نور، ميجابايت، سلك).. فكر في جهاز تكنولوجي في البيت كلنا بنجري وراه لما يفصل!"
                 },
                 red: {
-                    text: "الكنز المفقود! 🪙 5 عملات معدنية تحمل الشعار الأحمر مبعثرة في الغرفة.. كل عملة تعثرون عليها تحمل كلمة دلالية (Clue).. اعثروا على العملات الخمسة، اربطوا الكلمات الغامضة ببعضها، واكتبوا اسم الشيء النهائي الذي تدل عليه هذه الكلمات!",
+                    text : "هناك 5 كروت ورقية حمراء مخبأة بعناية في أرجاء المكان، كل كارت يحمل كلمة دلالية واحدة (احذروا، فقد يكون أحدها مجمدًا! 🥶). ابحثوا عنها واجمعوها، وركّبوا الروابط الفكرية بينها لتستنتجوا اسم الشيء النهائي الذي تشير إليه كل هذه الأدلة.. اكتبوا اسم الشيء باللغة العربية هنا لتخطي المرحلة!",
                     answer: ["العداد", "عداد الكهرباء"],
                     hintCode: "RT33",
                     hint: "الكلمات هي (كارت، رصيد، كيلووات، شريحة، إنذار).. فكر في حاجة في الشقة لو رصيدها خلص البيت كله بيضلم!"
@@ -615,11 +746,11 @@
                 title: "المرحلة السادسة: لغز الدمج الكبير المزدوج 🧮",
                 blue: {
                     text: "العد التنازلي النهائي بدأ! 🚨 القنبلة لن تتوقف إلا بكود الدمج الرئيسي.. اجمعوا شفرات رحلتكم بالترتيب الإلزامي وبدون مسافات: (مجموع كروت الأونو في ليفل 1) + (عدد حروف اسم مدرستكم المعكوس في ليفل 2 بدون حساب المسافة) + (الناتج النهائي لمعادلة الأونو في ليفل 3) + (الكلمة النهائية لقطع البازل في ليفل 4) + (الكلمة السرية لشفرة مورس في ليفل 5)!",
-                    answer: ["1113220الروترSOS", "1113220الراوترSOS"]
+                    answer: ["1117220الروترSOS", "1117220الراوترSOS"]
                 },
                 red: {
                     text: "العد التنازلي النهائي بدأ! 🚨 القنبلة لن تتوقف إلا بكود الدمج الرئيسي.. اجمعوا شفرات رحلتكم بالترتيب الإلزامي وبدون مسافات: (إجمالي الأموال في ليفل 1) + (عدد حروف اسم جمهوريتكم المعكوس في ليفل 2 بدون حساب المسافة) + (الناتج النهائي للحسبة الجمركية في ليفل 3) + (الشيء النهائي لعملات الكنز في ليفل 4) + (لون السلك الصحيح في ليفل 5)!",
-                    answer: ["21512900العدادالأخضر", "21512900العدادالاخضر"]
+                    answer: ["21519900العدادالأخضر", "21519900العدادالاخضر"]
                 }
             }
         };
@@ -737,6 +868,7 @@
             if (currentLevel > 6) {
                 gameplayControls.style.display = 'none';
                 winSection.style.display = 'block';
+                document.body.className = 'theme-default fake-win-green'; // Real green victory layout
                 document.getElementById('victory-text-display').textContent = 'مبرووووك يا وحوووش بجد بقى! 🎉 الهروب العظيم تم بنجاح بعد ما نجحتوا في الفخ الأخير للـ Game Master! عديتوا المستحيل.. اخرجوا فكوا الحصار وادخلوا كلوا العيدية بالهنا والشفا!';
                 const statusNode = document.getElementById('puzzle-status');
                 if (statusNode) statusNode.innerHTML = '<i class="fas fa-unlock"></i> تم فك التشفير بالكامل';
@@ -771,9 +903,9 @@
                         document.getElementById('answer-input').placeholder = "أدخل رمز تعطيل الفتيل هنا...";
                         
                         if (team === 'blue') {
-                            document.getElementById('riddle-text').textContent = 'لتعطيل الفتيل فوراً: اضربوا أرقام كروت الأونو الثلاثة التي عثرتم عليها في البداية معاً في بعضها، ثم اضربوا الناتج النهائي في رقم المستوى الحالي وهو  واكتبوا الشفرة فوراً!';
+                            document.getElementById('riddle-text').innerHTML = 'ههههه.. فاكرين إنكم كدّة كسبتوا؟! 😈 النظام اتهكر من جديد، القنبلة فيها فتيل سري وباقي دقيقة واحدة على الانفجار الحقيقي! حلوا اللغز ده فوراً وإلا كل تعبكم ضاع!<br><br><strong>ضرب أرقام كروت الأونو الثلاثة التي عثرتم عليها في البداية معاً في بعضها، ثم اضربوا الناتج النهائي في رقم المستوى الحالي وهو (6) واكتبوا الشفرة فوراً!</strong>';
                         } else {
-                            document.getElementById('riddle-text').textContent = 'لتعطيل الفتيل فوراً: اجمعوا قيمتي أصغر ورقتين ماليتين عثرتم عليهما في البداية معاً، ثم اضربوا الناتج النهائي في رقم المستوى الحالي وهو  واكتبوا الشفرة فوراً!';
+                            document.getElementById('riddle-text').innerHTML = 'ههههه.. فاكرين إنكم كدّة كسبتوا؟! 😈 النظام اتهكر من جديد، القنبلة فيها فتيل سري وباقي دقيقة واحدة على الانفجار الحقيقي! حلوا اللغز ده فوراً وإلا كل تعبكم ضاع!<br><br><strong>اجمعوا قيمتي أصغر ورقتين ماليتين عثرتم عليهما في البداية معاً، ثم اضربوا الناتج النهائي في رقم المستوى الحالي وهو (6) واكتبوا الشفرة فوراً!</strong>';
                         }
                     }
                 } else {
@@ -851,6 +983,7 @@
             overlay.classList.add('active');
             
             try {
+
                 initAudioContext();
                 const now = audioCtx.currentTime;
                 const osc = audioCtx.createOscillator();
@@ -876,7 +1009,7 @@
                 overlay.classList.remove('active');
                 setTimeout(() => {
                     overlay.remove();
-                    if (callback) callback();
+                if (callback) callback();
                 }, 500);
             }, 1800);
         }
@@ -900,7 +1033,7 @@
             if (currentLevel > 6) return;
 
             const inputEl = document.getElementById('answer-input');
-            let userAns = inputEl.value.trim();
+            let userAns = convertArabicNumerals(inputEl.value.trim());
             
             if (team === 'blue' && currentLevel === 5) {
                 userAns = userAns.toUpperCase();
@@ -929,34 +1062,68 @@
 
             if (isCorrect) {
                 if (currentLevel === 6 && !isPanicActive) {
-                    // Trigger Deceptive Fake Win
-                    inputEl.classList.add('success-flash');
-                    playSynthSound('fake-win');
+                    // Transition the UI to green victory aesthetic
+                    document.body.className = 'theme-default fake-win-green';
                     
-                    // Disable interface during deceptive win
-                    inputEl.disabled = true;
-                    document.getElementById('btn-submit-answer').disabled = true;
+                    // Hide gameplay panels
+                    document.getElementById('player-badge-panel').style.display = 'none';
+                    document.getElementById('active-gameplay-section').style.display = 'none';
+                    document.getElementById('countdown-timer').style.display = 'none';
+                    document.getElementById('timer-icon-label').style.display = 'none';
+                    document.getElementById('security-note-panel').style.display = 'none';
+                    
+                    // Show Fake Win Container
+                    const fakeWinContainer = document.getElementById('fake-win-container');
+                    fakeWinContainer.style.display = 'block';
+                    
+                    // Reset elements
+                    const claimBtn = document.getElementById('btn-claim-prize');
+                    const progressContainer = document.getElementById('deceptive-progress-container');
+                    const barFill = document.getElementById('deceptive-bar-fill');
+                    const percentText = document.getElementById('deceptive-percent');
+                    const subtext = document.getElementById('deceptive-subtext');
+                    
+                    claimBtn.style.display = 'flex';
+                    progressContainer.style.display = 'none';
+                    barFill.style.transition = 'width 4.5s cubic-bezier(0.25, 0.8, 0.25, 1)';
+                    barFill.style.width = '0%';
+                    barFill.style.background = 'linear-gradient(90deg, #2ecc71, #27ae60)';
+                    barFill.style.boxShadow = '0 0 10px #2ecc71';
+                    percentText.textContent = '0%';
+                    subtext.style.color = '#2ecc71';
+                    subtext.textContent = "جاري تجهيز المكافأة وفك تشفير صندوق العيدية...";
+                    
+                    playSynthSound('fake-win');
 
-                    setTimeout(() => {
-                        inputEl.classList.remove('success-flash');
-                        inputEl.disabled = false;
-                        document.getElementById('btn-submit-answer').disabled = false;
-
-                        // SUDDENLY trigger panic mode
-                        isPanicActive = true;
-                        panicTimerEnd = Date.now() + 60 * 1000;
-                        localStorage.setItem('escape_room_panic_active', 'true');
-                        localStorage.setItem('escape_room_panic_timer_end', panicTimerEnd);
+                    claimBtn.onclick = function() {
+                        claimBtn.style.display = 'none';
+                        progressContainer.style.display = 'block';
                         
-                        document.body.classList.add('panic-red');
-                        document.body.classList.add('shake-heavy');
-                        startAlarmSound();
+                        setTimeout(() => {
+                            barFill.style.width = '99%';
+                        }, 50);
                         
-                        alert('ههههه.. فاكرين إنكم كدّة كسبتوا؟! 😈 النظام اتهكر من جديد، القنبلة فيها فتيل سري وباقي دقيقة واحدة على الانفجار الحقيقي! حلوا اللغز ده فوراً وإلا كل تعبكم ضاع!');
-                        
-                        renderActiveLevel();
-                    }, 3000);
-
+                        let percent = 0;
+                        const startTime = Date.now();
+                        const duration = 4500; // 4.5 seconds
+                        const percentInterval = setInterval(() => {
+                            const elapsed = Date.now() - startTime;
+                            const progress = Math.min(elapsed / duration, 1);
+                            const easeProgress = 1 - Math.pow(1 - progress, 3);
+                            percent = Math.floor(easeProgress * 99);
+                            percentText.textContent = percent + '%';
+                            
+                            if (progress >= 1) {
+                                clearInterval(percentInterval);
+                                percentText.textContent = '99%';
+                                
+                                // Freeze for 2 full seconds
+                                setTimeout(() => {
+                                    triggerGlitchAndSuddenDeath();
+                                }, 2000);
+                            }
+                        }, 50);
+                    };
                 } else {
                     // Real success for normal levels or defuse logic
                     inputEl.classList.add('success-flash');
