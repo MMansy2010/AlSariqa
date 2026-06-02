@@ -222,10 +222,14 @@ document.addEventListener('DOMContentLoaded', () => {
             STORAGE.panicEnd,
         ];
         keys.forEach((k) => localStorage.removeItem(k));
-        ['blue', 'red'].forEach((team) => {
+        ['blue', 'red'].forEach((t) => {
             for (let i = 1; i <= MAX_LEVELS; i++) {
-                localStorage.removeItem(STORAGE.levelKey(team, i));
+                localStorage.removeItem(STORAGE.levelKey(t, i));
                 localStorage.removeItem(STORAGE.hintKey(i));
+                localStorage.removeItem(`escape2_${t}_level_${i}_fails`);
+                localStorage.removeItem(`escape2_${t}_level_${i}_lock`);
+                localStorage.removeItem(`escape2_${t}_level_${i}_fails_scam`);
+                localStorage.removeItem(`escape2_${t}_level_${i}_lock_scam`);
             }
         });
     }
