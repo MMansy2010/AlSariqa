@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>غرفة الهروب 2 | المرحلة 1</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --font: 'Cairo', sans-serif;
+            --accent: #f5b942;
+            --accent-rgb: 245, 185, 66;
+            --text: #f4f7fb;
+            --muted: #7a8499;
+            --bg: #050608;
+        }
+        body.theme-blue {
+            --accent: #3dc8ff;
+            --accent-rgb: 61, 200, 255;
+        }
+        body.theme-red {
+            --accent: #ff3d6a;
+            --accent-rgb: 255, 61, 106;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: var(--font); }
+        body {
+            min-height: 100vh;
+            background: var(--bg);
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+        }
+        .placeholder-card {
+            max-width: 440px;
+            width: 100%;
+            text-align: center;
+            padding: 40px 28px;
+            border-radius: 16px;
+            border: 1px solid rgba(var(--accent-rgb), 0.3);
+            background: rgba(12, 16, 24, 0.85);
+            box-shadow: 0 0 40px rgba(var(--accent-rgb), 0.12);
+        }
+        .placeholder-card h1 {
+            font-size: 1.4rem;
+            margin-bottom: 12px;
+            color: var(--accent);
+        }
+        .placeholder-card p {
+            font-size: 0.9rem;
+            color: var(--muted);
+            line-height: 1.7;
+            margin-bottom: 8px;
+        }
+        .team-line { font-weight: 800; color: var(--text); margin: 16px 0; }
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 24px;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.85rem;
+        }
+        .level-pill {
+            display: inline-block;
+            margin-top: 16px;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 800;
+            border: 1px solid rgba(var(--accent-rgb), 0.35);
+            background: rgba(var(--accent-rgb), 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="placeholder-card">
+        <div class="level-pill" id="level-pill">المرحلة 1 / 8</div>
+        <h1><i class="fas fa-hourglass-half"></i> جاهز للبناء</h1>
+        <p>صفحة اللعب هتتملّى لما تبعت محتوى المرحلة الأولى لكل فريق.</p>
+        <p class="team-line" id="player-info">—</p>
+        <a href="index.html" class="back-link"><i class="fas fa-arrow-right"></i> العودة لشاشة الإطلاق</a>
+    </div>
+    <script>
+        const team = localStorage.getItem('escape2_player_team');
+        const name = localStorage.getItem('escape2_player_name');
+        if (!team || !name) {
+            window.location.href = 'index.html';
+        } else {
+            document.body.classList.add(team === 'blue' ? 'theme-blue' : 'theme-red');
+            const label = team === 'blue' ? 'الفريق الأزرق' : 'الفريق الأحمر';
+            document.getElementById('player-info').textContent = `${name} · ${label}`;
+        }
+    </script>
+</body>
+</html>
