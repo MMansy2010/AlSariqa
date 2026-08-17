@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة التحكم بالتحقيق: جريمة القصر المغلق</title>
+    <link rel="stylesheet" href="dashboard_style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="crt-overlay"></div>
+    <div class="vignette"></div>
+    <div class="matrix-grid"></div>
+
+    <!-- Main Container -->
+    <div class="dashboard-shell">
+        
+        <!-- Header Info Bar -->
+        <header class="dashboard-header">
+            <div class="header-left">
+                <div class="status-panel">
+                    <span class="pulse-indicator"></span>
+                    <span class="meta-label">المحقق المسؤول: </span>
+                    <span id="leaderNameDisplay" class="meta-value">---</span>
+                </div>
+                <div class="status-panel">
+                    <span class="meta-label">الفرقة: </span>
+                    <span id="teamDisplay" class="meta-value">---</span>
+                </div>
+            </div>
+            
+            <!-- Spooky Countdown Timer -->
+            <div class="timer-panel">
+                <div class="timer-label">المتبقي على قفل النظام</div>
+                <div id="countdownTimer" class="timer-countdown">60:00</div>
+                <div class="timer-sub">SECURE_CONNECTION_STABLE</div>
+            </div>
+        </header>
+
+        <!-- Team Members Sub-bar -->
+        <div class="members-bar">
+            <span class="members-title">المساعدون:</span>
+            <div id="membersContainer" class="members-list">
+                <!-- Badges dynamically populated -->
+            </div>
+        </div>
+
+        <!-- Envelope Level Progress Bar -->
+        <section class="progress-section">
+            <div class="progress-title">تتبع فك تشفير الأظرفة (1 - 6)</div>
+            <div class="envelope-nodes">
+                <div class="node active" data-level="0"><span class="node-num">1</span><span class="node-status">ACTIVE</span></div>
+                <div class="node-line"></div>
+                <div class="node" data-level="1"><span class="node-num">2</span><span class="node-status">LOCKED</span></div>
+                <div class="node-line"></div>
+                <div class="node" data-level="2"><span class="node-num">3</span><span class="node-status">LOCKED</span></div>
+                <div class="node-line"></div>
+                <div class="node" data-level="3"><span class="node-num">4</span><span class="node-status">LOCKED</span></div>
+                <div class="node-line"></div>
+                <div class="node" data-level="4"><span class="node-num">5</span><span class="node-status">LOCKED</span></div>
+                <div class="node-line"></div>
+                <div class="node" data-level="5"><span class="node-num">6</span><span class="node-status">LOCKED</span></div>
+            </div>
+        </section>
+
+        <!-- Main Workspace Area -->
+        <div class="workspace-grid">
+            
+            <!-- Left Panel: Instructions/Briefing -->
+            <div class="panel glass-panel briefing-panel">
+                <h3 class="panel-title">[01] توجيهات التحقيق والفك</h3>
+                <div class="briefing-content">
+                    <p id="envelopeBriefing">جاري قراءة بروتوكول التحقيق للظرف النشط...</p>
+                    <div class="warning-box">
+                        <span class="warn-icon">⚠</span>
+                        <span class="warn-text">كل خطوة خاطئة قد تؤثر على سلامة البيانات وتقلص زمن الاستجابة.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Panel: Dual Puzzle Workspace -->
+            <div class="panel glass-panel solver-panel">
+                <h3 class="panel-title">[02] بروتوكول فك التشفير الثنائي</h3>
+                
+                <!-- STEP A: Physical Password Input -->
+                <div class="puzzle-box" id="stepABox">
+                    <div class="step-badge">المرحلة أ: الرمز المادي للظرف الورقي</div>
+                    <p class="puzzle-instruction">قم بحل اللغز الموجود داخل الظرف الورقي الفعلي في الغرفة، ثم أدخل رمز المرور هنا:</p>
+                    
+                    <div class="input-row" style="flex-direction: column; align-items: center; gap: 1rem;">
+                        <div id="digitInputContainer" class="digit-input-container"></div>
+                        <button type="button" id="submitStepABtn" class="terminal-btn" style="width: 100%; max-width: 250px;">إرسال الرمز</button>
+                    </div>
+                    <div class="feedback-msg error" id="stepAError"></div>
+                </div>
+
+                <!-- STEP B: Digital Interactive Mini-Game -->
+                <div class="puzzle-box hidden" id="stepBBox">
+                    <div class="step-badge success">المرحلة ب: التجاوز الرقمي للنظام</div>
+                    <p class="puzzle-instruction" id="stepBInstruction">الرمز المادي صحيح! قم بحل اللغز التفاعلي التالي لفتح ملفات الظرف:</p>
+                    
+                    <!-- Dynamic Digital Puzzle Containers -->
+                    <div class="digital-puzzle-container" id="digitalPuzzleArea">
+                        <!-- Puzzle markup injected here dynamically -->
+                    </div>
+                </div>
+
+                <!-- NEXT LOCATION / WIN STATE PANEL -->
+                <div class="puzzle-box success-box hidden" id="successBox">
+                    <div class="step-badge success-glow">✓ تم فك تشفير الظرف بالكامل</div>
+                    <div class="location-reveal">
+                        <p class="loc-title">موقع الظرف التالي في الغرفة:</p>
+                        <p class="loc-text" id="nextLocationText">جاري المسح الضوئي للموقع الفعلي...</p>
+                    </div>
+                    <button type="button" id="nextLevelBtn" class="terminal-btn next-btn">الانتقال للظرف التالي ←</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Failure Screen -->
+        <div class="failed-screen hidden" id="failedScreen">
+            <div class="failed-content">
+                <h1 class="font-glitch" data-text="SYSTEM LOCKDOWN">SYSTEM LOCKDOWN</h1>
+                <p class="failed-sub">لقد انتهى الوقت المسموح للتحقيق. تم تأمين ملفات القصر وتشفيرها بشكل نهائي.</p>
+                <button type="button" onclick="restartInvestigation()" class="terminal-btn retry-btn">إعادة محاولة التحقيق</button>
+            </div>
+        </div>
+
+        <!-- Victory Screen -->
+        <div class="victory-screen hidden" id="victoryScreen">
+            <div class="victory-content">
+                <div class="victory-header">✓ تم فك تشفير كافة الأدلة بنجاح!</div>
+                <h1 class="victory-title font-glitch" data-text="قضية القصر المغلق: تم الحل">قضية القصر المغلق: تم الحل 🕵️‍♂️</h1>
+                <p class="victory-desc">تهانينا! لقد نجحت أنت وفريقك في فك تشفير جميع أظرف ملف القضية. هذا هو الرمز النهائي لفتح صندوق القفل المادي لتأمين الأدلة:</p>
+                
+                <div class="victory-code-box">
+                    <span class="code-label">رمز فتح القفل الرقمي:</span>
+                    <span id="finalLockCode" class="code-value">0000</span>
+                </div>
+                
+                <button type="button" onclick="restartInvestigation()" class="terminal-btn retry-btn">إعادة المحاكاة ↺</button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Toast system -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="dashboard_script.js"></script>
+</body>
+</html>

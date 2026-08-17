@@ -1,0 +1,1015 @@
+:root {
+    --bg-color: #03050e;
+    --neon-main: #e5a93b; /* Defaults to amber warning */
+    --neon-blue: #00f3ff;
+    --neon-red: #ff0055;
+    --terminal-green: #00ff66;
+    
+    --text-main: #f0f4f8;
+    --text-muted: #6b7c96;
+    --panel-bg: rgba(6, 10, 23, 0.85);
+    --panel-border: rgba(229, 169, 59, 0.25);
+}
+
+/* Base layouts */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Cairo', monospace;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+    padding: 1.5rem;
+}
+
+/* CRT Screen Effect overlay */
+.crt-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.3) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+    z-index: 1000;
+    background-size: 100% 4px, 4px 100%;
+    pointer-events: none;
+}
+
+.vignette {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(circle, transparent 40%, rgba(0, 0, 0, 0.9) 100%);
+    z-index: 999;
+    pointer-events: none;
+}
+
+.matrix-grid {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image: radial-gradient(rgba(229, 169, 59, 0.03) 1px, transparent 0);
+    background-size: 24px 24px;
+    z-index: -2;
+}
+
+/* Red Panic flashing animation for final 5 mins */
+.panic-active {
+    animation: panic-flash 2.5s infinite alternate;
+}
+
+@keyframes panic-flash {
+    0% { background-color: var(--bg-color); }
+    100% { background-color: rgba(255, 0, 85, 0.06); }
+}
+
+/* Shell & Header */
+.dashboard-shell {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    position: relative;
+    z-index: 10;
+}
+
+.dashboard-header {
+    background: var(--panel-bg);
+    border: 1px solid var(--panel-border);
+    border-radius: 8px;
+    padding: 1.2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    backdrop-filter: blur(10px);
+}
+
+.header-left {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.status-panel {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.95rem;
+}
+
+.pulse-indicator {
+    width: 8px;
+    height: 8px;
+    background-color: var(--neon-main);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--neon-main);
+    animation: blinker 1.5s linear infinite;
+}
+
+.meta-label {
+    color: var(--text-muted);
+}
+
+.meta-value {
+    color: #fff;
+    font-weight: 700;
+}
+
+.timer-panel {
+    text-align: left;
+}
+
+.timer-label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+}
+
+.timer-countdown {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 2.2rem;
+    color: var(--neon-main);
+    text-shadow: 0 0 10px rgba(229,169,59,0.3);
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.timer-countdown.panic {
+    color: var(--neon-red) !important;
+    text-shadow: 0 0 15px var(--neon-red) !important;
+    animation: blinker 0.6s linear infinite alternate;
+}
+
+.timer-sub {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--text-muted);
+}
+
+/* Members bar */
+.members-bar {
+    background: rgba(4, 7, 17, 0.6);
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 6px;
+    padding: 0.6rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.members-title {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.members-list {
+    display: flex;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+}
+
+.member-badge {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: #fff;
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+}
+
+/* Nodes & Progression */
+.progress-section {
+    background: var(--panel-bg);
+    border: 1px solid var(--panel-border);
+    border-radius: 8px;
+    padding: 1.2rem;
+}
+
+.progress-title {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+}
+
+.envelope-nodes {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    direction: ltr; /* Keeps levels moving left to right visually */
+}
+
+.node {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.1);
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.node-num {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: var(--text-muted);
+}
+
+.node-status {
+    position: absolute;
+    bottom: -22px;
+    font-size: 0.6rem;
+    font-family: 'Share Tech Mono', monospace;
+    color: var(--text-muted);
+    letter-spacing: 1px;
+}
+
+.node-line {
+    flex-grow: 1;
+    height: 2px;
+    background: rgba(255,255,255,0.1);
+    margin: 0 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.node.active {
+    border-color: var(--neon-main);
+    box-shadow: 0 0 15px rgba(229,169,59,0.3);
+    background: rgba(229,169,59,0.1);
+}
+
+.node.active .node-num {
+    color: #fff;
+}
+
+.node.active .node-status {
+    color: var(--neon-main);
+}
+
+.node.solved {
+    border-color: var(--terminal-green);
+    background: rgba(0, 255, 102, 0.1);
+    box-shadow: 0 0 10px rgba(0, 255, 102, 0.2);
+}
+
+.node.solved .node-num {
+    color: var(--terminal-green);
+}
+
+.node.solved .node-status {
+    color: var(--terminal-green);
+}
+
+.node-line.solved {
+    background: var(--terminal-green);
+    box-shadow: 0 0 5px var(--terminal-green);
+}
+
+/* Workspace Grid Layout */
+.workspace-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.6fr;
+    gap: 1.5rem;
+}
+
+@media (max-width: 850px) {
+    .workspace-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.panel {
+    background: var(--panel-bg);
+    border: 1px solid var(--panel-border);
+    border-radius: 8px;
+    padding: 1.8rem;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+}
+
+.panel-title {
+    font-size: 1rem;
+    color: var(--neon-main);
+    border-bottom: 1px dashed rgba(255,255,255,0.1);
+    padding-bottom: 0.6rem;
+    margin-bottom: 1.2rem;
+    letter-spacing: 0.5px;
+}
+
+.briefing-content {
+    line-height: 1.8;
+}
+
+.briefing-content p {
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+    color: #cbd5e1;
+}
+
+.warning-box {
+    background: rgba(255, 0, 85, 0.05);
+    border: 1px solid rgba(255, 0, 85, 0.2);
+    border-radius: 6px;
+    padding: 0.8rem;
+    display: flex;
+    gap: 0.8rem;
+    align-items: flex-start;
+    font-size: 0.8rem;
+    color: #e2e8f0;
+}
+
+.warn-icon {
+    font-size: 1.2rem;
+    color: var(--neon-red);
+}
+
+/* Puzzle solvers */
+.puzzle-box {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 6px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    position: relative;
+    overflow: hidden;
+    animation: fadeIn 0.4s ease;
+}
+
+.puzzle-box.hidden {
+    display: none !important;
+}
+
+.step-badge {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    background: rgba(229, 169, 59, 0.15);
+    color: var(--neon-main);
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 4px 10px;
+    text-align: center;
+    border-bottom: 1px solid rgba(229,169,59,0.2);
+}
+
+.step-badge.success {
+    background: rgba(0, 243, 255, 0.15);
+    color: var(--neon-blue);
+    border-bottom-color: rgba(0,243,255,0.2);
+}
+
+.step-badge.success-glow {
+    background: rgba(0, 255, 102, 0.15);
+    color: var(--terminal-green);
+    border-bottom-color: rgba(0, 255, 102, 0.2);
+}
+
+.puzzle-instruction {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-top: 1rem;
+    margin-bottom: 1.2rem;
+    line-height: 1.6;
+}
+
+.input-row {
+    display: flex;
+    gap: 0.8rem;
+}
+
+.terminal-input {
+    flex-grow: 1;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: #fff;
+    padding: 0.7rem 1rem;
+    border-radius: 4px;
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.terminal-input:focus {
+    border-color: var(--neon-main);
+    box-shadow: 0 0 10px rgba(var(--neon-main), 0.2);
+}
+
+/* Digit Input Styles */
+.digit-input-container {
+    display: flex;
+    gap: 0.8rem;
+    justify-content: center;
+    direction: ltr;
+}
+
+.digit-input {
+    width: 55px;
+    height: 55px;
+    background: rgba(0, 0, 0, 0.5);
+    border: 2px solid rgba(255, 255, 255, 0.15);
+    color: #fff;
+    font-size: 1.6rem;
+    font-weight: 900;
+    text-align: center;
+    border-radius: 8px;
+    outline: none;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.8);
+}
+
+.digit-input:focus {
+    border-color: var(--neon-main);
+    box-shadow: 0 0 15px var(--neon-main), inset 0 0 8px rgba(0, 0, 0, 0.8);
+    transform: scale(1.05);
+}
+
+/* Specific puzzle sub-components styling */
+.voiceprint-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.spectrum-display {
+    width: 100%;
+    height: 100px;
+    background: #02040a;
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.spectrum-bar {
+    width: 4px;
+    height: 10px;
+    background: var(--neon-main);
+    margin: 0 2px;
+    border-radius: 2px;
+    animation: bounce 1.2s ease-in-out infinite alternate;
+}
+
+@keyframes bounce {
+    0% { height: 10px; }
+    100% { height: 75px; }
+}
+
+.voice-sample-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    width: 100%;
+}
+
+.voice-btn {
+    background: rgba(0,0,0,0.5);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: #fff;
+    padding: 0.8rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+}
+
+.voice-btn:hover {
+    border-color: var(--neon-main);
+    background: rgba(var(--neon-main), 0.1);
+}
+
+.voice-btn.active {
+    border-color: var(--neon-main);
+    background: var(--neon-main);
+    color: #000;
+    box-shadow: 0 0 15px var(--neon-main);
+}
+
+.circuit-relay-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.relay-board {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background: #02040a;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.05);
+}
+
+.relay-wire {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 4px;
+    transition: background 0.3s;
+}
+
+.relay-wire:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.relay-wire.selected {
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 8px rgba(255,255,255,0.2);
+}
+
+.wire-connector {
+    width: 15px;
+    height: 40px;
+    border-radius: 4px;
+    box-shadow: 0 0 10px currentColor;
+}
+
+.connector-red { background-color: #ff0055; color: #ff0055; }
+.connector-blue { background-color: #00f3ff; color: #00f3ff; }
+.connector-yellow { background-color: #ffcc00; color: #ffcc00; }
+.connector-green { background-color: #00ff66; color: #00ff66; }
+
+.slot-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.voltage-slot {
+    width: 80px;
+    height: 40px;
+    border: 2px dashed rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.voltage-slot.occupied {
+    border-style: solid;
+    color: #fff;
+    font-weight: bold;
+}
+
+.terminal-btn {
+    background: transparent;
+    border: 1px solid var(--neon-main);
+    color: var(--neon-main);
+    padding: 0.7rem 1.5rem;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.terminal-btn:hover {
+    background: var(--neon-main);
+    color: #000;
+    box-shadow: 0 0 15px var(--neon-main);
+}
+
+.feedback-msg {
+    margin-top: 0.8rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
+.feedback-msg.error {
+    color: var(--neon-red);
+}
+
+/* Success panel location reveal styling */
+.location-reveal {
+    background: rgba(0, 255, 102, 0.03);
+    border: 1px dashed var(--terminal-green);
+    border-radius: 6px;
+    padding: 1.2rem;
+    margin-top: 1.2rem;
+    margin-bottom: 1.2rem;
+}
+
+.loc-title {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-bottom: 0.3rem;
+}
+
+.loc-text {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--terminal-green);
+    text-shadow: 0 0 5px rgba(0, 255, 102, 0.3);
+}
+
+.next-btn {
+    border-color: var(--terminal-green);
+    color: var(--terminal-green);
+    width: 100%;
+}
+
+.next-btn:hover {
+    background: var(--terminal-green);
+    box-shadow: 0 0 20px var(--terminal-green);
+}
+
+/* Digital Puzzle mini-games wrappers */
+.digital-puzzle-container {
+    background: rgba(5, 8, 18, 0.8);
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 4px;
+    padding: 1.2rem;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Puzzle 1: Wires Layout */
+.wires-game {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    padding: 1rem 0;
+}
+
+.wire-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    cursor: pointer;
+}
+
+.wire-label {
+    width: 60px;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-weight: bold;
+}
+
+.wire-visual {
+    flex-grow: 1;
+    height: 8px;
+    border-radius: 4px;
+    position: relative;
+    box-shadow: 0 0 8px currentColor;
+    transition: all 0.3s ease;
+}
+
+.wire-visual.cut {
+    border: 2px dashed rgba(255, 255, 255, 0.2);
+    box-shadow: none;
+    background: transparent !important;
+    color: rgba(255, 255, 255, 0.2) !important;
+}
+
+.wire-visual.color-blue { background-color: #00f3ff; color: #00f3ff; }
+.wire-visual.color-yellow { background-color: #ffcc00; color: #ffcc00; }
+.wire-visual.color-green { background-color: #00ff66; color: #00ff66; }
+.wire-visual.color-red { background-color: #ff0055; color: #ff0055; }
+
+/* Puzzle 2: Logic Nodes */
+.logic-circuit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.2rem;
+    width: 100%;
+}
+
+.circuit-sum-display {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1.5rem;
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 0.5rem 1.5rem;
+    background: rgba(0,0,0,0.5);
+    border-radius: 4px;
+}
+
+.circuit-nodes {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    width: 100%;
+}
+
+.circuit-node {
+    width: 50px;
+    height: 50px;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 4px;
+    background: rgba(0,0,0,0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    user-select: none;
+}
+
+.circuit-node.active {
+    background: var(--neon-main);
+    color: #000;
+    font-weight: bold;
+    box-shadow: 0 0 15px var(--neon-main);
+    border-color: var(--neon-main);
+}
+
+/* Puzzle 3: Sine waves alignment */
+.frequency-game {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.wave-canvas {
+    width: 100%;
+    height: 120px;
+    background: #000;
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 4px;
+}
+
+.wave-slider {
+    width: 100%;
+    -webkit-appearance: none;
+    background: rgba(255, 255, 255, 0.1);
+    height: 6px;
+    border-radius: 3px;
+    outline: none;
+}
+
+.wave-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--neon-main);
+    cursor: pointer;
+    box-shadow: 0 0 8px var(--neon-main);
+}
+
+/* Puzzle 4: Memory Grid Buttons */
+.memory-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 80px);
+    gap: 1rem;
+}
+
+.memory-btn {
+    width: 80px;
+    height: 80px;
+    background: rgba(0,0,0,0.5);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    font-size: 1.8rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    user-select: none;
+}
+
+.memory-btn.lit {
+    background: var(--neon-main);
+    color: #000;
+    box-shadow: 0 0 20px var(--neon-main);
+    border-color: var(--neon-main);
+}
+
+/* Puzzle 5: Hex Search */
+.hex-board {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.5rem;
+    width: 100%;
+    max-width: 320px;
+    margin-top: 1rem;
+}
+
+.hex-cell {
+    background: rgba(0,0,0,0.6);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 4px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    padding: 0.5rem 0;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    user-select: none;
+}
+
+.hex-cell:hover {
+    border-color: var(--neon-main);
+    color: #fff;
+}
+
+.hex-target-display {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1.2rem;
+    background: rgba(229,169,59,0.1);
+    color: var(--neon-main);
+    padding: 0.4rem 1.2rem;
+    border: 1px solid var(--neon-main);
+    border-radius: 4px;
+}
+
+/* Puzzle 6: Core Balancing Slices */
+.reactor-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.8rem;
+    width: 100%;
+}
+
+.reactor-node {
+    height: 70px;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 4px;
+    background: rgba(0,0,0,0.6);
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.85rem;
+}
+
+.reactor-fill {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: var(--neon-red);
+    opacity: 0.35;
+    transition: height 0.1s linear;
+}
+
+.reactor-node.stable {
+    border-color: var(--terminal-green);
+    color: var(--terminal-green);
+}
+
+.reactor-node.stable .reactor-fill {
+    background: var(--terminal-green);
+    height: 0% !important;
+}
+
+/* Screens: Success, Fail, Victory overlays */
+.victory-screen, .failed-screen {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(3, 5, 14, 0.97);
+    z-index: 10000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    animation: fadeIn 0.4s ease forwards;
+}
+
+.victory-content, .failed-content {
+    background: var(--panel-bg);
+    border: 2px solid var(--panel-border);
+    border-radius: 12px;
+    padding: 3rem;
+    max-width: 600px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.9);
+}
+
+.failed-content {
+    border-color: var(--neon-red);
+    box-shadow: 0 0 50px rgba(255,0,85,0.2);
+}
+
+.victory-content {
+    border-color: var(--terminal-green);
+    box-shadow: 0 0 50px rgba(0,255,102,0.2);
+}
+
+.victory-header {
+    font-size: 1.1rem;
+    color: var(--terminal-green);
+    margin-bottom: 0.5rem;
+}
+
+.victory-title, .failed-content h1 {
+    font-size: 2.2rem;
+    font-weight: 900;
+    color: #fff;
+    margin-bottom: 1.5rem;
+}
+
+.victory-desc, .failed-sub {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 2rem;
+}
+
+.victory-code-box {
+    background: rgba(0, 255, 102, 0.05);
+    border: 1px dashed var(--terminal-green);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.code-label {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.code-value {
+    font-size: 3rem;
+    font-weight: 900;
+    font-family: 'Share Tech Mono', monospace;
+    color: var(--terminal-green);
+    text-shadow: 0 0 20px var(--terminal-green);
+}
+
+.retry-btn {
+    width: 100%;
+    padding: 1rem;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* CSS Glitch Text */
+.font-glitch {
+    position: relative;
+}
+
+.font-glitch::before, .font-glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: #03050e;
+}
+
+.font-glitch::before {
+    left: 2px;
+    text-shadow: -1px 0 #ff0055;
+    clip: rect(44px, 450px, 56px, 0);
+    animation: glitch-anim 5s infinite linear alternate-reverse;
+}
+
+.font-glitch::after {
+    left: -2px;
+    text-shadow: -1px 0 #00f3ff;
+    clip: rect(85px, 450px, 140px, 0);
+    animation: glitch-anim2 5s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-anim {
+    0% { clip: rect(15px, 9999px, 66px, 0); }
+    100% { clip: rect(67px, 9999px, 120px, 0); }
+}
+
+@keyframes glitch-anim2 {
+    0% { clip: rect(33px, 9999px, 85px, 0); }
+    100% { clip: rect(85px, 9999px, 44px, 0); }
+}

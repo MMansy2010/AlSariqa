@@ -1,0 +1,584 @@
+/* CSS variables and theme configuration */
+:root {
+    --bg-color: #03050e;
+    --neon-main: #e5a93b; /* Spooky system amber by default */
+    --neon-blue: #00f3ff;
+    --neon-red: #ff0055;
+    
+    --terminal-green: #00ff66;
+    --text-main: #f0f4f8;
+    --text-muted: #6b7c96;
+    --panel-bg: rgba(6, 10, 23, 0.75);
+    --panel-border: rgba(229, 169, 59, 0.2); /* Matches default theme */
+}
+
+/* Base resets & Fonts */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Cairo', 'Courier New', monospace;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* CRT Screen Effect overlay */
+.crt-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.04), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.04));
+    z-index: 1000;
+    background-size: 100% 3px, 3px 100%;
+    pointer-events: none;
+    animation: crt-flicker 0.15s infinite;
+}
+
+@keyframes crt-flicker {
+    0% { opacity: 0.98; }
+    50% { opacity: 1; }
+    100% { opacity: 0.99; }
+}
+
+/* Screen Vignette for isolation/horror vibe */
+.vignette {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(circle, transparent 40%, rgba(0, 0, 0, 0.85) 100%);
+    z-index: 999;
+    pointer-events: none;
+}
+
+/* Mysterious background grid & dust particles */
+.matrix-grid {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image: 
+        radial-gradient(rgba(229, 169, 59, 0.04) 1px, transparent 0),
+        linear-gradient(rgba(0, 0, 0, 0.2) 2px, transparent 0);
+    background-size: 24px 24px;
+    z-index: -2;
+    opacity: 0.85;
+}
+
+/* Distorted background text */
+.bg-glitch-text {
+    position: fixed;
+    top: 5%;
+    right: 5%;
+    font-size: 8rem;
+    font-weight: 900;
+    color: rgba(229, 169, 59, 0.02);
+    z-index: -3;
+    user-select: none;
+    font-family: 'Share Tech Mono', monospace;
+    letter-spacing: -2px;
+}
+
+/* Outer Terminal Container */
+.terminal-shell {
+    width: 95%;
+    max-width: 700px;
+    background: var(--panel-bg);
+    border: 1px solid var(--panel-border);
+    box-shadow: 0 0 35px rgba(0, 0, 0, 0.8), 0 0 15px rgba(var(--neon-main), 0.1);
+    border-radius: 12px;
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    position: relative;
+    z-index: 10;
+    padding: 2.5rem;
+    overflow: hidden;
+    transition: border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+/* Cybernetic Hazard Bar style */
+.hazard-stripe {
+    height: 6px;
+    width: 100%;
+    position: absolute;
+    top: 0; left: 0;
+    background: repeating-linear-gradient(
+        45deg,
+        var(--neon-main),
+        var(--neon-main) 10px,
+        #000 10px,
+        #000 20px
+    );
+    opacity: 0.8;
+    transition: background 0.4s ease;
+}
+
+/* Header Content styling */
+.terminal-header {
+    border-bottom: 1px dashed rgba(229, 169, 59, 0.25);
+    padding-bottom: 1.5rem;
+    margin-bottom: 2rem;
+    position: relative;
+}
+
+.system-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-family: 'Share Tech Mono', monospace;
+    margin-bottom: 1rem;
+    letter-spacing: 1px;
+}
+
+.blink-red {
+    color: var(--neon-red);
+    animation: blinker 1.2s cubic-bezier(.5, 0, 1, 1) infinite alternate;
+}
+
+@keyframes blinker { to { opacity: 0.1; } }
+
+.clock {
+    color: var(--neon-main);
+    text-shadow: 0 0 5px var(--neon-main);
+    font-weight: bold;
+}
+
+.cyber-title {
+    font-size: 1.8rem;
+    font-weight: 900;
+    text-align: center;
+    color: #fff;
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.15);
+    letter-spacing: 0.5px;
+}
+
+.subtitle {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    text-align: center;
+    margin-top: 0.5rem;
+    line-height: 1.6;
+}
+
+/* Form inputs & brackets */
+.control-group {
+    margin-bottom: 2rem;
+}
+
+.cyber-label {
+    display: block;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--neon-main);
+    margin-bottom: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: color 0.4s ease;
+}
+
+.label-prefix {
+    color: var(--text-muted);
+    margin-left: 0.5rem;
+}
+
+.input-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.input-bracket {
+    font-size: 2.2rem;
+    color: var(--neon-main);
+    font-family: monospace;
+    font-weight: 300;
+    user-select: none;
+    transition: color 0.4s ease;
+}
+
+.cyber-input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #fff;
+    font-size: 1.1rem;
+    padding: 0.5rem 1rem;
+    caret-color: var(--neon-main);
+}
+
+.cyber-input::placeholder {
+    color: var(--text-muted);
+    opacity: 0.5;
+}
+
+.input-glow-line {
+    position: absolute;
+    bottom: -2px;
+    left: 10px;
+    right: 10px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--neon-main), transparent);
+    opacity: 0.4;
+    transition: background 0.4s ease;
+}
+
+/* Cyber Dossier Cards for team selection */
+.team-grid {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.team-card {
+    flex: 1;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.team-card input {
+    display: none;
+}
+
+.card-inner {
+    background: rgba(4, 7, 17, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 1.5rem;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8rem;
+    position: relative;
+    z-index: 2;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.card-scanner {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--neon-main), transparent);
+    animation: radar-sweep 2.5s infinite linear;
+    opacity: 0;
+    pointer-events: none;
+}
+
+@keyframes radar-sweep {
+    0% { top: 0%; opacity: 0; }
+    10% { opacity: 0.6; }
+    90% { opacity: 0.6; }
+    100% { top: 100%; opacity: 0; }
+}
+
+.badge-status {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    font-size: 0.65rem;
+    font-family: 'Share Tech Mono', monospace;
+    padding: 2px 6px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 4px;
+    color: var(--text-muted);
+}
+
+.team-icon {
+    font-size: 2.2rem;
+    filter: drop-shadow(0 0 8px rgba(0, 0, 0, 0.5));
+}
+
+.team-name {
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.team-accent-text {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+/* Blue team checked style */
+.blue-card input:checked + .card-inner {
+    border-color: var(--neon-blue);
+    background: rgba(0, 243, 255, 0.04);
+    box-shadow: 0 0 25px rgba(0, 243, 255, 0.15);
+}
+
+.blue-card input:checked + .card-inner .card-scanner {
+    background: linear-gradient(90deg, transparent, var(--neon-blue), transparent);
+    opacity: 1;
+}
+
+.blue-card input:checked + .card-inner .badge-status {
+    background: var(--neon-blue);
+    color: #000;
+    font-weight: bold;
+}
+
+/* Red team checked style */
+.red-card input:checked + .card-inner {
+    border-color: var(--neon-red);
+    background: rgba(255, 0, 85, 0.04);
+    box-shadow: 0 0 25px rgba(255, 0, 85, 0.15);
+}
+
+.red-card input:checked + .card-inner .card-scanner {
+    background: linear-gradient(90deg, transparent, var(--neon-red), transparent);
+    opacity: 1;
+}
+
+.red-card input:checked + .card-inner .badge-status {
+    background: var(--neon-red);
+    color: #000;
+    font-weight: bold;
+}
+
+/* Dynamic Members Area */
+.members-section {
+    opacity: 1;
+    max-height: 500px;
+    overflow: hidden;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    margin-bottom: 2rem;
+}
+
+.members-section.hidden {
+    opacity: 0;
+    max-height: 0;
+    margin-bottom: 0;
+}
+
+.section-divider {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+}
+
+.divider-line {
+    flex-grow: 1;
+    height: 1px;
+    background: linear-gradient(90deg, var(--neon-main), transparent);
+    opacity: 0.3;
+}
+
+.add-member-control {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.2rem;
+}
+
+.flex-grow {
+    flex-grow: 1;
+}
+
+.cyber-add-btn {
+    background: transparent;
+    border: 1px solid var(--neon-main);
+    color: var(--neon-main);
+    padding: 0.5rem 1.5rem;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.cyber-add-btn:hover {
+    background: var(--neon-main);
+    color: #000;
+    box-shadow: 0 0 15px var(--neon-main);
+}
+
+.members-badges-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+}
+
+.badge {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-main);
+    padding: 0.4rem 1rem;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    animation: badge-birth 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28) forwards;
+    border-right: 3px solid var(--neon-main);
+}
+
+@keyframes badge-birth {
+    from { opacity: 0; transform: scale(0.8) translateY(10px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.badge .remove-btn {
+    color: var(--neon-red);
+    cursor: pointer;
+    font-weight: 900;
+    transition: transform 0.2s ease;
+}
+
+.badge .remove-btn:hover {
+    transform: scale(1.3);
+}
+
+/* Big Start Button */
+.footer-actions {
+    margin-top: 2rem;
+}
+
+.cyber-start-btn {
+    width: 100%;
+    background: transparent;
+    border: 2px solid var(--neon-main);
+    color: #fff;
+    padding: 1.2rem;
+    border-radius: 8px;
+    font-size: 1.3rem;
+    font-weight: 900;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    transition: all 0.3s ease;
+}
+
+.btn-status {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    color: var(--text-muted);
+}
+
+.cyber-start-btn:hover {
+    background: var(--neon-main);
+    color: #000;
+    box-shadow: 0 0 30px rgba(var(--neon-main), 0.4);
+}
+
+.cyber-start-btn:hover .btn-status {
+    color: #000;
+}
+
+/* Glitch styling on text */
+.font-glitch {
+    position: relative;
+}
+
+.font-glitch::before, .font-glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: var(--panel-bg);
+}
+
+.font-glitch::before {
+    left: 2px;
+    text-shadow: -1px 0 #ff0055;
+    clip: rect(44px, 450px, 56px, 0);
+    animation: glitch-anim 5s infinite linear alternate-reverse;
+}
+
+.font-glitch::after {
+    left: -2px;
+    text-shadow: -1px 0 #00f3ff;
+    clip: rect(85px, 450px, 140px, 0);
+    animation: glitch-anim2 5s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-anim {
+    0% { clip: rect(15px, 9999px, 66px, 0); }
+    10% { clip: rect(85px, 9999px, 5px, 0); }
+    20% { clip: rect(34px, 9999px, 55px, 0); }
+    30% { clip: rect(12px, 9999px, 85px, 0); }
+    40% { clip: rect(98px, 9999px, 10px, 0); }
+    50% { clip: rect(50px, 9999px, 70px, 0); }
+    60% { clip: rect(2px, 9999px, 40px, 0); }
+    70% { clip: rect(78px, 9999px, 98px, 0); }
+    80% { clip: rect(12px, 9999px, 54px, 0); }
+    90% { clip: rect(40px, 9999px, 20px, 0); }
+    100% { clip: rect(67px, 9999px, 120px, 0); }
+}
+
+@keyframes glitch-anim2 {
+    0% { clip: rect(33px, 9999px, 85px, 0); }
+    10% { clip: rect(5px, 9999px, 98px, 0); }
+    20% { clip: rect(98px, 9999px, 12px, 0); }
+    30% { clip: rect(40px, 9999px, 67px, 0); }
+    40% { clip: rect(12px, 9999px, 90px, 0); }
+    50% { clip: rect(75px, 9999px, 5px, 0); }
+    60% { clip: rect(20px, 9999px, 80px, 0); }
+    70% { clip: rect(90px, 9999px, 34px, 0); }
+    80% { clip: rect(60px, 9999px, 12px, 0); }
+    90% { clip: rect(5px, 9999px, 90px, 0); }
+    100% { clip: rect(85px, 9999px, 44px, 0); }
+}
+
+/* Toast System (Error/Success messages) */
+.toast-container {
+    position: fixed;
+    bottom: 30px;
+    left: 30px;
+    z-index: 2000;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.toast {
+    background: rgba(3, 5, 14, 0.95);
+    border-right: 4px solid var(--neon-main);
+    color: #fff;
+    padding: 1.2rem 2rem;
+    border-radius: 4px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    animation: toast-slide 0.35s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+}
+
+.toast.error {
+    border-right-color: var(--neon-red);
+}
+
+.toast.success {
+    border-right-color: var(--terminal-green);
+}
+
+@keyframes toast-slide {
+    from { transform: translateX(-120%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+/* Responsiveness adjustments */
+@media (max-width: 600px) {
+    .terminal-shell {
+        padding: 1.5rem;
+    }
+    .team-grid {
+        flex-direction: column;
+    }
+    .cyber-title {
+        font-size: 1.4rem;
+    }
+}

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بروتوكول التحقيق: جريمة القصر المغلق</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts for spooky Arabic & Cyberpunk styling -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700;900&family=Share+Tech+Mono&family=Reem+Kufi:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Ambient CRT & scanline overlay for mystery atmosphere -->
+    <div class="crt-overlay"></div>
+    <div class="vignette"></div>
+    <div class="matrix-grid"></div>
+
+    <!-- Background Glitch Ambient Textures -->
+    <div class="bg-glitch-text">CRITICAL_ERROR_SYSTEM_BREACH_</div>
+
+    <div class="terminal-shell">
+        <!-- Hazard Bar -->
+        <div class="hazard-stripe"></div>
+        
+        <!-- Header Info -->
+        <header class="terminal-header">
+            <div class="system-meta">
+                <span class="blink-red">● قيد التشغيل</span>
+                <span>الرمز: CRT-9082</span>
+                <span id="digitalClock" class="clock">00:00:00:000</span>
+            </div>
+            
+            <div class="title-container">
+                <h1 class="cyber-title font-glitch" data-text="بروتوكول التحقيق: جريمة القصر المغلق">
+                    بروتوكول التحقيق: جريمة القصر المغلق 🕵️‍♂️
+                </h1>
+                <p class="subtitle">تنبيه: أنت تدخل منطقة تحقيق خاضعة لحماية وتشفير عالي. تراجع في حال عدم التصريح.</p>
+            </div>
+        </header>
+
+        <!-- Main Form Container -->
+        <main class="terminal-content">
+            <!-- Leader Input Area -->
+            <div class="control-group">
+                <label for="leaderName" class="cyber-label">
+                    <span class="label-prefix">[01]</span> اسم قائد ملف التحقيق
+                </label>
+                <div class="input-container">
+                    <span class="input-bracket">[</span>
+                    <input type="text" id="leaderName" class="cyber-input" placeholder="أدخل هوية القائد..." autocomplete="off">
+                    <span class="input-bracket">]</span>
+                    <div class="input-glow-line"></div>
+                </div>
+            </div>
+
+            <!-- Team Selection Cards -->
+            <div class="control-group">
+                <label class="cyber-label">
+                    <span class="label-prefix">[02]</span> اختيار فرقة التحقيق المختصة
+                </label>
+                <div class="team-grid">
+                    <!-- Blue Team Card -->
+                    <label class="team-card blue-card">
+                        <input type="radio" name="team" value="blue">
+                        <div class="card-inner">
+                            <div class="card-scanner"></div>
+                            <div class="card-glow"></div>
+                            <div class="badge-status">SECURE</div>
+                            <span class="team-icon">🟦</span>
+                            <span class="team-name">الفريق الأزرق</span>
+                            <span class="team-accent-text">الترميز: CYAN_NEON</span>
+                        </div>
+                    </label>
+
+                    <!-- Red Team Card -->
+                    <label class="team-card red-card">
+                        <input type="radio" name="team" value="red">
+                        <div class="card-inner">
+                            <div class="card-scanner"></div>
+                            <div class="card-glow"></div>
+                            <div class="badge-status">HAZARD</div>
+                            <span class="team-icon">🟥</span>
+                            <span class="team-name">الفريق الأحمر</span>
+                            <span class="team-accent-text">الترميز: RED_NEON</span>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Dynamic Team Members Area -->
+            <div class="members-section hidden" id="membersSection">
+                <div class="section-divider">
+                    <span>قائمة المحققين المساعدين</span>
+                    <div class="divider-line"></div>
+                </div>
+
+                <div class="add-member-control">
+                    <div class="input-container flex-grow">
+                        <span class="input-bracket">[</span>
+                        <input type="text" id="memberName" class="cyber-input" placeholder="اسم المحقق المساعد..." autocomplete="off">
+                        <span class="input-bracket">]</span>
+                    </div>
+                    <button type="button" id="addMemberBtn" class="cyber-add-btn">
+                        <span class="btn-text">+ إضافة عضو</span>
+                        <div class="btn-glow"></div>
+                    </button>
+                </div>
+
+                <div class="members-badges-grid" id="membersBadges">
+                    <!-- Dynamic badges go here -->
+                </div>
+            </div>
+
+            <!-- Footer / Action Area -->
+            <div class="footer-actions">
+                <button type="button" id="startProtocolBtn" class="cyber-start-btn">
+                    <span class="glitch-btn-text">تفعيل بروتوكول التحقيق 🚀</span>
+                    <span class="btn-status">READY_TO_LAUNCH</span>
+                    <div class="btn-noise"></div>
+                </button>
+            </div>
+        </main>
+    </div>
+
+    <!-- Cyber Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
