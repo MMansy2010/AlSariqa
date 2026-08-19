@@ -342,7 +342,7 @@ body {
     animation: fadeIn 0.4s ease;
 }
 
-.puzzle-box.hidden {
+.hidden {
     display: none !important;
 }
 
@@ -1011,5 +1011,640 @@ body {
 
 @keyframes glitch-anim2 {
     0% { clip: rect(33px, 9999px, 85px, 0); }
-    100% { clip: rect(85px, 9999px, 44px, 0); }
+    10% { clip: rect(85px, 9999px, 44px, 0); }
 }
+
+/* Lockout Screen Overlay */
+.lockout-screen {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(3, 5, 14, 0.94);
+    z-index: 20000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    backdrop-filter: blur(12px);
+    animation: fadeIn 0.3s ease forwards;
+}
+.lockout-content {
+    background: rgba(6, 10, 23, 0.9);
+    border: 2px solid var(--neon-red);
+    box-shadow: 0 0 40px rgba(255, 0, 85, 0.25);
+    border-radius: 12px;
+    padding: 2.5rem;
+    max-width: 500px;
+    width: 100%;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+.lockout-hazard {
+    height: 6px;
+    width: 100%;
+    position: absolute;
+    top: 0; left: 0;
+    background: repeating-linear-gradient(
+        45deg,
+        var(--neon-red),
+        var(--neon-red) 10px,
+        #000 10px,
+        #000 20px
+    );
+    opacity: 0.8;
+}
+.lockout-header {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: var(--neon-red);
+    margin-bottom: 1rem;
+    text-shadow: 0 0 10px rgba(255,0,85,0.4);
+}
+.lockout-text {
+    font-size: 0.95rem;
+    color: #cbd5e1;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+.lockout-countdown {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 4rem;
+    font-weight: bold;
+    color: var(--neon-red);
+    text-shadow: 0 0 20px var(--neon-red);
+    margin-bottom: 1rem;
+}
+.lockout-sub {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Custom Audio Challenge Styles (Blue Level 1) */
+.target-audio-box {
+    width: 100%;
+    margin-bottom: 1rem;
+}
+.audio-play-btn.target-btn {
+    width: 100%;
+    padding: 0.8rem;
+    background: rgba(0, 243, 255, 0.08);
+    border: 1px solid var(--neon-blue);
+    color: var(--neon-blue);
+    font-weight: bold;
+    font-size: 0.95rem;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px rgba(0, 243, 255, 0.1);
+}
+.audio-play-btn.target-btn:hover {
+    background: var(--neon-blue);
+    color: #000;
+    box-shadow: 0 0 20px var(--neon-blue);
+}
+.voice-sample-list {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    margin-top: 1rem;
+}
+.voice-sample-row {
+    display: flex;
+    gap: 0.8rem;
+    align-items: center;
+    width: 100%;
+}
+.sample-play-icon {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #fff;
+    padding: 0.8rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 0.85rem;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+.sample-play-icon:hover {
+    border-color: var(--neon-main);
+    background: rgba(229, 169, 59, 0.1);
+    box-shadow: 0 0 10px rgba(229, 169, 59, 0.2);
+}
+.voice-sample-row .voice-btn {
+    flex-grow: 1;
+    padding: 0.8rem;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #fff;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+.voice-sample-row .voice-btn:hover {
+    border-color: var(--neon-main);
+    background: rgba(255, 255, 255, 0.05);
+}
+.voice-sample-row .voice-btn.active {
+    border-color: var(--neon-main);
+    background: rgba(229, 169, 59, 0.15);
+    box-shadow: 0 0 15px rgba(229, 169, 59, 0.25);
+    color: var(--neon-main);
+}
+
+/* Red Team Level 2 Memory Game Styles */
+.memory-game-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.2rem;
+    width: 100%;
+    background: rgba(15, 6, 8, 0.85); /* asylum dark red tint */
+    border: 1px solid rgba(255, 0, 85, 0.2);
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: inset 0 0 20px rgba(255, 0, 85, 0.1), 0 4px 15px rgba(0, 0, 0, 0.5);
+    position: relative;
+    overflow: hidden;
+}
+
+.memory-game-container::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(rgba(255, 0, 85, 0.03) 50%, rgba(0, 0, 0, 0.1) 50%);
+    background-size: 100% 4px;
+    pointer-events: none;
+}
+
+.memory-instruction-banner {
+    width: 100%;
+    padding: 0.75rem;
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+    text-align: center;
+    font-size: 0.95rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.pulse-nodes-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    width: 100%;
+    max-width: 320px;
+    margin: 1rem auto;
+}
+
+.pulse-node {
+    position: relative;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: rgba(10, 5, 5, 0.8);
+    border: 2px solid rgba(255, 0, 85, 0.3);
+    box-shadow: 0 0 10px rgba(255, 0, 85, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: not-allowed;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    user-select: none;
+}
+
+.pulse-node.interactive {
+    cursor: pointer;
+}
+
+.pulse-node.interactive:hover {
+    transform: scale(1.08);
+    border-color: var(--neon-red);
+    box-shadow: 0 0 15px rgba(255, 0, 85, 0.5);
+}
+
+.pulse-node .node-number {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: rgba(255, 255, 255, 0.6);
+    z-index: 2;
+    transition: color 0.3s ease;
+}
+
+.pulse-node.interactive:hover .node-number {
+    color: #fff;
+    text-shadow: 0 0 8px var(--neon-red);
+}
+
+/* Pulsing animated spark */
+.pulse-spark {
+    position: absolute;
+    top: -2px; left: -2px; right: -2px; bottom: -2px;
+    border-radius: 50%;
+    border: 2px solid var(--neon-red);
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(1);
+    z-index: 1;
+}
+
+/* Idle pulse effect */
+.pulse-node.interactive::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 0, 85, 0.15);
+    animation: nodePulseIdle 2s infinite ease-in-out;
+    pointer-events: none;
+}
+
+@keyframes nodePulseIdle {
+    0% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.15); opacity: 0; }
+    100% { transform: scale(1); opacity: 0; }
+}
+
+/* Lit / active sequence playback state */
+.pulse-node.lit {
+    background: rgba(255, 0, 85, 0.2);
+    border-color: var(--neon-red);
+    box-shadow: 0 0 25px var(--neon-red), inset 0 0 15px rgba(255, 0, 85, 0.5);
+}
+
+.pulse-node.lit .node-number {
+    color: #fff;
+    text-shadow: 0 0 10px #fff, 0 0 20px var(--neon-red);
+}
+
+.pulse-node.lit .pulse-spark {
+    animation: sparkRipple 0.5s ease-out forwards;
+}
+
+@keyframes sparkRipple {
+    0% { transform: scale(1); opacity: 1; }
+    100% { transform: scale(1.4); opacity: 0; }
+}
+
+/* Success state */
+.pulse-node.success {
+    background: rgba(0, 255, 102, 0.15);
+    border-color: var(--terminal-green);
+    box-shadow: 0 0 20px var(--terminal-green);
+}
+.pulse-node.success .node-number {
+    color: #fff;
+    text-shadow: 0 0 10px var(--terminal-green);
+}
+
+/* Error / Failure state */
+.pulse-node.error {
+    background: rgba(255, 0, 0, 0.2);
+    border-color: #ff0000;
+    box-shadow: 0 0 20px #ff0000;
+    animation: nodeGlitchShake 0.15s infinite;
+}
+.pulse-node.error .node-number {
+    color: #ff0000;
+    text-shadow: 0 0 10px #ff0000;
+}
+
+@keyframes nodeGlitchShake {
+    0% { transform: translate(1px, 1px) rotate(0deg); }
+    10% { transform: translate(-1px, -2px) rotate(-1deg); }
+    20% { transform: translate(-3px, 0px) rotate(1deg); }
+    30% { transform: translate(0px, 2px) rotate(0deg); }
+    40% { transform: translate(1px, -1px) rotate(1deg); }
+    50% { transform: translate(-1px, 2px) rotate(-1deg); }
+    60% { transform: translate(-3px, 1px) rotate(0deg); }
+    70% { transform: translate(2px, 1px) rotate(-1deg); }
+    80% { transform: translate(-1px, -1px) rotate(1deg); }
+    90% { transform: translate(2px, 2px) rotate(0deg); }
+    100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
+
+/* ==========================================================================
+   BLUE TEAM LEVEL 2: Step Progress & Timeline Puzzle Styles
+   ========================================================================== */
+.step-progress-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.2rem;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid var(--panel-border);
+    border-radius: 6px;
+    padding: 0.6rem 1.2rem;
+    margin-bottom: 1.5rem;
+    font-family: 'Share Tech Mono', 'Cairo', monospace;
+    font-size: 0.95rem;
+    color: var(--text-muted);
+}
+.step-indicator {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+.step-indicator.active {
+    color: var(--neon-main);
+    text-shadow: 0 0 5px var(--neon-main);
+}
+.step-indicator.completed {
+    color: var(--terminal-green);
+    text-shadow: 0 0 5px var(--terminal-green);
+}
+.step-progress-divider {
+    color: rgba(255, 255, 255, 0.15);
+}
+
+/* Timeline Reconstruction Challenge */
+.timeline-game-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.timeline-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    width: 100%;
+    margin-top: 1rem;
+    transition: all 0.3s ease;
+}
+.timeline-card {
+    display: flex;
+    align-items: center;
+    background: rgba(4, 7, 18, 0.7);
+    border: 1px solid rgba(0, 243, 255, 0.15);
+    border-radius: 6px;
+    padding: 0.8rem 1rem;
+    cursor: grab;
+    transition: all 0.2s ease;
+    position: relative;
+    user-select: none;
+}
+.timeline-card:active {
+    cursor: grabbing;
+}
+.timeline-card.dragging {
+    opacity: 0.4;
+    border-style: dashed;
+}
+.timeline-card.selected {
+    border-color: var(--neon-blue);
+    background: rgba(0, 243, 255, 0.08);
+    box-shadow: 0 0 12px rgba(0, 243, 255, 0.2);
+}
+.card-drag-handle {
+    color: var(--text-muted);
+    margin-left: 1rem;
+    cursor: grab;
+    font-size: 1.2rem;
+}
+.card-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    text-align: right;
+}
+.card-meta {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    display: flex;
+    justify-content: space-between;
+    direction: ltr;
+}
+.card-event {
+    font-size: 0.9rem;
+    color: #fff;
+    font-weight: bold;
+}
+.card-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    margin-right: 1rem;
+}
+.card-control-btn {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-muted);
+    border-radius: 4px;
+    width: 26px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 0.75rem;
+    transition: all 0.2s;
+}
+.card-control-btn:hover {
+    color: var(--neon-blue);
+    border-color: var(--neon-blue);
+    background: rgba(0, 243, 255, 0.05);
+}
+.error-glitch-shake {
+    animation: listGlitchShake 0.4s ease;
+    box-shadow: 0 0 15px rgba(255, 0, 85, 0.4);
+    border-color: var(--neon-red);
+}
+@keyframes listGlitchShake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-6px); }
+    40%, 80% { transform: translateX(6px); }
+}
+
+/* ==========================================================================
+   LEVEL 3: Red Team Calibration Nodes (Ward 13) Styling
+   ========================================================================== */
+.calibration-container {
+    width: 100%;
+    max-width: 500px;
+    margin: 1.5rem auto;
+    padding: 20px;
+    position: relative;
+    background: rgba(10, 3, 3, 0.4);
+    border: 1px solid rgba(255, 0, 85, 0.15);
+    border-radius: 8px;
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.6);
+}
+
+.calibration-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    position: relative;
+    z-index: 2;
+}
+
+@media (max-width: 480px) {
+    .calibration-grid {
+        gap: 20px;
+    }
+}
+
+.calibration-node {
+    background: rgba(20, 6, 6, 0.7);
+    border: 2px solid rgba(255, 0, 85, 0.3);
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+    user-select: none;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5), inset 0 0 10px rgba(255, 0, 85, 0.1);
+}
+
+.calibration-node:hover {
+    border-color: #ff0055;
+    box-shadow: 0 0 15px rgba(255, 0, 85, 0.6), inset 0 0 15px rgba(255, 0, 85, 0.2);
+    transform: scale(1.05);
+}
+
+.calibration-node.active {
+    background: rgba(255, 0, 85, 0.2);
+    border-color: #ff0055;
+    box-shadow: 0 0 25px #ff0055, inset 0 0 15px rgba(255, 0, 85, 0.4);
+    color: #fff;
+    animation: pulse-red-node 1.5s infinite alternate;
+}
+
+@keyframes pulse-red-node {
+    0% { box-shadow: 0 0 15px #ff0055, inset 0 0 10px rgba(255, 0, 85, 0.3); }
+    100% { box-shadow: 0 0 30px #ff0055, inset 0 0 20px rgba(255, 0, 85, 0.5); }
+}
+
+.calibration-node.error {
+    background: rgba(255, 0, 0, 0.1) !important;
+    border-color: #ff0000 !important;
+    box-shadow: 0 0 20px #ff0000 !important;
+    animation: shake-node 0.4s ease !important;
+}
+
+@keyframes shake-node {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+.calibration-node .node-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.calibration-node.active .node-label {
+    color: #ff80a5;
+}
+
+.calibration-node .node-val {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #ff0055;
+    text-shadow: 0 0 5px rgba(255, 0, 85, 0.5);
+    line-height: 1.1;
+    margin-top: 2px;
+}
+
+.calibration-node.active .node-val {
+    color: #fff;
+    text-shadow: 0 0 10px #ff0055;
+}
+
+/* Connection line animation */
+.connection-line {
+    stroke: #ff0055;
+    stroke-width: 4px;
+    stroke-linecap: round;
+    filter: drop-shadow(0 0 8px #ff0055);
+    stroke-dasharray: 8;
+    animation: dash-animation 2s linear infinite;
+}
+
+@keyframes dash-animation {
+    to {
+        stroke-dashoffset: -20;
+    }
+}
+
+/* Calibration status texts */
+.calibration-status-box {
+    margin-bottom: 1.2rem;
+    padding: 0.8rem;
+    background: rgba(20, 6, 6, 0.5);
+    border: 1px solid rgba(255, 0, 85, 0.15);
+    border-radius: 6px;
+    text-align: center;
+    width: 100%;
+}
+
+.calibration-story-text {
+    font-size: 0.95rem;
+    color: #ff80a5;
+    margin-bottom: 4px;
+    line-height: 1.6;
+}
+
+.calibration-sub-story {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+}
+
+.calibration-mapping-table {
+    width: 100%;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+    border-collapse: collapse;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.9rem;
+}
+
+.calibration-mapping-table th, 
+.calibration-mapping-table td {
+    border: 1px solid rgba(255, 0, 85, 0.2);
+    padding: 6px;
+    text-align: center;
+}
+
+.calibration-mapping-table th {
+    background: rgba(255, 0, 85, 0.1);
+    color: #ff80a5;
+}
+
+.calibration-mapping-table td {
+    background: rgba(0, 0, 0, 0.4);
+    color: #fff;
+    font-weight: bold;
+}
+
+
+
+

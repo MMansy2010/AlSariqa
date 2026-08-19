@@ -1,0 +1,1068 @@
+```html
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ملف التحقيق — تتبع الأدلة</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Courier+Prime:wght@400;700&display=swap');
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background:
+                radial-gradient(circle at center, #35322c 0%, #131210 85%);
+            color: #28231d;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        /* =========================
+   PRINT BUTTON
+========================= */
+
+        .print-area {
+            text-align: center;
+            padding: 25px;
+        }
+
+        .print-btn {
+            background: #193d63;
+            color: #f3ead8;
+
+            border: 2px solid #c9b98f;
+
+            padding: 12px 30px;
+
+            font-family: 'Cairo', sans-serif;
+            font-size: 17px;
+            font-weight: 800;
+
+            cursor: pointer;
+
+            border-radius: 4px;
+
+            box-shadow: 0 5px 20px rgba(0, 0, 0, .45);
+
+            transition: .2s;
+        }
+
+        .print-btn:hover {
+            background: #255784;
+            transform: translateY(-2px);
+        }
+
+        /* =========================
+   A4 PAGE
+========================= */
+
+        .page {
+
+            width: 210mm;
+            min-height: 297mm;
+
+            margin: 20px auto;
+
+            padding: 13mm 14mm;
+
+            position: relative;
+
+            background:
+                repeating-linear-gradient(0deg,
+                    rgba(70, 60, 40, .018) 0px,
+                    rgba(70, 60, 40, .018) 1px,
+                    transparent 1px,
+                    transparent 4px),
+                #eee5d0;
+
+            border: 1px solid #b9ad91;
+
+            box-shadow:
+                0 15px 50px rgba(0, 0, 0, .5),
+                inset 0 0 40px rgba(60, 45, 25, .08);
+
+            overflow: hidden;
+        }
+
+        .content {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* =========================
+   HEADER
+========================= */
+
+        .confidential {
+
+            position: absolute;
+
+            top: 20px;
+            left: 22px;
+
+            border: 3px double #173f67;
+
+            color: #173f67;
+
+            padding: 4px 10px;
+
+            font-family: 'Courier Prime', monospace;
+
+            font-size: 11px;
+            font-weight: bold;
+
+            transform: rotate(-8deg);
+        }
+
+        .file-number {
+
+            position: absolute;
+
+            top: 22px;
+            right: 22px;
+
+            font-family: 'Courier Prime', monospace;
+
+            font-size: 9px;
+
+            color: #665e50;
+        }
+
+        .header {
+
+            text-align: center;
+
+            border-top: 4px double #302a22;
+            border-bottom: 4px double #302a22;
+
+            padding: 13px 8px 10px;
+
+            margin-bottom: 12px;
+        }
+
+        .header h1 {
+
+            margin: 0;
+
+            font-size: 22px;
+
+            font-weight: 900;
+        }
+
+        .header h2 {
+
+            margin: 2px 0 0;
+
+            font-size: 13px;
+
+            color: #173f67;
+        }
+
+        .meta {
+
+            margin-top: 6px;
+
+            font-family: 'Courier Prime', monospace;
+
+            font-size: 9px;
+
+            color: #665e50;
+        }
+
+        /* =========================
+   WARNING
+========================= */
+
+        .warning {
+
+            border: 2px solid #173f67;
+
+            background: rgba(23, 63, 103, .055);
+
+            padding: 7px 10px;
+
+            text-align: center;
+
+            margin-bottom: 11px;
+
+            color: #173f67;
+
+            font-size: 10px;
+
+            font-weight: 800;
+        }
+
+        /* =========================
+   DOCUMENT CARDS
+========================= */
+
+        .doc {
+
+            border: 1.5px solid #4a4236;
+
+            background: rgba(255, 255, 255, .22);
+
+            padding: 9px 11px;
+
+            margin-bottom: 10px;
+        }
+
+        .doc-title {
+
+            display: inline-block;
+
+            background: #302d27;
+
+            color: #f1e6cf;
+
+            padding: 3px 9px;
+
+            font-size: 11px;
+
+            font-weight: 800;
+
+            margin-bottom: 6px;
+        }
+
+        .doc p {
+
+            margin: 4px 0;
+
+            font-size: 10px;
+
+            line-height: 1.7;
+        }
+
+        /* =========================
+   NEWSPAPER
+========================= */
+
+        .newspaper {
+
+            border: 1px solid #77705f;
+
+            background: #e6dcc4;
+
+            padding: 10px;
+
+            box-shadow: inset 0 0 15px rgba(50, 40, 20, .08);
+        }
+
+        .newspaper-head {
+
+            text-align: center;
+
+            border-bottom: 3px double #3e392f;
+
+            padding-bottom: 5px;
+
+            margin-bottom: 7px;
+        }
+
+        .newspaper-head h3 {
+
+            margin: 0;
+
+            font-family: Georgia, serif;
+
+            font-size: 19px;
+        }
+
+        .newspaper-head small {
+
+            font-family: 'Courier Prime', monospace;
+
+            font-size: 8px;
+        }
+
+        .article-title {
+
+            font-family: Georgia, serif;
+
+            font-size: 15px;
+
+            font-weight: bold;
+
+            margin-bottom: 5px;
+        }
+
+        .article-text {
+
+            font-family: Georgia, serif;
+
+            font-size: 10px;
+
+            line-height: 1.7;
+
+            text-align: justify;
+        }
+
+        /* =========================
+   SUSPECT TABLE
+========================= */
+
+        table {
+
+            width: 100%;
+
+            border-collapse: collapse;
+
+            margin-top: 6px;
+
+            font-family: 'Courier Prime', monospace;
+
+            font-size: 9px;
+
+            text-align: center;
+        }
+
+        th,
+        td {
+
+            border: 1px solid #4c4538;
+
+            padding: 5px;
+        }
+
+        th {
+
+            background: #c8bd9f;
+        }
+
+        td {
+
+            background: rgba(255, 255, 255, .17);
+        }
+
+        /* =========================
+   FINGERPRINT PATTERN
+========================= */
+
+        .fp {
+
+            display: inline-block;
+
+            border: 1px solid #4d4a42;
+
+            background: #f3ecd9;
+
+            padding: 4px 7px;
+
+            font-family: 'Courier Prime', monospace;
+
+            font-size: 9px;
+
+            direction: ltr;
+
+            letter-spacing: 1px;
+        }
+
+        .match {
+
+            color: #173f67;
+
+            font-weight: bold;
+        }
+
+        /* =========================
+   EVIDENCE CARD
+========================= */
+
+        .evidence {
+
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 7px;
+
+            margin-top: 7px;
+        }
+
+        .evidence-item {
+
+            border: 1px dashed #6d6557;
+
+            padding: 7px;
+
+            background: rgba(255, 255, 255, .22);
+
+            font-size: 9px;
+
+            line-height: 1.6;
+        }
+
+        .evidence-number {
+
+            color: #173f67;
+
+            font-family: 'Courier Prime', monospace;
+
+            font-weight: bold;
+        }
+
+        /* =========================
+   TYPEWRITER
+========================= */
+
+        .note {
+
+            background: #ded3b7;
+
+            border-right: 5px solid #173f67;
+
+            padding: 8px 12px;
+
+            margin-top: 7px;
+
+            font-family: 'Courier Prime', monospace;
+
+            font-size: 10px;
+
+            line-height: 1.8;
+        }
+
+        .note strong {
+
+            color: #173f67;
+        }
+
+        /* =========================
+   STEP A
+========================= */
+
+        .step-box {
+
+            border: 2px solid #302d27;
+
+            background: rgba(255, 255, 255, .25);
+
+            padding: 10px 12px;
+
+            margin-top: 9px;
+        }
+
+        .step-title {
+
+            color: #173f67;
+
+            font-size: 13px;
+
+            font-weight: 900;
+
+            margin-bottom: 5px;
+        }
+
+        .steps {
+
+            margin: 5px 0;
+
+            padding-right: 19px;
+
+            font-size: 10px;
+
+            line-height: 1.9;
+        }
+
+        .answer {
+
+            margin-top: 8px;
+
+            border: 2px dashed #173f67;
+
+            padding: 7px;
+
+            text-align: center;
+
+            font-family: 'Courier Prime', monospace;
+
+            font-size: 12px;
+
+            font-weight: bold;
+
+            color: #173f67;
+
+            letter-spacing: 2px;
+        }
+
+        /* =========================
+   FOOTER
+========================= */
+
+        .footer {
+
+            margin-top: 9px;
+
+            text-align: center;
+
+            font-family: 'Courier Prime', monospace;
+
+            font-size: 8px;
+
+            color: #665e50;
+        }
+
+        .footer strong {
+
+            color: #173f67;
+        }
+
+        .stamp {
+
+            position: absolute;
+
+            bottom: 23px;
+            left: 22px;
+
+            border: 1px solid #173f67;
+
+            color: #173f67;
+
+            padding: 3px 6px;
+
+            font-family: 'Courier Prime', monospace;
+
+            font-size: 8px;
+
+            transform: rotate(-5deg);
+
+            opacity: .7;
+        }
+
+        /* =========================
+   PRINT
+========================= */
+
+        @page {
+
+            size: A4;
+
+            margin: 0;
+        }
+
+        @media print {
+
+            body {
+
+                background: none;
+            }
+
+            .print-area {
+
+                display: none !important;
+            }
+
+            .page {
+
+                margin: 0;
+
+                width: 210mm;
+
+                min-height: 297mm;
+
+                box-shadow: none;
+
+                border: none;
+
+                page-break-after: always;
+            }
+        }
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <div class="print-area">
+
+        <button class="print-btn" onclick="window.print()">
+
+            🖨️ طباعة ملف التحقيق
+
+        </button>
+
+    </div>
+
+
+    <div class="page">
+
+        <div class="content">
+
+
+            <div class="confidential">
+                CONFIDENTIAL
+            </div>
+
+            <div class="file-number">
+                BLUE-02 / EVIDENCE
+            </div>
+
+
+            <!-- HEADER -->
+
+            <div class="header">
+
+                <h1>
+                    🔵 قسم التحقيقات الجنائية
+                </h1>
+
+                <h2>
+                    ملف الأدلة — القضية رقم 808-SK
+                </h2>
+
+                <div class="meta">
+
+                    EVIDENCE FILE: BLUE-02
+                    &nbsp; | &nbsp;
+                    CRIME SCENE: 01
+                    &nbsp; | &nbsp;
+                    STATUS: ACTIVE
+
+                </div>
+
+            </div>
+
+
+            <div class="warning">
+
+                ⚠ تم العثور على هذه الوثائق في أرشيف مسرح الجريمة.
+                لا يوجد أي دليل منفرد كافٍ لتحديد المشتبه به.
+
+            </div>
+
+
+            <!-- DOCUMENT 1 -->
+
+            <div class="doc">
+
+                <div class="doc-title">
+
+                    [ وثيقة 1 ] — قصاصة من جريدة محلية
+
+                </div>
+
+
+                <div class="newspaper">
+
+                    <div class="newspaper-head">
+
+                        <h3>
+                            THE NIGHT REPORT
+                        </h3>
+
+                        <small>
+                            EDITION 808 — 02:00 AM
+                        </small>
+
+                    </div>
+
+
+                    <div class="article-title">
+
+                        "الرجل الذي دخل ولم يترك خلفه سوى بصمة"
+
+                    </div>
+
+
+                    <div class="article-text">
+
+                        أكدت الشرطة أن عملية الاقتحام التي وقعت
+                        داخل المنزل المهجور مساء الخميس لم تكن عشوائية.
+
+                        <br><br>
+
+                        وبحسب المحقق المسؤول، فقد دخل أحد الأشخاص
+                        إلى المنزل في الفترة بين الساعة
+                        <strong>23:10 و23:40</strong>.
+
+                        <br><br>
+
+                        عثرت الشرطة على كوب زجاجي قرب المكتب،
+                        وعلى مقبض باب يحمل بصمة جزئية واضحة.
+
+                        <br><br>
+
+                        الغريب أن أربع شخصيات كانت موضع اشتباه
+                        في القضية، إلا أن واحدًا منهم فقط
+                        تتطابق بصمته مع الأثر الموجود في المنزل.
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- DOCUMENT 2 -->
+
+            <div class="doc">
+
+                <div class="doc-title">
+
+                    [ وثيقة 2 ] — سجل المشتبه بهم
+
+                </div>
+
+
+                <table>
+
+                    <tr>
+
+                        <th>الرمز</th>
+                        <th>الاسم</th>
+                        <th>الوقت المسجل</th>
+                        <th>المكان</th>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>A-17</td>
+
+                        <td>آدم كول</td>
+
+                        <td>23:05</td>
+
+                        <td>محطة الوقود</td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>B-09</td>
+
+                        <td>بريان هولت</td>
+
+                        <td>23:27</td>
+
+                        <td>مطعم 24H</td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>C-31</td>
+
+                        <td>دانيال روث</td>
+
+                        <td>23:16</td>
+
+                        <td>موقف السيارات</td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>D-44</td>
+
+                        <td>مارك فيشر</td>
+
+                        <td>23:51</td>
+
+                        <td>محطة القطار</td>
+
+                    </tr>
+
+                </table>
+
+
+                <div class="note">
+
+                    <strong>
+                        ملاحظة المحقق:
+                    </strong>
+
+                    <br>
+
+                    السجلات الزمنية ليست كافية وحدها.
+
+                    <br>
+
+                    المطلوب هو مقارنة
+                    <strong>الأثر المادي</strong>
+                    مع العينات الموجودة في ملف المشتبه بهم.
+
+                </div>
+
+            </div>
+
+
+            <!-- DOCUMENT 3 -->
+
+            <div class="doc">
+
+                <div class="doc-title">
+
+                    [ وثيقة 3 ] — جدول بصمات الأصابع
+
+                </div>
+
+
+                <p>
+
+                    قام المختبر بتصنيف البصمات باستخدام أربعة عناصر:
+
+                    <strong>
+                        القوس — الحلقة — الدوامة — نقطة الانقسام
+                    </strong>
+
+                </p>
+
+
+                <table>
+
+                    <tr>
+
+                        <th>الرمز</th>
+                        <th>القوس</th>
+                        <th>الحلقة</th>
+                        <th>الدوامة</th>
+                        <th>نقطة الانقسام</th>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>A-17</td>
+
+                        <td>2</td>
+                        <td>4</td>
+                        <td>1</td>
+                        <td>3</td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>B-09</td>
+
+                        <td>3</td>
+                        <td>2</td>
+                        <td>4</td>
+                        <td>1</td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>C-31</td>
+
+                        <td>1</td>
+                        <td>3</td>
+                        <td>2</td>
+                        <td>4</td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>D-44</td>
+
+                        <td>4</td>
+                        <td>1</td>
+                        <td>3</td>
+                        <td>2</td>
+
+                    </tr>
+
+                </table>
+
+
+                <div class="note">
+
+                    <strong>
+                        الأثر الموجود في مسرح الجريمة:
+                    </strong>
+
+                    <br>
+
+                    القوس = <strong>1</strong>
+
+                    &nbsp; | &nbsp;
+
+                    الحلقة = <strong>3</strong>
+
+                    &nbsp; | &nbsp;
+
+                    الدوامة = <strong>2</strong>
+
+                    &nbsp; | &nbsp;
+
+                    نقطة الانقسام = <strong>4</strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- DOCUMENT 4 -->
+
+            <div class="doc">
+
+                <div class="doc-title">
+
+                    [ وثيقة 4 ] — ملاحظة المختبر
+
+                </div>
+
+
+                <div class="note">
+
+                    لا تبحث عن البصمة "الأكثر تشابهًا".
+
+                    <br>
+
+                    المطلوب هو التطابق الكامل.
+
+                    <br><br>
+
+                    <strong>
+
+                        1 = القوس
+
+                        <br>
+
+                        2 = الحلقة
+
+                        <br>
+
+                        3 = الدوامة
+
+                        <br>
+
+                        4 = نقطة الانقسام
+
+                    </strong>
+
+                    <br><br>
+
+                    قارن الأرقام الأربعة
+                    بالترتيب نفسه.
+
+                </div>
+
+            </div>
+
+
+            <!-- STEP A -->
+
+            <div class="step-box">
+
+                <div class="step-title">
+
+                    🧩 STEP A — تحديد المشتبه به
+
+                </div>
+
+
+                <ol class="steps">
+
+                    <li>
+
+                        اكتب نمط بصمة مسرح الجريمة:
+
+
+
+                    </li>
+
+                    <li>
+
+                        قارن النمط مع الأنماط الأربعة في جدول المشتبه بهم.
+
+                    </li>
+
+                    <li>
+
+                        ابحث عن الشخص الذي يملك
+                        <strong>نفس الأرقام الأربعة بالضبط</strong>.
+
+                    </li>
+
+                    <li>
+
+                        أدخل <strong>اسم المشتبه به</strong>
+                        في الموقع.
+
+                    </li>
+
+                </ol>
+
+
+                <div class="answer">
+
+                    ANSWER:
+
+                    &nbsp;&nbsp;&nbsp;
+
+                    ________________________
+
+                </div>
+
+            </div>
+
+
+            <div class="note" style="margin-top:10px;">
+
+                <strong>
+                    STEP B
+                </strong>
+
+                <br>
+
+                "إذا عرفت من ترك البصمة...
+                فالسؤال التالي ليس من هو،
+                بل <strong>متى حدث كل شيء؟</strong>"
+
+            </div>
+
+
+            <div class="footer">
+
+                BLUE TEAM / CASE 808-SK
+
+                &nbsp; • &nbsp;
+
+                <strong>
+                    EVIDENCE ONLY
+                </strong>
+
+                &nbsp; • &nbsp;
+
+                DO NOT REMOVE
+
+            </div>
+
+
+            <div class="stamp">
+
+                ARCHIVE COPY
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+</body>
+
+</html>
+```

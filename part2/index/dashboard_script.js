@@ -1,9 +1,13 @@
+const RED_LEVEL_2_NEXT_LOCATION = "خلف مرآة الحمام الرئيسي";
+const BLUE_LEVEL_2_NEXT_LOCATION = "تحت لوحة المفاتيح الاحتياطية في غرفة التحكم";
+const RED_LEVEL_3_NEXT_LOCATION = "PUT LOCATION HERE";
+
 const ENVELOPE_DATA = {
     blue: {
         passwords: ["8143", "BLUE_DECRYPT_2", "MATRIX_KEY_3", "SIGNAL_LOCK_4", "CYPHER_ECHO_5", "FINAL_SYSTEM_6"],
         locations: [
             "🔎 تم مطابقة الصوت بنجاح! الظرف رقم (2) مخبأ خلف الستارة البيضاء.",
-            "🔎 ممتاز! الظرف رقم (3) مخبأ تحت لوحة المفاتيح الاحتياطية في غرفة التحكم.",
+            `⚡ تم تحديد تسلسل الأحداث بنجاح!\n\n🔎 الظرف رقم (3) مخبأ في: ${BLUE_LEVEL_2_NEXT_LOCATION}`,
             "🔎 ممتاز! الظرف رقم (4) مخبأ داخل كتاب 'تاريخ البرمجة' على الرف الخشبي.",
             "🔎 ممتاز! الظرف رقم (5) مخبأ تحت كرسي قائد الفريق في غرفة العمليات.",
             "🔎 ممتاز! الظرف رقم (6) مخبأ داخل علبة الإسعافات الأولية المعلقة على الحائط.",
@@ -12,10 +16,19 @@ const ENVELOPE_DATA = {
         finalCode: "1984"
     },
     red: {
-        passwords: ["531", "RED_DECRYPT_2", "CORRUPT_KEY_3", "ALARM_LOCK_4", "GHOST_ECHO_5", "FINAL_OVERRIDE_6"],
+        passwords: ["531", "VITCOR", "6821", "ALARM_LOCK_4", "GHOST_ECHO_5", "FINAL_OVERRIDE_6"],
         locations: [
             "🔎 تم استقرار الدائرة الكهربائية! الظرف رقم (2) مخبأ أسفل طاولة الطعام.",
-            "🔎 ممتاز! الظرف رقم (3) مخبأ خلف مرآة الحمام الرئيسي.",
+            `⚡ تمت استعادة تسلسل الجلسة بنجاح!\n\n🔎 الظرف رقم (3) مخبأ في: ${RED_LEVEL_2_NEXT_LOCATION}`,
+            `⚡ تمت معايرة التجربة 13 بنجاح.\n\nتم استعادة الصفحة المفقودة من ملف المريض 404.\n\n🔎 الظرف رقم (4) مخبأ في:\n${RED_LEVEL_3_NEXT_LOCATION}`,
+            "🔎 ممتاز! الظرف رقم (4) مخبأ داخل الميكروويف في المطبخ.",
+            "🔎 ممتاز! الظرف رقم (5) مخبأ خلف شاشة التلفاز في غرفة المعيشة.",
+            "🔎 ممتاز! الظرف رقم (6) مخبأ تحت فازة الزهور الكبيرة بجوار الباب.",
+            "🏁 لقد فككت تشفير كل الأظرفة بنجاح! هذا هو الرمز النهائي لفتح صندوق القفل الفعلي."
+        ],
+        finalCode: "2077"
+    }
+};� تسلسل الجلسة بنجاح!\n\n🔎 الظرف رقم (3) مخبأ في: ${RED_LEVEL_2_NEXT_LOCATION}`,
             "🔎 ممتاز! الظرف رقم (4) مخبأ داخل الميكروويف في المطبخ.",
             "🔎 ممتاز! الظرف رقم (5) مخبأ خلف شاشة التلفاز في غرفة المعيشة.",
             "🔎 ممتاز! الظرف رقم (6) مخبأ تحت فازة الزهور الكبيرة بجوار الباب.",
@@ -40,6 +53,12 @@ let selectedTeam = localStorage.getItem('escape_team') || "blue";
 let teamMembers = JSON.parse(localStorage.getItem('escape_members') || "[]");
 let currentLevel = parseInt(localStorage.getItem('escape_level') || "0");
 let startTime = parseInt(localStorage.getItem('escape_start_time') || Date.now());
+
+// Debug: Log retrieved values
+console.log('Retrieved from localStorage:');
+console.log('Team:', selectedTeam);
+console.log('Leader:', leaderName);
+console.log('Level:', currentLevel);
 
 // DOM Elements
 const root = document.documentElement;
@@ -162,7 +181,7 @@ let isPanicMode = false;
 function startTimerTicking() {
     setInterval(() => {
         const elapsed = Math.floor((Date.now() - startTime) / 1000);
-        const remaining = 3600 - elapsed; // 60 minutes total
+        const remaining = 5400 - elapsed; // 90 minutes total
 
         if (remaining <= 0) {
             triggerFailState();
@@ -198,6 +217,63 @@ window.restartInvestigation = function() {
     window.location.href = 'index.html';
 };
 
+// --- GLOBAL LOCKOUT & CUSTOM AUDIO PLATFORM ---
+let isLockedOut = false;
+let lockoutTimer = null;
+
+function triggerGlobalLockout(duration = 10) {
+    if (isLockedOut) return;
+    isLockedOut = true;
+
+    playErrorAlarm();
+
+    const lockoutScreen = document.getElementById('lockoutScreen');
+    const countdownVal = document.getElementById('lockoutCountdown');
+
+    if (lockoutScreen && countdownVal) {
+        lockoutScreen.classList.remove('hidden');
+        countdownVal.textContent = duration;
+
+        let remaining = duration;
+        
+        // Remove focus from any inputs
+        if (document.activeElement) document.activeElement.blur();
+
+        lockoutTimer = setInterval(() => {
+            remaining--;
+            countdownVal.textContent = remaining;
+
+            // Tick beep sound
+            playSynthTone(150, 'sawtooth', 0.1, 0.05);
+
+            if (remaining <= 0) {
+                clearInterval(lockoutTimer);
+                lockoutScreen.classList.add('hidden');
+                isLockedOut = false;
+            }
+        }, 1000);
+    } else {
+        isLockedOut = false;
+    }
+}
+
+let currentPlayingAudio = null;
+function playCustomAudio(url) {
+    try {
+        if (currentPlayingAudio) {
+            currentPlayingAudio.pause();
+            currentPlayingAudio.currentTime = 0;
+        }
+        currentPlayingAudio = new Audio(url);
+        currentPlayingAudio.play().catch(err => {
+            console.warn("Audio file playback blocked or not found:", err);
+        });
+    } catch (e) {
+        console.error("Audio error:", e);
+    }
+}
+
+
 
 // --- INITIALIZATION ---
 function initDashboard() {
@@ -205,9 +281,12 @@ function initDashboard() {
     leaderDisplay.textContent = leaderName;
     teamDisplay.textContent = selectedTeam === 'blue' ? "الفريق الأزرق" : "الفريق الأحمر";
     
-    // Set theme custom variable
-    const themeColor = selectedTeam === 'blue' ? 'var(--neon-blue)' : 'var(--neon-red)';
+    // Set theme custom variable - IMMEDIATELY apply colors
+    const themeColor = selectedTeam === 'blue' ? '#00f3ff' : '#ff0055';
     const borderColor = selectedTeam === 'blue' ? 'rgba(0, 243, 255, 0.25)' : 'rgba(255, 0, 85, 0.25)';
+    
+    console.log('Applying theme colors:', { team: selectedTeam, color: themeColor });
+    
     root.style.setProperty('--neon-main', themeColor);
     root.style.setProperty('--panel-border', borderColor);
 
@@ -256,6 +335,42 @@ function updateProgressionNodes() {
     });
 }
 
+function updateStepProgressUI() {
+    const progressUI = document.getElementById('stepProgressUI');
+    if (!progressUI) return;
+
+    if (currentLevel === 1 && selectedTeam === 'blue') {
+        progressUI.classList.remove('hidden');
+        
+        const stepAHidden = stepABox.classList.contains('hidden');
+        const successShown = !successBox.classList.contains('hidden');
+
+        if (successShown) {
+            progressUI.innerHTML = `
+                <div class="step-indicator completed">STEP A <span class="status-icon">✓</span></div>
+                <div class="step-progress-divider">/</div>
+                <div class="step-indicator completed">STEP B <span class="status-icon">✓</span></div>
+                <div class="step-progress-divider">|</div>
+                <div class="step-indicator completed" style="font-weight: bold; color: var(--terminal-green);">LEVEL 2 COMPLETE</div>
+            `;
+        } else if (stepAHidden) {
+            progressUI.innerHTML = `
+                <div class="step-indicator completed">STEP A <span class="status-icon">✓</span></div>
+                <div class="step-progress-divider">/</div>
+                <div class="step-indicator active">STEP B <span class="status-icon">○</span></div>
+            `;
+        } else {
+            progressUI.innerHTML = `
+                <div class="step-indicator active">STEP A <span class="status-icon">○</span></div>
+                <div class="step-progress-divider">/</div>
+                <div class="step-indicator">STEP B <span class="status-icon">🔒</span></div>
+            `;
+        }
+    } else {
+        progressUI.classList.add('hidden');
+    }
+}
+
 function loadLevel(level) {
     if (level >= 6) {
         triggerVictoryState();
@@ -265,14 +380,42 @@ function loadLevel(level) {
     // Update Briefing Text
     envelopeBriefing.textContent = BRIEFINGS[level];
 
-    // Reset Workspace Elements and render digit boxes dynamically
-    const correctPass = ENVELOPE_DATA[selectedTeam].passwords[level];
-    renderDigitInputs(correctPass.length);
-
     stepAError.textContent = '';
     stepABox.classList.remove('hidden');
     stepBBox.classList.add('hidden');
     successBox.classList.add('hidden');
+
+    // Render input based on level/team
+    const correctPass = ENVELOPE_DATA[selectedTeam].passwords[level];
+    
+    const instructionEl = document.querySelector('#stepABox .puzzle-instruction');
+    if (selectedTeam === 'blue' && level === 1) {
+        if (instructionEl) {
+            instructionEl.textContent = "أدخل اسم المشتبه به الذي تطابقت بصمته مع مسرح الجريمة.";
+        }
+        renderWordInput();
+        const input = document.getElementById('stepAWordInput');
+        if (input) {
+            input.placeholder = "اسم المشتبه به...";
+        }
+    } else if (selectedTeam === 'red' && level === 1) {
+        if (instructionEl) {
+            instructionEl.textContent = "أدخل اسم الطبيب الذي قمت باستخراجه من شريط التخطيط الكهربائي وجدول الرموز:";
+        }
+        renderWordInput();
+        const input = document.getElementById('stepAWordInput');
+        if (input) {
+            input.placeholder = "اسم الطبيب...";
+        }
+    } else {
+        if (instructionEl) {
+            instructionEl.textContent = "قم بحل اللغز الموجود داخل الظرف الورقي الفعلي في الغرفة، ثم أدخل رمز المرور هنا:";
+        }
+        renderDigitInputs(correctPass.length);
+    }
+
+    // Update Step Progress UI
+    updateStepProgressUI();
 
     // Build the dynamic digital puzzle for Step B
     buildDigitalPuzzle(level);
@@ -296,12 +439,40 @@ function showToast(message, type = 'error') {
 
 // --- Helper to get concatenated digit value ---
 function getStepAValue() {
+    const wordInput = document.getElementById('stepAWordInput');
+    if (wordInput) {
+        return wordInput.value.trim().toUpperCase();
+    }
+
     const inputs = digitInputContainer.querySelectorAll('.digit-input');
     let value = '';
     inputs.forEach(input => {
         value += input.value.trim();
     });
     return value.toUpperCase();
+}
+
+function renderWordInput() {
+    digitInputContainer.innerHTML = `
+        <div class="input-container" style="width: 100%; max-width: 300px; display: flex; align-items: center; justify-content: center; gap: 0.5rem; margin: 0 auto;">
+            <span class="input-bracket" style="font-size: 2.2rem; color: var(--neon-main); font-family: monospace; font-weight: 300; user-select: none;">[</span>
+            <input type="text" id="stepAWordInput" class="terminal-input" placeholder="أدخل كلمة المرور..." autocomplete="off" style="text-align: center; text-transform: uppercase; background: rgba(0, 0, 0, 0.5); border: none; outline: none; color: #fff; font-size: 1.1rem; padding: 0.5rem 1rem; caret-color: var(--neon-main); width: 100%;">
+            <span class="input-bracket" style="font-size: 2.2rem; color: var(--neon-main); font-family: monospace; font-weight: 300; user-select: none;">]</span>
+        </div>
+    `;
+
+    setTimeout(() => {
+        const input = document.getElementById('stepAWordInput');
+        if (input) {
+            input.focus();
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    submitStepABtn.click();
+                }
+            });
+        }
+    }, 100);
 }
 
 // --- Dynamic Digit Inputs Renderer ---
@@ -358,26 +529,60 @@ function renderDigitInputs(length) {
 
 // --- STEP A: Physical Password Verification ---
 submitStepABtn.addEventListener('click', () => {
+    if (isLockedOut) return;
+
     const userInput = getStepAValue();
     const correctPass = ENVELOPE_DATA[selectedTeam].passwords[currentLevel];
 
-    if (userInput === correctPass) {
+    let isCorrect = (userInput === correctPass);
+    if (selectedTeam === 'red' && currentLevel === 0 && (userInput === '531' || userInput === '513')) {
+        isCorrect = true;
+    }
+    if (selectedTeam === 'red' && currentLevel === 1) {
+        const normalizedInput = userInput.toUpperCase().replace(/\s+/g, '');
+        const acceptedAnswers = ['VITKOR', 'فيتكور'];
+        if (acceptedAnswers.includes(normalizedInput)) {
+            isCorrect = true;
+        }
+    }
+    if (selectedTeam === 'blue' && currentLevel === 1) {
+        const normalizedInput = userInput.toLowerCase().replace(/\s+/g, '');
+        const acceptedAnswers = ['danielroth', 'دانيالروث'];
+        isCorrect = acceptedAnswers.includes(normalizedInput);
+    }
+
+    if (isCorrect) {
         playSuccessChime();
         stepABox.classList.add('hidden');
         stepBBox.classList.remove('hidden');
         
         // Focus or activate the digital puzzle
-        showToast("نجاح: تم التحقق من الرمز المادي للظرف. بروتوكول الأمان الرقمي قيد التجهيز...", "success");
+        let successMsg = "نجاح: تم التحقق من الرمز المادي للظرف. بروتوكول الأمان الرقمي قيد التجهيز...";
+        if (selectedTeam === 'blue' && currentLevel === 1) {
+            successMsg = "✓ تم تحديد صاحب البصمة.";
+        }
+        showToast(successMsg, "success");
+        
+        updateStepProgressUI();
     } else {
         playErrorAlarm();
         stepAError.textContent = "رمز فك التشفير غير صالح. حاول مرة أخرى للتطابق مع قاعدة البيانات.";
-        showToast("خطأ: تطابق الرمز المادي فشل!", "error");
+        showToast("خطأ: تطابق الرمز المادي فشل! حظر لوحة التحكم مؤقتاً.", "error");
         
-        // Clear digits and focus first
-        const inputs = digitInputContainer.querySelectorAll('.digit-input');
-        inputs.forEach(input => input.value = '');
-        const firstInput = digitInputContainer.querySelector('.digit-input[data-index="0"]');
-        if (firstInput) firstInput.focus();
+        // Clear digits/inputs and focus first
+        const wordInput = document.getElementById('stepAWordInput');
+        if (wordInput) {
+            wordInput.value = '';
+            wordInput.focus();
+        } else {
+            const inputs = digitInputContainer.querySelectorAll('.digit-input');
+            inputs.forEach(input => input.value = '');
+            const firstInput = digitInputContainer.querySelector('.digit-input[data-index="0"]');
+            if (firstInput) firstInput.focus();
+        }
+
+        // Lockout for 10 seconds
+        triggerGlobalLockout(10);
     }
 });
 
@@ -391,7 +596,13 @@ function buildDigitalPuzzle(level) {
             initLevel1Puzzle();
             break;
         case 1:
-            initCircuitBalancingGame();
+            if (selectedTeam === 'red') {
+                initRedLevel2MemoryGame();
+            } else if (selectedTeam === 'blue') {
+                initBlueLevel2TimelineGame();
+            } else {
+                initCircuitBalancingGame();
+            }
             break;
         case 2:
             initFrequencyTuningGame();
@@ -416,9 +627,16 @@ function solveStepB() {
 
     // Reveal next location
     const nextLoc = ENVELOPE_DATA[selectedTeam].locations[currentLevel];
-    nextLocationText.textContent = nextLoc;
+    if (nextLoc.includes('\n')) {
+        nextLocationText.innerHTML = nextLoc.replace(/\n/g, '<br>');
+    } else {
+        nextLocationText.textContent = nextLoc;
+    }
     
     showToast("نجاح: تم تجاوز الحماية الرقمية! موقع التوثيق التالي متاح الآن.", "success");
+    
+    // Update Step Progress UI
+    updateStepProgressUI();
 }
 
 nextLevelBtn.addEventListener('click', () => {
@@ -441,10 +659,16 @@ function initLevel1Puzzle() {
 }
 
 function initBlueLevel1() {
-    document.getElementById('stepBInstruction').textContent = "الرمز صحيح! تطابق البصمة الصوتية للقاتل المتسلسل مع العينة المستهدفة للوصول إلى الملفات:";
+    document.getElementById('stepBInstruction').textContent = "الرمز صحيح! استمع للبصمات الصوتية، حدد العينة المطابقة للبصمة المستهدفة، ثم اضغط على زر التأكيد:";
 
     digitalPuzzleArea.innerHTML = `
         <div class="voiceprint-container">
+            <div class="target-audio-box">
+                <button type="button" class="audio-play-btn target-btn" id="playTargetBtn">
+                    <span class="audio-icon">🔊</span> تشغيل البصمة الصوتية المستهدفة
+                </button>
+            </div>
+            
             <div class="spectrum-display">
                 <div class="spectrum-bar" style="animation-delay: 0.1s;"></div>
                 <div class="spectrum-bar" style="animation-delay: 0.3s;"></div>
@@ -455,32 +679,78 @@ function initBlueLevel1() {
                 <div class="spectrum-bar" style="animation-delay: 0.6s;"></div>
                 <div class="spectrum-bar" style="animation-delay: 0.25s;"></div>
             </div>
-            <div class="voice-sample-grid">
-                <button class="voice-btn" data-wave="1">🔊 عينة الصوت 1</button>
-                <button class="voice-btn" data-wave="2">🔊 عينة الصوت 2</button>
-                <button class="voice-btn" data-wave="3">🔊 عينة الصوت 3 (المتطابقة)</button>
-                <button class="voice-btn" data-wave="4">🔊 عينة الصوت 4</button>
+            
+            <div class="voice-sample-list">
+                <div class="voice-sample-row">
+                    <button type="button" class="sample-play-icon" data-audio="/part2/assets/Ashraf-l1-step2-blue.mp3">▶ استماع</button>
+                    <button type="button" class="voice-btn" data-wave="1">عينة الصوت 1</button>
+                </div>
+                <div class="voice-sample-row">
+                    <button type="button" class="sample-play-icon" data-audio="/part2/assets/Karim-l1-step2-blue.mp3">▶ استماع</button>
+                    <button type="button" class="voice-btn" data-wave="2">عينة الصوت 2</button>
+                </div>
+                <div class="voice-sample-row">
+                    <button type="button" class="sample-play-icon" data-audio="/part2/assets/Ahmed-l1-step2-blue.mp3">▶ استماع</button>
+                    <button type="button" class="voice-btn" data-wave="3">عينة الصوت 3</button>
+                </div>
+                <div class="voice-sample-row">
+                    <button type="button" class="sample-play-icon" data-audio="/part2/assets/Hazem-l1-step2-blue.mp3">▶ استماع</button>
+                    <button type="button" class="voice-btn" data-wave="4">عينة الصوت 4</button>
+                </div>
             </div>
+            
+            <button type="button" class="terminal-btn submit-btn" id="confirmAudioBtn" style="margin-top: 1.5rem; width: 100%;">تأكيد ومطابقة البصمة الصوتية</button>
         </div>
     `;
+
+    let selectedWave = null;
+
+    const playTargetBtn = document.getElementById('playTargetBtn');
+    playTargetBtn.addEventListener('click', () => {
+        if (isLockedOut) return;
+        playCustomAudio('/part2/assets/Ahmed-l1-step2-blue.mp3');
+    });
+
+    const playIcons = digitalPuzzleArea.querySelectorAll('.sample-play-icon');
+    playIcons.forEach(icon => {
+        icon.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (isLockedOut) return;
+            const audioUrl = icon.getAttribute('data-audio');
+            playCustomAudio(audioUrl);
+        });
+    });
 
     const btns = digitalPuzzleArea.querySelectorAll('.voice-btn');
     btns.forEach(btn => {
         btn.addEventListener('click', () => {
-            const waveNum = btn.getAttribute('data-wave');
+            if (isLockedOut) return;
+            playSynthTone(600, 'sine', 0.05, 0.05);
             btns.forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-
-            if (waveNum === "3") {
-                playSynthTone(500, 'sine', 0.2, 0.1);
-                setTimeout(() => playSynthTone(750, 'sine', 0.3, 0.1), 150);
-                showToast("تطابق البصمة الصوتية بنسبة 99.8%! تم التأكيد.", "success");
-                setTimeout(solveStepB, 1500);
-            } else {
-                playSynthTone(120, 'sawtooth', 0.4, 0.15);
-                showToast("فشل المطابقة: تردد غير متوافق مع العينة المستهدفة.", "error");
-            }
+            selectedWave = btn.getAttribute('data-wave');
         });
+    });
+
+    const confirmBtn = document.getElementById('confirmAudioBtn');
+    confirmBtn.addEventListener('click', () => {
+        if (isLockedOut) return;
+
+        if (!selectedWave) {
+            showToast("تنبيه: يرجى اختيار عينة صوت أولاً للمطابقة.", "error");
+            return;
+        }
+
+        if (selectedWave === "3") {
+            playSynthTone(500, 'sine', 0.2, 0.1);
+            setTimeout(() => playSynthTone(750, 'sine', 0.3, 0.1), 150);
+            showToast("تطابق البصمة الصوتية بنسبة 99.8%! تم التأكيد.", "success");
+            setTimeout(solveStepB, 1500);
+        } else {
+            playSynthTone(120, 'sawtooth', 0.4, 0.15);
+            showToast("فشل المطابقة: تردد غير متوافق. تم حظر لوحة التحكم.", "error");
+            triggerGlobalLockout(10);
+        }
     });
 }
 
@@ -524,6 +794,7 @@ function initRedLevel1() {
 
     wires.forEach(wire => {
         wire.addEventListener('click', () => {
+            if (isLockedOut) return;
             playSynthTone(600, 'sine', 0.05, 0.05);
             wires.forEach(w => w.classList.remove('selected'));
             wire.classList.add('selected');
@@ -533,6 +804,7 @@ function initRedLevel1() {
 
     slots.forEach(slot => {
         slot.addEventListener('click', () => {
+            if (isLockedOut) return;
             if (!selectedWire) {
                 showToast("تنبيه: اختر سلكاً أولاً لتوصيله.", "error");
                 return;
@@ -551,7 +823,8 @@ function initRedLevel1() {
                 showToast("نجاح: تم توصيل مرحل الدائرة الرئيسية واستعادة الطاقة!", "success");
                 setTimeout(solveStepB, 1500);
             } else {
-                showToast("تنبيه: الجهد الكهربي غير صحيح أو الدائرة غير مكتملة.", "error");
+                showToast("تنبيه: الجهد الكهربي غير صحيح. تم حظر لوحة التحكم.", "error");
+                triggerGlobalLockout(10);
                 setTimeout(() => {
                     slot.textContent = slotName === 'target' ? 'المنفذ الرئيسي ⚡' : slotName === 'aux' ? 'منفذ فرعي' : 'الأرضي';
                     slot.classList.remove('occupied');
@@ -604,6 +877,7 @@ function initWireCuttingGame() {
 
     wires.forEach(wire => {
         wire.addEventListener('click', () => {
+            if (isLockedOut) return;
             const color = wire.getAttribute('data-color');
             const visual = wire.querySelector('.wire-visual');
 
@@ -618,7 +892,8 @@ function initWireCuttingGame() {
             const stepIndex = currentInputSequence.length - 1;
             if (currentInputSequence[stepIndex] !== correctOrder[stepIndex]) {
                 // Incorrect wire cut
-                showToast("صدمة كهربائية! خطأ في تسلسل الأسلاك. جاري إعادة المحاولة.", "error");
+                showToast("صدمة كهربائية! خطأ في تسلسل الأسلاك. تم حظر لوحة التحكم.", "error");
+                triggerGlobalLockout(10);
                 // Reset game after delay
                 setTimeout(() => {
                     wires.forEach(w => w.querySelector('.wire-visual').classList.remove('cut'));
@@ -654,14 +929,17 @@ function initCircuitBalancingGame() {
             <div class="circuit-nodes">
                 ${nodeVals.map((val, idx) => `<div class="circuit-node" data-val="${val}">${val}</div>`).join('')}
             </div>
+            <button type="button" class="terminal-btn" id="verifyBalanceBtn" style="margin-top: 1.5rem; width: 100%;">تحقق وتأكيد الموازنة</button>
         </div>
     `;
 
     const nodes = digitalPuzzleArea.querySelectorAll('.circuit-node');
     const sumDisplay = document.getElementById('currentSumVal');
+    const verifyBtn = document.getElementById('verifyBalanceBtn');
 
     nodes.forEach(node => {
         node.addEventListener('click', () => {
+            if (isLockedOut) return;
             playSynthTone(700, 'triangle', 0.08, 0.05);
             node.classList.toggle('active');
 
@@ -673,13 +951,358 @@ function initCircuitBalancingGame() {
             }
 
             sumDisplay.textContent = currentSum;
+        });
+    });
 
-            if (currentSum === targetVal) {
-                setTimeout(solveStepB, 500);
+    verifyBtn.addEventListener('click', () => {
+        if (isLockedOut) return;
+
+        if (currentSum === targetVal) {
+            showToast("تم موازنة الدائرة بنجاح!", "success");
+            setTimeout(solveStepB, 500);
+        } else {
+            showToast("فشل الموازنة: المجموع غير متطابق. تم حظر لوحة التحكم.", "error");
+            triggerGlobalLockout(10);
+        }
+    });
+}
+
+function initRedLevel2MemoryGame() {
+    document.getElementById('stepBInstruction').textContent = "الرمز صحيح! راقب تسلسل النبضات... سيختفي التسلسل بعد انتهاء الاختبار.";
+
+    digitalPuzzleArea.innerHTML = `
+        <div class="memory-game-container">
+            <div class="memory-instruction-banner">
+                <span>⚡</span> <span id="memoryStatusText">راقب تسلسل النبضات...</span>
+            </div>
+            
+            <div class="pulse-nodes-grid">
+                <div class="pulse-node" data-node="1"><div class="pulse-spark"></div><div class="node-number">1</div></div>
+                <div class="pulse-node" data-node="2"><div class="pulse-spark"></div><div class="node-number">2</div></div>
+                <div class="pulse-node" data-node="3"><div class="pulse-spark"></div><div class="node-number">3</div></div>
+                <div class="pulse-node" data-node="4"><div class="pulse-spark"></div><div class="node-number">4</div></div>
+                <div class="pulse-node" data-node="5"><div class="pulse-spark"></div><div class="node-number">5</div></div>
+                <div class="pulse-node" data-node="6"><div class="pulse-spark"></div><div class="node-number">6</div></div>
+            </div>
+            
+            <button type="button" class="terminal-btn" id="replaySequenceBtn" style="margin-top: 1.5rem; width: 100%; display: none;">إعادة عرض التسلسل 🔄</button>
+        </div>
+    `;
+
+    const nodes = digitalPuzzleArea.querySelectorAll('.pulse-node');
+    const statusText = document.getElementById('memoryStatusText');
+    const replayBtn = document.getElementById('replaySequenceBtn');
+
+    const correctSequence = [3, 1, 5, 2, 6, 4];
+    let userSequence = [];
+    let isPlayingSeq = false;
+
+    async function playSequence() {
+        if (isLockedOut) return;
+        isPlayingSeq = true;
+        replayBtn.style.display = 'none';
+        statusText.textContent = "راقب تسلسل النبضات...";
+        statusText.style.color = "var(--neon-main)";
+        
+        nodes.forEach(n => n.classList.remove('interactive', 'lit', 'error', 'success'));
+
+        await new Promise(r => setTimeout(r, 800));
+
+        for (let i = 0; i < correctSequence.length; i++) {
+            if (isLockedOut) break;
+            const num = correctSequence[i];
+            const node = digitalPuzzleArea.querySelector(`.pulse-node[data-node="${num}"]`);
+            if (node) {
+                node.classList.add('lit');
+                playSynthTone(300 + num * 80, 'sine', 0.4, 0.15);
+                
+                await new Promise(r => setTimeout(r, 500));
+                node.classList.remove('lit');
+                await new Promise(r => setTimeout(r, 200));
+            }
+        }
+
+        if (!isLockedOut) {
+            isPlayingSeq = false;
+            statusText.textContent = "أدخل التسلسل الآن بالضغط على الأزرار بالترتيب الموضح.";
+            statusText.style.color = "var(--text-main)";
+            replayBtn.style.display = 'block';
+            nodes.forEach(n => n.classList.add('interactive'));
+        }
+    }
+
+    nodes.forEach(node => {
+        node.addEventListener('click', () => {
+            if (isPlayingSeq || isLockedOut) return;
+
+            const val = parseInt(node.getAttribute('data-node'));
+            
+            node.classList.add('lit');
+            playSynthTone(300 + val * 80, 'sine', 0.25, 0.15);
+            setTimeout(() => node.classList.remove('lit'), 250);
+
+            userSequence.push(val);
+            const currentIdx = userSequence.length - 1;
+
+            if (userSequence[currentIdx] !== correctSequence[currentIdx]) {
+                statusText.textContent = "خطأ! تسلسل غير صحيح.";
+                statusText.style.color = "var(--neon-red)";
+                
+                nodes.forEach(n => {
+                    n.classList.remove('interactive');
+                    n.classList.add('error');
+                });
+                
+                userSequence = [];
+                
+                setTimeout(() => {
+                    nodes.forEach(n => n.classList.remove('error'));
+                    triggerGlobalLockout(10);
+                }, 800);
+
+                return;
+            }
+
+            if (userSequence.length === correctSequence.length) {
+                statusText.textContent = "تسلسل صحيح! تمت استعادة النظام.";
+                statusText.style.color = "var(--terminal-green)";
+                
+                nodes.forEach(n => {
+                    n.classList.remove('interactive');
+                    n.classList.add('success');
+                });
+
+                replayBtn.style.display = 'none';
+
+                setTimeout(() => {
+                    solveStepB();
+                }, 1000);
             }
         });
     });
+
+    replayBtn.addEventListener('click', () => {
+        if (isPlayingSeq || isLockedOut) return;
+        userSequence = [];
+        playSequence();
+    });
+
+    playSequence();
 }
+
+function initBlueLevel2TimelineGame() {
+    document.getElementById('stepBInstruction').innerHTML = `
+        <div style="font-size: 1.15rem; font-weight: bold; color: var(--terminal-green); margin-bottom: 0.5rem;">✓ تم تحديد صاحب البصمة...</div>
+        <div style="color: var(--text-muted); margin-bottom: 0.4rem;">لكن البصمة لا تخبرنا بما حدث.</div>
+        <div style="color: #fff; font-weight: bold;">أعد بناء التسلسل الزمني لمسرح الجريمة:</div>
+    `;
+
+    digitalPuzzleArea.innerHTML = `
+        <div class="timeline-game-container">
+            <div class="memory-instruction-banner" style="border-color: rgba(0, 243, 255, 0.2); background: rgba(0, 40, 80, 0.15);">
+                <span>📅</span> <span id="timelineStatusText" style="color: var(--text-main);">أعد بناء آخر 6 دقائق بسحب وإفلات البطاقات أو الضغط عليها لتبديلها.</span>
+            </div>
+            
+            <div class="timeline-list" id="timelineList"></div>
+            
+            <button type="button" class="terminal-btn" id="submitTimelineBtn" style="margin-top: 1.5rem; width: 100%; border-color: var(--neon-blue); color: var(--neon-blue);">تأكيد ومطابقة الجدول الزمني ⚡</button>
+        </div>
+    `;
+
+    const listContainer = document.getElementById('timelineList');
+    const statusText = document.getElementById('timelineStatusText');
+    const submitBtn = document.getElementById('submitTimelineBtn');
+
+    const cardsData = [
+        { id: 1, time: "23:08", event: "انطفأت الكهرباء في المنزل لمدة 14 ثانية." },
+        { id: 2, time: "23:12", event: "التقطت كاميرا الشارع شخصًا يقترب من المنزل." },
+        { id: 3, time: "23:16", event: "تم فتح الباب الرئيسي باستخدام المفتاح الأصلي." },
+        { id: 4, time: "23:21", event: "تم العثور على كوب زجاجي موضوع بجانب المكتب." },
+        { id: 5, time: "23:27", event: "تم تسجيل مكالمة هاتفية من داخل المنزل." },
+        { id: 6, time: "23:31", event: "وصلت سيارة الشرطة إلى المنطقة." }
+    ];
+
+    let currentCards = [...cardsData];
+    shuffle(currentCards);
+
+    let selectedIdx = null;
+
+    function shuffle(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+    }
+
+    function renderCards() {
+        listContainer.innerHTML = '';
+        currentCards.forEach((card, idx) => {
+            const cardEl = document.createElement('div');
+            cardEl.className = 'timeline-card';
+            if (selectedIdx === idx) {
+                cardEl.classList.add('selected');
+            }
+            cardEl.setAttribute('draggable', 'true');
+            cardEl.dataset.index = idx;
+
+            cardEl.innerHTML = `
+                <div class="card-drag-handle">☰</div>
+                <div class="card-content">
+                    <div class="card-meta">
+                        <span>EVIDENCE ID: EV-00${card.id}</span>
+                        <span>TIME: ${card.time}</span>
+                    </div>
+                    <div class="card-event">${card.event}</div>
+                </div>
+                <div class="card-controls">
+                    <button type="button" class="card-control-btn move-up-btn" data-index="${idx}">▲</button>
+                    <button type="button" class="card-control-btn move-down-btn" data-index="${idx}">▼</button>
+                </div>
+            `;
+
+            // HTML5 Drag and Drop event listeners
+            cardEl.addEventListener('dragstart', handleDragStart);
+            cardEl.addEventListener('dragover', handleDragOver);
+            cardEl.addEventListener('drop', handleDrop);
+            cardEl.addEventListener('dragend', handleDragEnd);
+
+            // Selection swap
+            cardEl.addEventListener('click', (e) => {
+                if (e.target.classList.contains('card-control-btn') || e.target.closest('.card-control-btn')) {
+                    return;
+                }
+                if (isLockedOut) return;
+                playSynthTone(600, 'sine', 0.05, 0.05);
+
+                if (selectedIdx === null) {
+                    selectedIdx = idx;
+                    renderCards();
+                } else if (selectedIdx === idx) {
+                    selectedIdx = null;
+                    renderCards();
+                } else {
+                    const temp = currentCards[selectedIdx];
+                    currentCards[selectedIdx] = currentCards[idx];
+                    currentCards[idx] = temp;
+                    selectedIdx = null;
+                    renderCards();
+                }
+            });
+
+            listContainer.appendChild(cardEl);
+        });
+
+        // Up / Down controllers
+        listContainer.querySelectorAll('.move-up-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (isLockedOut) return;
+                const idx = parseInt(btn.getAttribute('data-index'));
+                if (idx > 0) {
+                    const temp = currentCards[idx];
+                    currentCards[idx] = currentCards[idx - 1];
+                    currentCards[idx - 1] = temp;
+                    selectedIdx = null;
+                    playHover();
+                    renderCards();
+                }
+            });
+        });
+
+        listContainer.querySelectorAll('.move-down-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (isLockedOut) return;
+                const idx = parseInt(btn.getAttribute('data-index'));
+                if (idx < currentCards.length - 1) {
+                    const temp = currentCards[idx];
+                    currentCards[idx] = currentCards[idx + 1];
+                    currentCards[idx + 1] = temp;
+                    selectedIdx = null;
+                    playHover();
+                    renderCards();
+                }
+            });
+        });
+    }
+
+    let dragSrcIndex = null;
+
+    function handleDragStart(e) {
+        if (isLockedOut) {
+            e.preventDefault();
+            return;
+        }
+        dragSrcIndex = parseInt(this.dataset.index);
+        this.classList.add('dragging');
+        e.dataTransfer.effectAllowed = 'move';
+        e.dataTransfer.setData('text/plain', dragSrcIndex);
+    }
+
+    function handleDragOver(e) {
+        if (e.preventDefault) e.preventDefault();
+        e.dataTransfer.dropEffect = 'move';
+        return false;
+    }
+
+    function handleDrop(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        const targetIndex = parseInt(this.dataset.index);
+        if (dragSrcIndex !== null && dragSrcIndex !== targetIndex) {
+            const draggedItem = currentCards[dragSrcIndex];
+            currentCards.splice(dragSrcIndex, 1);
+            currentCards.splice(targetIndex, 0, draggedItem);
+            selectedIdx = null;
+            playClick();
+            renderCards();
+        }
+    }
+
+    function handleDragEnd(e) {
+        this.classList.remove('dragging');
+        dragSrcIndex = null;
+    }
+
+    submitBtn.addEventListener('click', () => {
+        if (isLockedOut) return;
+
+        const isCorrect = currentCards.every((card, idx) => card.id === idx + 1);
+
+        if (isCorrect) {
+            submitBtn.disabled = true;
+            listContainer.querySelectorAll('.card-control-btn').forEach(b => b.disabled = true);
+            
+            statusText.textContent = "✓ تمت إعادة بناء التسلسل الزمني.";
+            statusText.style.color = "var(--terminal-green)";
+            playSuccessChime();
+
+            setTimeout(() => {
+                statusText.textContent = "التحقيق يتقدم...";
+                statusText.style.color = "var(--neon-blue)";
+                
+                setTimeout(() => {
+                    solveStepB();
+                }, 1500);
+            }, 1500);
+        } else {
+            statusText.textContent = "⚠ التسلسل غير صحيح. راجع الأدلة وأعد بناء آخر 6 دقائق.";
+            statusText.style.color = "var(--neon-red)";
+            
+            listContainer.classList.add('error-glitch-shake');
+            playErrorAlarm();
+            showToast("خطأ: ترتيب الأدلة غير دقيق! حظر لوحة التشفير.", "error");
+
+            setTimeout(() => {
+                listContainer.classList.remove('error-glitch-shake');
+                triggerGlobalLockout(10);
+            }, 800);
+        }
+    });
+
+    renderCards();
+}
+
 
 
 /* ==========================================================================
@@ -693,7 +1316,8 @@ function initFrequencyTuningGame() {
         <div class="frequency-game">
             <canvas class="wave-canvas" id="frequencyCanvas" width="300" height="120"></canvas>
             <div class="circuit-sum-display">التردد الحالي: <span id="currentFreq">100</span> هرتز</div>
-            <input type="range" min="100" max="1000" value="100" class="wave-slider" id="freqSlider">
+            <input type="range" min="100" max="1000" value="100" class="wave-slider" id="freqSlider" style="width: 100%;">
+            <button type="button" class="terminal-btn" id="verifyFreqBtn" style="margin-top: 1.5rem; width: 100%;">تثبيت وتأكيد التردد</button>
         </div>
     `;
 
@@ -701,6 +1325,7 @@ function initFrequencyTuningGame() {
     const ctx = canvas.getContext('2d');
     const slider = document.getElementById('freqSlider');
     const freqDisplay = document.getElementById('currentFreq');
+    const verifyBtn = document.getElementById('verifyFreqBtn');
 
     let currentVal = 100;
     let isSolved = false;
@@ -740,18 +1365,31 @@ function initFrequencyTuningGame() {
     }
 
     slider.addEventListener('input', (e) => {
+        if (isLockedOut) {
+            e.preventDefault();
+            slider.value = currentVal;
+            return;
+        }
         currentVal = parseInt(e.target.value);
         freqDisplay.textContent = currentVal;
 
         // Feedback tone (dynamic pitch scaling)
         playSynthTone(currentVal, 'sine', 0.02, 0.03);
+    });
 
-        // Check tuning within range of +/- 15Hz
+    verifyBtn.addEventListener('click', () => {
+        if (isLockedOut) return;
+
         if (Math.abs(currentVal - targetFreq) <= 15) {
             isSolved = true;
             slider.disabled = true;
             slider.style.opacity = '0.5';
+            verifyBtn.disabled = true;
+            showToast("تم معايرة التردد بنجاح!", "success");
             setTimeout(solveStepB, 600);
+        } else {
+            showToast("فشل التثبيت: التردد غير متوافق. تم حظر لوحة التحكم.", "error");
+            triggerGlobalLockout(10);
         }
     });
 
@@ -803,6 +1441,7 @@ function initSequenceMatchingGame() {
     let userIdx = 0;
     btns.forEach(btn => {
         btn.addEventListener('click', () => {
+            if (isLockedOut) return;
             const key = btn.getAttribute('data-key');
             btn.classList.add('lit');
             playSynthTone(500, 'sine', 0.1, 0.08);
@@ -815,13 +1454,14 @@ function initSequenceMatchingGame() {
                     setTimeout(solveStepB, 500);
                 }
             } else {
-                showToast("فشل المطابقة! تكرار الرمز الصوتي خطأ.", "error");
+                showToast("فشل المطابقة! تكرار الرمز الصوتي خطأ. تم حظر لوحة التحكم.", "error");
                 userIdx = 0;
+                triggerGlobalLockout(10);
                 // Replay sequence
                 setTimeout(() => {
                     playIdx = 0;
                     playSeq();
-                }, 1000);
+                }, 11000);
             }
         });
     });
@@ -853,6 +1493,7 @@ function initHexSearchGame() {
         const cells = digitalPuzzleArea.querySelectorAll('.hex-cell');
         cells.forEach(cell => {
             cell.addEventListener('click', () => {
+                if (isLockedOut) return;
                 const val = cell.getAttribute('data-val');
                 if (val === targetHex) {
                     cell.style.background = "var(--terminal-green)";
@@ -860,8 +1501,9 @@ function initHexSearchGame() {
                     setTimeout(solveStepB, 500);
                 } else {
                     cell.style.background = "var(--neon-red)";
-                    showToast("خطأ: تم الكشف عن عنوان وصول غير صالح! إعادة تشفير المصفوفة.", "error");
-                    setTimeout(drawGrid, 800); // Redraw
+                    showToast("خطأ: عنوان وصول غير صالح! تم حظر لوحة التشفير.", "error");
+                    triggerGlobalLockout(10);
+                    setTimeout(drawGrid, 10000); // Redraw after lockout
                 }
             });
         });
@@ -902,7 +1544,7 @@ function initReactorOverloadGame() {
 
     // Run dynamic fill loop
     const fillInterval = setInterval(() => {
-        if (gameOver) return;
+        if (gameOver || isLockedOut) return;
         
         nodes.forEach(node => {
             if (node.el.classList.contains('stable')) return;
@@ -913,15 +1555,16 @@ function initReactorOverloadGame() {
                 gameOver = true;
                 clearInterval(fillInterval);
                 playErrorAlarm();
-                showToast("انفجار المفاعل! إعادة تشغيل نظام حماية النواة.", "error");
-                setTimeout(initReactorOverloadGame, 1000);
+                showToast("انفجار المفاعل! تم حظر النظام لحماية النواة.", "error");
+                triggerGlobalLockout(10);
+                setTimeout(initReactorOverloadGame, 10500); // Restart after lockout
             }
         });
     }, 120);
 
     nodes.forEach(node => {
         node.el.addEventListener('click', () => {
-            if (gameOver) return;
+            if (gameOver || isLockedOut) return;
             playSynthTone(400, 'triangle', 0.1, 0.1);
             node.fill = 0; // Reset fill
             node.el.querySelector('.reactor-fill').style.height = `0%`;
@@ -957,4 +1600,14 @@ function triggerVictoryState() {
 
 
 // Start Dashboard Routine
-window.onload = initDashboard;
+// Make sure colors are applied immediately when DOM is ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initDashboard);
+} else {
+    // DOM is already loaded
+    initDashboard();
+}
+
+window.onload = function() {
+    console.log('Dashboard fully loaded');
+};

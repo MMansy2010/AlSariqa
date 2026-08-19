@@ -297,12 +297,20 @@ startBtn.addEventListener('click', () => {
     startBtn.style.borderColor = 'var(--terminal-green)';
     startBtn.style.boxShadow = '0 0 40px rgba(0, 255, 102, 0.4)';
 
-    // Save escape protocol meta to local storage
-    localStorage.setItem('escape_leader', leaderName);
-    localStorage.setItem('escape_team', selectedTeam);
-    localStorage.setItem('escape_members', JSON.stringify(teamMembers));
-    localStorage.setItem('escape_level', '0');
-    localStorage.setItem('escape_start_time', Date.now().toString());
+    // Save escape protocol meta to local storage - BEFORE any navigation
+    try {
+        localStorage.setItem('escape_leader', leaderName);
+        localStorage.setItem('escape_team', selectedTeam);
+        localStorage.setItem('escape_members', JSON.stringify(teamMembers));
+        localStorage.setItem('escape_level', '0');
+        localStorage.setItem('escape_start_time', Date.now().toString());
+        
+        // Verify data was saved
+        const testTeam = localStorage.getItem('escape_team');
+        console.log('Team saved:', testTeam);
+    } catch (e) {
+        console.error('localStorage error:', e);
+    }
 
     // Fade terminal container out before redirect
     setTimeout(() => {

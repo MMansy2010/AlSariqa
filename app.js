@@ -336,6 +336,9 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.removeItem('red_level_4');
         localStorage.removeItem('red_level_5');
         localStorage.removeItem('red_level_6');
+        localStorage.removeItem('red_level_7');
+        localStorage.removeItem('red_level_3_step_a');
+        localStorage.removeItem('red_level_3_completed');
         localStorage.removeItem('hint_level_1_used');
         localStorage.removeItem('hint_level_2_used');
         localStorage.removeItem('hint_level_3_used');

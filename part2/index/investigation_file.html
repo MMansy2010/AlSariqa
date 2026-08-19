@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>أوراق التحقيق الجنائي - المرحلة الأولى</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Tajawal:wght@400;700;900&display=swap');
+        * { box-sizing: border-box; }
+        body { margin: 0; background-color: #1a1a1a; font-family: 'Tajawal', sans-serif; }
+        
+        .page {
+            width: 210mm; min-height: 297mm; padding: 15mm; margin: 10px auto;
+            background: #f4ebd9; border: 1px solid #d3c4a5; position: relative; color: #2b261f;
+            page-break-after: always;
+        }
+        .stamp {
+            position: absolute; top: 30px; left: 30px; border: 3px double #8b0000;
+            color: #8b0000; padding: 4px 12px; font-size: 16px; font-weight: 900; transform: rotate(-10deg);
+        }
+        .header { border-bottom: 3px double #2b261f; padding-bottom: 10px; margin-bottom: 15px; text-align: center; }
+        .header h1 { font-size: 20px; margin: 0; font-weight: 900; }
+        .doc-card { border: 2px solid #3a3226; background: rgba(255, 255, 255, 0.4); padding: 12px; margin-bottom: 12px; border-radius: 4px; }
+        .doc-title { font-size: 14px; font-weight: 700; background: #3a3226; color: #f4ebd9; padding: 3px 8px; display: inline-block; margin-bottom: 8px; }
+        
+        /* إطار الصور الحقيقية */
+        .photo-frame {
+            border: 2px solid #2b261f;
+            background: #fff;
+            padding: 5px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            text-align: center;
+            margin: 8px 0;
+        }
+        .photo-frame img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            border: 1px solid #ddd;
+        }
+        .photo-caption {
+            font-family: 'Courier Prime', monospace;
+            font-size: 11px;
+            font-weight: bold;
+            color: #555;
+            margin-top: 5px;
+        }
+
+        /* جدول المصفوفة الشفري */
+        table.matrix { width: 100%; border-collapse: collapse; margin: 5px 0; font-family: 'Courier Prime', monospace; text-align: center; font-size: 12px; }
+        table.matrix th, table.matrix td { border: 1px solid #3a3226; padding: 4px; font-weight: bold; }
+        table.matrix th { background: #c8ba9a; }
+
+        .typewriter { font-family: 'Courier Prime', monospace; background: #e8dcbe; padding: 8px; border-right: 4px solid #8b0000; font-size: 12px; line-height: 1.5; }
+        .footer-note { border-top: 1px dashed #2b261f; padding-top: 8px; font-weight: bold; color: #8b0000; text-align: center; font-size: 13px; }
+
+        /* Print Button Styles */
+        .print-btn-container {
+            text-align: center;
+            margin: 20px auto;
+            max-width: 210mm;
+        }
+        .print-btn {
+            background-color: #3a3226;
+            color: #f4ebd9;
+            border: 2px solid #d3c4a5;
+            padding: 10px 24px;
+            font-size: 16px;
+            font-weight: 700;
+            font-family: 'Tajawal', sans-serif;
+            cursor: pointer;
+            border-radius: 4px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+        .print-btn:hover {
+            background-color: #8b0000;
+            border-color: #8b0000;
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(139,0,0,0.4);
+            transform: translateY(-2px);
+        }
+
+        @media print { 
+            body { background: none; } 
+            .page { margin: 0; box-shadow: none; border: none; } 
+            .no-print { display: none !important; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ==================== ورقة التحقيق ==================== -->
+    <div class="page">
+        <div class="stamp">TOP SECRET / EVIDENCE</div>
+        <div class="header">
+            <h1>المكتب الفيدرالي للتحقيقات - قسم الأدلة الجنائية</h1>
+            <p>ملف التحقيق الجنائي رقم: #808-SK | مسرح الجريمة 01</p>
+        </div>
+
+        <!-- 1. صورة البصمات الحقيقية -->
+        <div class="doc-card">
+            <div class="doc-title">[ وثيقة 1 ]: فحص البصمات الجنائية المقارنة</div>
+            <div class="photo-frame">
+                <img src="/part2/assets/fingerprint-blue-l1.png" alt="تحليل البصمات المقارن" placeholder="ضع صورة fingerprints.jpg هنا">
+                <div class="photo-caption">EVIDENCE PHOTO #104 - FINGERPRINT ANALYSIS</div>
+            </div>
+            <p style="font-size: 11px; margin: 5px 0 0 0;">* قم بمطابقة بصمة مسرح الجريمة مع بصمات المشتبه بهم (B1, B2, B3, B4) لمعرفة رمز المشتبه به المطابق.</p>
+        </div>
+
+        <!-- 2. المصفوفة المشفرة -->
+        <div class="doc-card">
+            <div class="doc-title">[ وثيقة 2 ]: مصفوفة فك التشفير (Matrix Code)</div>
+            <p style="font-size: 11px; margin:2px 0;">بعد تحديد رمز المشتبه به، طابق صف البصمة مع العمود الرئيسي <b>C3</b> لاستخراج الرقم:</p>
+            <table class="matrix">
+                <tr><th>الرمز</th><th>C1</th><th>C2</th><th>C3</th><th>C4</th></tr>
+                <tr><td>A1</td><td>41</td><td>12</td><td>77</td><td>09</td></tr>
+                <tr><td>B1</td><td>03</td><td>94</td><td>28</td><td>15</td></tr>
+                <tr><td>B2</td><td>66</td><td>32</td><td>51</td><td>80</td></tr>
+                <tr><td>B3</td><td>19</td><td>44</td><td>08</td><td>33</td></tr>
+                <tr><td>B4</td><td>87</td><td>02</td><td>61</td><td>95</td></tr>
+            </table>
+        </div>
+
+        <!-- 3. صورة الطلقات الحقيقية وسجل المكالمات (4 مكالمات بدون توضيح) -->
+        <div class="doc-card">
+            <div class="doc-title">[ وثيقة 3 ]: سجل الاتصالات والطلقات المعثور عليها</div>
+            <ul style="font-size: 11px; margin: 0 0 8px 0; padding-right: 15px;">
+                <li><b>12:45 AM</b> | القطاع الشمالي | المدة: 08 ثواني</li>
+                <li><b>01:05 AM</b> | القطاع الغربي | المدة: 12 ثانية</li>
+                <li><b>02:14 AM</b> | نطاق مسرح الجريمة الرئيسي | المدة: 03 دقائق</li>
+                <li><b>03:30 AM</b> | القطاع الشرقي | المدة: 45 ثانية</li>
+            </ul>
+            
+            <div class="photo-frame">
+                <img src="/part2/assets/bullets-blue-l1.png" alt="صورة الطلقات الجنائية" placeholder="ضع صورة bullets.jpg هنا">
+                <div class="photo-caption">EVIDENCE PHOTO #105 - AMMUNITION & CASINGS</div>
+            </div>
+        </div>
+
+        <!-- 4. الملاحظات والتعليمات -->
+        <div class="doc-card">
+            <div class="doc-title">[ وثيقة 4 ]: تعليمات التجميع للضباط</div>
+            <div class="typewriter">
+                تنبيه: الكود المطلوب يتكون من 4 أرقام:<br>
+                • <b>الرقم الأول:</b> الرقم الأخير من القيمة الناتجة من تقاطع رمز بصمة القاتل المطابقة مع العمود C3.<br>
+                • <b>الرقمين الثاني والثالث:</b> دقيقة المكالمة التي تم إجراؤها من نطاق مسرح الجريمة الرئيسي.<br>
+                • <b>الرقم الرابع:</b> قم بنفسك بعدّ الطلقات الفارغة/المستخدمة فقط الظاهرة في صورة الأدلة أعلاه.
+            </div>
+        </div>
+
+        <div class="footer-note">
+            ⚠️ ادخل الكود الناتِج المكون من 4 أرقام في شاشة الويب سايت فوراً!
+        </div>
+    </div>
+
+</body>
+</html>

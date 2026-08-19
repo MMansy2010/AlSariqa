@@ -1,0 +1,1220 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>W-13 — Experiment 13</title>
+
+<style>
+
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Courier+Prime:wght@400;700&display=swap');
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+
+    margin:0;
+
+    background:
+        radial-gradient(
+            circle at center,
+            #302d29 0%,
+            #11100e 85%
+        );
+
+    font-family:'Cairo',sans-serif;
+
+    color:#29251f;
+}
+
+
+/* =========================
+   PRINT BUTTON
+========================= */
+
+.print-area{
+
+    text-align:center;
+
+    padding:25px;
+}
+
+.print-btn{
+
+    background:#681818;
+
+    color:#f3ead7;
+
+    border:2px solid #c9b991;
+
+    padding:11px 28px;
+
+    font-family:'Cairo',sans-serif;
+
+    font-size:16px;
+
+    font-weight:900;
+
+    border-radius:4px;
+
+    cursor:pointer;
+
+    box-shadow:0 5px 20px rgba(0,0,0,.45);
+
+    transition:.2s;
+}
+
+.print-btn:hover{
+
+    background:#861f1f;
+
+    transform:translateY(-2px);
+}
+
+
+/* =========================
+   A4
+========================= */
+
+.page{
+
+    width:210mm;
+
+    min-height:297mm;
+
+    margin:15px auto;
+
+    padding:14mm;
+
+    position:relative;
+
+    background:
+
+        repeating-linear-gradient(
+            0deg,
+            rgba(60,45,25,.018) 0px,
+            rgba(60,45,25,.018) 1px,
+            transparent 1px,
+            transparent 4px
+        ),
+
+        #eee4ce;
+
+    border:1px solid #b8aa8c;
+
+    box-shadow:
+        0 15px 50px rgba(0,0,0,.55),
+        inset 0 0 45px rgba(70,45,20,.08);
+
+    overflow:hidden;
+}
+
+
+/* =========================
+   STAMPS
+========================= */
+
+.stamp{
+
+    position:absolute;
+
+    top:25px;
+
+    left:25px;
+
+    border:3px double #751919;
+
+    color:#751919;
+
+    padding:4px 11px;
+
+    font-family:'Courier Prime',monospace;
+
+    font-size:11px;
+
+    font-weight:bold;
+
+    transform:rotate(-8deg);
+}
+
+.file-number{
+
+    position:absolute;
+
+    top:27px;
+
+    right:25px;
+
+    font-family:'Courier Prime',monospace;
+
+    font-size:9px;
+
+    color:#665d4e;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.header{
+
+    text-align:center;
+
+    border-top:4px double #302b24;
+
+    border-bottom:4px double #302b24;
+
+    padding:13px 8px 10px;
+
+    margin-bottom:12px;
+}
+
+.header h1{
+
+    margin:0;
+
+    font-size:22px;
+
+    font-weight:900;
+}
+
+.header h2{
+
+    margin:3px 0;
+
+    color:#751919;
+
+    font-size:14px;
+}
+
+.meta{
+
+    font-family:'Courier Prime',monospace;
+
+    font-size:9px;
+
+    color:#665d4e;
+}
+
+
+/* =========================
+   WARNING
+========================= */
+
+.warning{
+
+    border:2px solid #751919;
+
+    background:rgba(117,25,25,.055);
+
+    padding:8px 10px;
+
+    margin-bottom:11px;
+
+    text-align:center;
+
+    color:#751919;
+
+    font-size:10px;
+
+    font-weight:900;
+}
+
+
+/* =========================
+   DOCUMENT
+========================= */
+
+.doc{
+
+    border:1.5px solid #4a4338;
+
+    background:rgba(255,255,255,.22);
+
+    padding:9px 11px;
+
+    margin-bottom:10px;
+}
+
+.doc-title{
+
+    display:inline-block;
+
+    background:#302c26;
+
+    color:#f1e6cf;
+
+    padding:3px 10px;
+
+    margin-bottom:7px;
+
+    font-size:11px;
+
+    font-weight:900;
+}
+
+.doc p{
+
+    margin:4px 0;
+
+    font-size:10px;
+
+    line-height:1.8;
+}
+
+
+/* =========================
+   PATIENT INFO
+========================= */
+
+.patient-grid{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:7px;
+
+    margin-top:6px;
+}
+
+.patient-item{
+
+    border:1px dashed #716755;
+
+    background:rgba(255,255,255,.20);
+
+    padding:7px;
+
+    font-size:9px;
+}
+
+.patient-item strong{
+
+    color:#751919;
+}
+
+
+/* =========================
+   SAMPLE TABLE
+========================= */
+
+.sample-table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+    margin-top:7px;
+
+    font-family:'Courier Prime',monospace;
+
+    font-size:9px;
+
+    text-align:center;
+}
+
+.sample-table th,
+.sample-table td{
+
+    border:1px solid #4a4439;
+
+    padding:6px;
+}
+
+.sample-table th{
+
+    background:#c8ba99;
+
+    font-weight:bold;
+}
+
+.sample-table td{
+
+    background:rgba(255,255,255,.17);
+}
+
+
+/* =========================
+   HANDWRITTEN NOTE
+========================= */
+
+.note{
+
+    background:#ded2b4;
+
+    border-right:5px solid #751919;
+
+    padding:9px 12px;
+
+    margin-top:8px;
+
+    font-family:'Courier Prime',monospace;
+
+    font-size:10px;
+
+    line-height:1.9;
+}
+
+.note strong{
+
+    color:#751919;
+}
+
+
+/* =========================
+   VICTOR INDEX
+========================= */
+
+.index-table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+    margin-top:8px;
+
+    font-family:'Courier Prime',monospace;
+
+    font-size:10px;
+
+    text-align:center;
+}
+
+.index-table th,
+.index-table td{
+
+    border:1px solid #514a3f;
+
+    padding:7px;
+}
+
+.index-table th{
+
+    background:#c7b999;
+}
+
+.index-table td{
+
+    background:#e5dbc3;
+
+    font-weight:bold;
+}
+
+
+/* =========================
+   RULES
+========================= */
+
+.rule-box{
+
+    border:2px solid #332f28;
+
+    background:rgba(255,255,255,.24);
+
+    padding:10px 12px;
+
+    margin-top:8px;
+}
+
+.rule-title{
+
+    color:#751919;
+
+    font-size:12px;
+
+    font-weight:900;
+
+    margin-bottom:5px;
+}
+
+.rules{
+
+    margin:4px 0;
+
+    padding-right:20px;
+
+    font-size:10px;
+
+    line-height:1.95;
+}
+
+
+/* =========================
+   CODE
+========================= */
+
+.code-area{
+
+    margin-top:9px;
+
+    border:2px dashed #751919;
+
+    padding:9px;
+
+    text-align:center;
+}
+
+.code-label{
+
+    color:#751919;
+
+    font-size:11px;
+
+    font-weight:900;
+
+    margin-bottom:7px;
+}
+
+.code-boxes{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:8px;
+
+    direction:ltr;
+}
+
+.code-box{
+
+    width:36px;
+
+    height:40px;
+
+    border:2px solid #443e34;
+
+    background:#f4ecda;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-family:'Courier Prime',monospace;
+
+    font-size:18px;
+
+    font-weight:bold;
+}
+
+
+/* =========================
+   FINAL NOTE
+========================= */
+
+.final-note{
+
+    margin-top:10px;
+
+    border-top:3px double #302b24;
+
+    border-bottom:3px double #302b24;
+
+    padding:9px;
+
+    text-align:center;
+
+    font-family:'Courier Prime',monospace;
+
+    font-size:10px;
+
+    line-height:1.9;
+}
+
+.final-note strong{
+
+    color:#751919;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+.footer{
+
+    margin-top:10px;
+
+    text-align:center;
+
+    font-family:'Courier Prime',monospace;
+
+    font-size:8px;
+
+    color:#6a6151;
+}
+
+.footer strong{
+
+    color:#751919;
+}
+
+
+/* =========================
+   PRINT
+========================= */
+
+@page{
+
+    size:A4;
+
+    margin:0;
+}
+
+@media print{
+
+    body{
+
+        background:none;
+    }
+
+    .print-area{
+
+        display:none!important;
+    }
+
+    .page{
+
+        margin:0;
+
+        width:210mm;
+
+        min-height:297mm;
+
+        border:none;
+
+        box-shadow:none;
+    }
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="print-area">
+
+    <button
+        class="print-btn"
+        onclick="window.print()"
+    >
+
+        🖨️ طباعة ملف التجربة
+
+    </button>
+
+</div>
+
+
+<div class="page">
+
+
+<div class="stamp">
+
+    TOP SECRET
+
+</div>
+
+
+<div class="file-number">
+
+    W-13 / 404 / EXP-13
+
+</div>
+
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<div class="header">
+
+    <h1>
+
+        🟥 الجناح 13 — قسم التجارب
+
+    </h1>
+
+    <h2>
+
+        ملف التجربة رقم 13
+
+    </h2>
+
+    <div class="meta">
+
+        PATIENT: 404
+        &nbsp; | &nbsp;
+        EXPERIMENT: 13
+        &nbsp; | &nbsp;
+        STATUS: RESTRICTED
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     WARNING
+========================= -->
+
+<div class="warning">
+
+    ⚠ ملف تجريبي خيالي.
+    جميع الأرقام والرموز الواردة في هذه الوثيقة
+    تستخدم لأغراض لعبة التحقيق فقط.
+
+</div>
+
+
+<!-- =========================
+     DOCUMENT 1
+========================= -->
+
+<div class="doc">
+
+    <div class="doc-title">
+
+        [ وثيقة 1 ] — بطاقة التجربة
+
+    </div>
+
+
+    <div class="patient-grid">
+
+        <div class="patient-item">
+
+            <strong>اسم الملف:</strong><br>
+
+            المريض 404
+
+        </div>
+
+
+        <div class="patient-item">
+
+            <strong>الطبيب المشرف:</strong><br>
+
+            د. فيكتور هارتمان
+
+        </div>
+
+
+        <div class="patient-item">
+
+            <strong>رقم التجربة:</strong><br>
+
+            13
+
+        </div>
+
+
+        <div class="patient-item">
+
+            <strong>حالة الملف:</strong><br>
+
+            غير مكتمل
+
+        </div>
+
+    </div>
+
+
+    <div class="note">
+
+        وُجدت ملاحظة بخط اليد في الصفحة الأولى:
+
+        <br><br>
+
+        <strong>
+
+            "لا تبحث عن الرقم الأكبر."
+
+        </strong>
+
+        <br>
+
+        "ولا تبحث عن الرقم الأصغر."
+
+        <br><br>
+
+        <strong>
+
+            "كل عينة تخفي رقمًا واحدًا."
+
+        </strong>
+
+        <br>
+
+        "لكن الرقم لا يظهر إلا مرتين."
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     DOCUMENT 2
+========================= -->
+
+<div class="doc">
+
+    <div class="doc-title">
+
+        [ وثيقة 2 ] — العينات الأربع
+
+    </div>
+
+
+    <p>
+
+        قام الدكتور فيكتور بتسجيل ستة أرقام
+        لكل عينة.
+
+        <br>
+
+        كل عينة تحتوي على رقم واحد فقط
+        يظهر مرتين.
+
+    </p>
+
+
+    <table class="sample-table">
+
+        <tr>
+
+            <th>العينة</th>
+
+            <th>الأرقام المسجلة</th>
+
+            <th>وقت التسجيل</th>
+
+        </tr>
+
+
+        <tr>
+
+            <td>SAMPLE 01</td>
+
+            <td>
+                7 — 3 — 8 — 7 — 2 — 5
+            </td>
+
+            <td>
+                22:14
+            </td>
+
+        </tr>
+
+
+        <tr>
+
+            <td>SAMPLE 02</td>
+
+            <td>
+                1 — 4 — 6 — 2 — 4 — 9
+            </td>
+
+            <td>
+                21:07
+            </td>
+
+        </tr>
+
+
+        <tr>
+
+            <td>SAMPLE 03</td>
+
+            <td>
+                5 — 2 — 7 — 9 — 5 — 3
+            </td>
+
+            <td>
+                23:31
+            </td>
+
+        </tr>
+
+
+        <tr>
+
+            <td>SAMPLE 04</td>
+
+            <td>
+                8 — 6 — 4 — 2 — 1 — 8
+            </td>
+
+            <td>
+                20:52
+            </td>
+
+        </tr>
+
+    </table>
+
+</div>
+
+
+<!-- =========================
+     DOCUMENT 3
+========================= -->
+
+<div class="doc">
+
+    <div class="doc-title">
+
+        [ وثيقة 3 ] — فهرس فيكتور
+
+    </div>
+
+
+    <div class="note">
+
+        فيكتور لم يكتب الأرقام كما هي.
+
+        <br>
+
+        وجد المحققون هذا الجدول مخبأً
+        في نهاية الملف.
+
+        <br><br>
+
+        <strong>
+
+            "الرقم الذي تجده ليس هو الرقم الذي تحتاجه."
+
+        </strong>
+
+    </div>
+
+
+    <table class="index-table">
+
+        <tr>
+
+            <th>الرقم</th>
+
+            <th>1</th>
+            <th>2</th>
+            <th>3</th>
+            <th>4</th>
+            <th>5</th>
+            <th>6</th>
+            <th>7</th>
+            <th>8</th>
+            <th>9</th>
+
+        </tr>
+
+
+        <tr>
+
+            <th>قيمة الفهرس</th>
+
+            <td>Q</td>
+            <td>4</td>
+            <td>N</td>
+            <td>8</td>
+            <td>1</td>
+            <td>R</td>
+            <td>2</td>
+            <td>6</td>
+            <td>K</td>
+
+        </tr>
+
+    </table>
+
+</div>
+
+
+<!-- =========================
+     DOCUMENT 4
+========================= -->
+
+<div class="doc">
+
+    <div class="doc-title">
+
+        [ وثيقة 4 ] — تعليمات الدكتور
+
+    </div>
+
+
+    <div class="rule-box">
+
+        <div class="rule-title">
+
+            بروتوكول استخراج رمز التجربة
+
+        </div>
+
+
+        <ol class="rules">
+
+            <li>
+
+                افحص كل عينة على حدة.
+
+            </li>
+
+
+            <li>
+
+                ابحث عن الرقم الوحيد
+                الذي يظهر <strong>مرتين</strong>.
+
+            </li>
+
+
+            <li>
+
+                خذ هذا الرقم إلى
+                <strong>فهرس فيكتور</strong>.
+
+            </li>
+
+
+            <li>
+
+                القيمة الموجودة في الفهرس
+                هي نتيجة العينة.
+
+            </li>
+
+
+            <li>
+
+                لا تستخدم ترتيب ظهور العينات
+                في الملف.
+
+            </li>
+
+
+            <li>
+
+                يوجد سبب لذلك.
+
+                ابحث عن <strong>وقت التسجيل</strong>.
+
+            </li>
+
+
+            <li>
+
+                رتب العينات من
+                <strong>أقدم وقت إلى أحدث وقت</strong>.
+
+            </li>
+
+
+            <li>
+
+                بعد إعادة الترتيب،
+                اجمع نتائج العينات الأربع
+                لتكوين الرمز النهائي.
+
+            </li>
+
+        </ol>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     DOCUMENT 5
+========================= -->
+
+<div class="doc">
+
+    <div class="doc-title">
+
+        [ وثيقة 5 ] — الملاحظة الأخيرة
+
+    </div>
+
+
+    <div class="note">
+
+        "إذا وجدت أربعة أرقام،
+        لا تدخلها فورًا."
+
+        <br><br>
+
+        "تأكد أولًا أنك لم تقرأ
+        العينات بالترتيب الخطأ."
+
+        <br><br>
+
+        <strong>
+
+            "الوقت لا يكذب."
+
+        </strong>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     STEP A
+========================= -->
+
+<div class="rule-box">
+
+    <div class="rule-title">
+
+        🧩 STEP A — رمز ملف التجربة
+
+    </div>
+
+
+    <ol class="rules">
+
+        <li>
+
+            استخرج الرقم المتكرر من كل عينة.
+
+        </li>
+
+
+        <li>
+
+            استخدم الرقم مع فهرس فيكتور
+            لتحصل على قيمة العينة.
+
+        </li>
+
+
+        <li>
+
+            رتب العينات حسب وقت التسجيل
+            من الأقدم إلى الأحدث.
+
+        </li>
+
+
+        <li>
+
+            اكتب نتائج العينات بهذا الترتيب.
+
+        </li>
+
+
+        <li>
+
+            أدخل الرمز الناتج في الموقع.
+
+        </li>
+
+    </ol>
+
+
+    <div class="code-area">
+
+        <div class="code-label">
+
+            EXPERIMENT CODE
+
+        </div>
+
+
+        <div class="code-boxes">
+
+            <div class="code-box">_</div>
+
+            <div class="code-box">_</div>
+
+            <div class="code-box">_</div>
+
+            <div class="code-box">_</div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     FINAL
+========================= -->
+
+<div class="final-note">
+
+    <strong>
+
+        "إذا وصلت إلى هنا،
+        فقد فهمت طريقة فيكتور."
+
+    </strong>
+
+    <br><br>
+
+    "لكن التجربة لم تنتهِ."
+
+    <br>
+
+    "الرمز لا يفتح الباب..."
+
+    <br>
+
+    "إنه يحدد طريقة فتحه."
+
+    <br><br>
+
+    ↓
+
+    <br>
+
+    <strong>
+
+        STEP B
+
+    </strong>
+
+</div>
+
+
+<div class="footer">
+
+    WARD 13 / CASE 404
+
+    &nbsp; • &nbsp;
+
+    <strong>
+
+        EXPERIMENT 13
+
+    </strong>
+
+    &nbsp; • &nbsp;
+
+    RESTRICTED ARCHIVE
+
+</div>
+
+
+</div>
+
+
+</body>
+
+</html>

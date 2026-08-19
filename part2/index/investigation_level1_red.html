@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>أوراق التحقيق الجنائي - الفريق الأحمر</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Tajawal:wght@400;700;900&display=swap');
+        * { box-sizing: border-box; }
+        body { margin: 0; background-color: #111; font-family: 'Tajawal', sans-serif; color: #1a1a1a; }
+        
+        .page {
+            width: 210mm; min-height: 297mm; padding: 15mm; margin: 20px auto;
+            background: #fcf8f2; border: 1px solid #d4c4a8; position: relative;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            page-break-after: always;
+        }
+        .stamp {
+            position: absolute; top: 25px; left: 25px; border: 3px double #8b0000;
+            color: #8b0000; padding: 4px 12px; font-size: 15px; font-weight: 900; transform: rotate(-8deg);
+            letter-spacing: 1px;
+        }
+        .team-badge {
+            position: absolute; top: 25px; right: 25px; background: #8b0000;
+            color: #fff; padding: 5px 14px; font-size: 13px; font-weight: 900; border-radius: 3px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        .header { border-bottom: 3px double #8b0000; padding-bottom: 12px; margin-bottom: 18px; text-align: center; margin-top: 15px; }
+        .header h1 { font-size: 22px; margin: 0; font-weight: 900; color: #8b0000; }
+        .header p { font-size: 13px; margin: 4px 0 0 0; color: #444; font-weight: bold; }
+
+        .doc-card { border: 2px solid #5a1818; background: rgba(255, 255, 255, 0.6); padding: 12px; margin-bottom: 14px; border-radius: 4px; }
+        .doc-title { font-size: 14px; font-weight: 700; background: #8b0000; color: #fff; padding: 4px 10px; display: inline-block; margin-bottom: 10px; border-radius: 2px; }
+        
+        .photo-frame {
+            border: 2px solid #4a1212;
+            background: #000;
+            padding: 4px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+            text-align: center;
+            margin: 8px 0;
+        }
+        .photo-frame img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+        .photo-caption {
+            font-family: 'Courier Prime', monospace;
+            font-size: 11px;
+            font-weight: bold;
+            color: #8b0000;
+            background: #fff;
+            padding: 4px 0;
+            margin-top: 4px;
+            border-top: 1px solid #ddd;
+        }
+
+        .data-list { list-style: none; padding: 0; margin: 6px 0; font-size: 13px; line-height: 1.8; }
+        .data-list li { background: rgba(139, 0, 0, 0.05); padding: 4px 10px; margin-bottom: 4px; border-right: 3px solid #8b0000; }
+
+        .typewriter { font-family: 'Courier Prime', monospace; background: #fbebe8; padding: 10px; border-right: 4px solid #8b0000; font-size: 12px; line-height: 1.6; color: #222; }
+        .footer-note { border-top: 2px dashed #8b0000; padding-top: 10px; font-weight: bold; color: #8b0000; text-align: center; font-size: 14px; margin-top: 15px; }
+
+        @media print { 
+            body { background: none; } 
+            .page { margin: 0; box-shadow: none; border: none; width: 100%; min-height: auto; padding: 10mm; } 
+        }
+    </style>
+</head>
+<body>
+
+    <div class="page">
+        <div class="stamp">CLASSIFIED / PATIENT FILE</div>
+        <div class="team-badge">الفريق الأحمر - RED TEAM</div>
+        <div class="header">
+            <h1>مستشفى المعالجة النفسية والعصبية - السجل الطبي السرّي</h1>
+            <p>ملف المريض النفسي رقم: #404 | جناح العزل والملاحظة الكيميائية</p>
+        </div>
+
+        <!-- الوثيقة 1: الجلسات العلاجية بالصدمات الكهربائية -->
+        <div class="doc-card">
+            <div class="doc-title">[ الوثيقة 1 ]: سجل قراءات أجهزة الجلسات العلاجية بالصدمات الكهربائية</div>
+            
+            <ul class="data-list">
+                <li><b>الجلسة الأولى (02 مايو):</b> استجابة ضعيفة للمريض.</li>
+                <li><b>الجلسة الثانية (14 مايو):</b> خطورة عالية جدًا / أقصى طاقة استيعابية.</li>
+                <li><b>الجلسة الثالثة (20 مايو):</b> استقرار مؤقت في المؤشرات الحيوية.</li>
+            </ul>
+
+            <div class="photo-frame">
+                <img src="/part2/assets/voltage-red-l1.jfif" alt="قراءات أجهزة الصدمات الكهربائية">
+                <div class="photo-caption">EVIDENCE PHOTO #ECT-404 - VOLTAGE GAUGES</div>
+            </div>
+            <p style="font-size: 11px; margin: 4px 0 0 0; color: #555;">* طابق قراءات الفولت بالترتيب على العدادات الثلاثة للوصول إلى شدة التيار الخاصة بأشد الجلسات خطورة.</p>
+        </div>
+
+        <!-- الوثيقة 2: تقرير المواد الكيميائية -->
+        <div class="doc-card">
+            <div class="doc-title">[ الوثيقة 2 ]: سجل المهدئات والمواد الكيميائية المحظورة</div>
+            
+            <ul class="data-list">
+                <li><b>المركب A-2:</b> كود رقم (3)</li>
+                <li><b>المركب B-9:</b> كود رقم (7)</li>
+                <li><b>المركب C-4:</b> كود رقم (1)</li>
+            </ul>
+
+            <div class="photo-frame">
+                <img src="/part2/assets/chemicals-red-l1.jfif" alt="قارورات المواد الكيميائية">
+                <div class="photo-caption">EVIDENCE PHOTO #CHEM-404 - CHEMICAL VIALS</div>
+            </div>
+            <p style="font-size: 11px; margin: 4px 0 0 0; color: #555;">* استنتج المركب الكيميائي عالي الخطورة بناءً على التفاعل الظاهر في القارورات أعلاه لمعرفة كوده.</p>
+        </div>
+
+        <!-- الوثيقة 3: تعليمات الدكتور فيكتور -->
+        <div class="doc-card">
+            <div class="doc-title">[ الوثيقة 3 ]: تعليمات الدكتور فيكتور - سرّي للغاية</div>
+            <div class="typewriter">
+                <b>تنبيه لإيقاف الإنذار الأولي ومنع إغلاق التكييف المركزي:</b><br>
+                قم باحتساب المجموع الرقمي للعناصر التالية:<br>
+                • <b>العنصر الأول:</b> قيمة التيار الكهربائي (بالفولت) لأشد الجلسات خطورة.<br>
+                • <b>العنصر الثاني:</b> كود المركب الكيميائي عالي الخطورة.<br>
+                • <b>العنصر الثالث:</b> رقم المريض النفسي نفسه.<br><br>
+                <i>(المجموع الناتج المكون من 3 أرقام هو كود الطوارئ المطلوبة كتابته).</i>
+            </div>
+        </div>
+
+        <div class="footer-note">
+            ⚠️ ادخل الناتج المكون من 3 أرقام في شاشة الويب سايت فوراً!
+        </div>
+    </div>
+
+</body>
+</html>

@@ -268,6 +268,29 @@
                 background: rgba(46,204,113,0.25);
             }
         }
+        /* RED TEAM Level 3 Custom Style Rules */
+        .calibration-node.active-node {
+            border-color: #ff0055 !important;
+            background: rgba(255, 0, 85, 0.25) !important;
+            box-shadow: 0 0 15px #ff0055, inset 0 0 8px #ff0055 !important;
+            transform: scale(1.08);
+            color: #fff !important;
+        }
+        .calibration-node.active-node span {
+            color: #fff !important;
+            text-shadow: 0 0 5px #ff0055;
+        }
+        .calibration-node.glitch-node {
+            animation: node-glitch 0.4s ease-out;
+        }
+        @keyframes node-glitch {
+            0% { border-color: #ff0055; background: rgba(255, 0, 85, 0.3); transform: translateX(0); }
+            20% { transform: translateX(-6px) rotate(-3deg); }
+            40% { transform: translateX(6px) rotate(3deg); }
+            60% { transform: translateX(-4px); }
+            80% { transform: translateX(4px); }
+            100% { border-color: rgba(255, 0, 85, 0.4); transform: translateX(0); }
+        }
     </style>
 </head>
 <body class="theme-default">
@@ -375,6 +398,125 @@
                     </div>
                     <button class="hint-btn" id="btn-hint">طلب مساعدة 💡</button>
                     <div id="hint-display-area"></div>
+
+                    <!-- RED TEAM — LEVEL 3 WARD 13 — EXPERIMENT 13 -->
+                    <div id="red-level-3-container" style="display: none; direction: rtl; text-align: right;">
+                        <!-- Sub-progress indicators -->
+                        <div class="level-sub-progress-header" style="text-align: center; margin-bottom: 20px; font-family: monospace;">
+                            <div style="font-size: 1.2rem; color: var(--neon-main); text-transform: uppercase; font-weight: 900; letter-spacing: 2px;">LEVEL 3</div>
+                            <div style="display: flex; justify-content: center; gap: 20px; margin-top: 10px; font-size: 1.1rem; color: var(--text-color);">
+                                <span id="red3-step-a-status" style="font-weight: 700;">STEP A ○</span>
+                                <span id="red3-step-b-status" style="opacity: 0.5;">STEP B 🔒</span>
+                            </div>
+                        </div>
+
+                        <!-- Step A Section -->
+                        <div id="red-level-3-step-a" class="riddle-container" style="margin: 20px 0; border-color: rgba(255, 0, 85, 0.4); background: rgba(20, 6, 10, 0.65);">
+                            <h3 style="color: var(--neon-main); font-weight: 900; font-size: 1.3rem; margin-bottom: 15px; border-bottom: 1px solid rgba(255, 0, 85, 0.2); padding-bottom: 8px;">
+                                🟥 الجناح 13 — ملف التجربة 13
+                            </h3>
+                            <p style="font-size: 1rem; line-height: 1.7; margin-bottom: 20px; color: var(--text-color);">
+                                لقد عثرتم على ملف تجريبي غامض ينتمي للدكتور فيكتور هارتمان.<br>
+                                المظرف الفيزيائي يحتوي على أربع عينات. اتبعوا التعليمات لفك الشفرة واستخراج رمز التجربة، ثم أدخلوا الرمز المكون من 4 أرقام أدناه لتفعيل المعايرة:
+                            </p>
+
+                            <!-- Digit Inputs -->
+                            <div style="display: flex; gap: 15px; justify-content: center; direction: ltr; margin: 25px 0;">
+                                <input type="text" class="red-digit-input" id="red-digit-1" maxlength="1" pattern="[0-9]" inputmode="numeric" autocomplete="off" style="width: 55px; height: 65px; font-size: 2.2rem; font-weight: 900; text-align: center; background: rgba(0,0,0,0.6); border: 2px solid rgba(255, 0, 85, 0.4); color: #ff0055; border-radius: 8px; box-shadow: 0 0 10px rgba(255,0,85,0.1); transition: all 0.3s;" onfocus="this.style.borderColor='#ff0055'; this.style.boxShadow='0 0 15px #ff0055';" onblur="this.style.borderColor='rgba(255, 0, 85, 0.4)'; this.style.boxShadow='none';" />
+                                <input type="text" class="red-digit-input" id="red-digit-2" maxlength="1" pattern="[0-9]" inputmode="numeric" autocomplete="off" style="width: 55px; height: 65px; font-size: 2.2rem; font-weight: 900; text-align: center; background: rgba(0,0,0,0.6); border: 2px solid rgba(255, 0, 85, 0.4); color: #ff0055; border-radius: 8px; box-shadow: 0 0 10px rgba(255,0,85,0.1); transition: all 0.3s;" onfocus="this.style.borderColor='#ff0055'; this.style.boxShadow='0 0 15px #ff0055';" onblur="this.style.borderColor='rgba(255, 0, 85, 0.4)'; this.style.boxShadow='none';" />
+                                <input type="text" class="red-digit-input" id="red-digit-3" maxlength="1" pattern="[0-9]" inputmode="numeric" autocomplete="off" style="width: 55px; height: 65px; font-size: 2.2rem; font-weight: 900; text-align: center; background: rgba(0,0,0,0.6); border: 2px solid rgba(255, 0, 85, 0.4); color: #ff0055; border-radius: 8px; box-shadow: 0 0 10px rgba(255,0,85,0.1); transition: all 0.3s;" onfocus="this.style.borderColor='#ff0055'; this.style.boxShadow='0 0 15px #ff0055';" onblur="this.style.borderColor='rgba(255, 0, 85, 0.4)'; this.style.boxShadow='none';" />
+                                <input type="text" class="red-digit-input" id="red-digit-4" maxlength="1" pattern="[0-9]" inputmode="numeric" autocomplete="off" style="width: 55px; height: 65px; font-size: 2.2rem; font-weight: 900; text-align: center; background: rgba(0,0,0,0.6); border: 2px solid rgba(255, 0, 85, 0.4); color: #ff0055; border-radius: 8px; box-shadow: 0 0 10px rgba(255,0,85,0.1); transition: all 0.3s;" onfocus="this.style.borderColor='#ff0055'; this.style.boxShadow='0 0 15px #ff0055';" onblur="this.style.borderColor='rgba(255, 0, 85, 0.4)'; this.style.boxShadow='none';" />
+                            </div>
+
+                            <div style="text-align: center; margin-top: 15px;">
+                                <button id="btn-submit-red-step-a" class="hint-btn" style="background: rgba(255, 0, 85, 0.15); border-color: #ff0055; color: #fff; padding: 12px 30px; font-size: 1.1rem; width: 100%; max-width: 250px;">تفعيل الرمز 🔓</button>
+                            </div>
+                            <div id="red-step-a-feedback" style="text-align: center; margin-top: 15px; font-weight: bold; font-size: 1.1rem; min-height: 24px;"></div>
+                        </div>
+
+                        <!-- Step B Section -->
+                        <div id="red-level-3-step-b" style="display: none;">
+                            <div class="riddle-container" style="margin: 20px 0; border-color: rgba(255, 0, 85, 0.4); background: rgba(20, 6, 10, 0.65);">
+                                <h3 style="color: var(--neon-main); font-weight: 900; font-size: 1.3rem; margin-bottom: 12px; text-align: center;">
+                                    STEP B — معايرة التجربة 13
+                                </h3>
+                                <p id="red-step-b-story" style="font-size: 1rem; line-height: 1.7; text-align: center; color: var(--text-color); margin-bottom: 20px; white-space: pre-line;">
+                                    الرمز صحيح.
+                                    لكن فيكتور لم يكتب الرمز ليُقرأ...
+                                    كتبه ليُنفّذ.
+                                </p>
+
+                                <div style="background: rgba(0,0,0,0.3); border: 1px solid rgba(255,0,85,0.2); padding: 12px; border-radius: 8px; margin-bottom: 20px; font-size: 0.95rem; text-align: center;">
+                                    <div style="font-weight: bold; color: var(--neon-main); margin-bottom: 8px;">جدول مطابقة المعايرة:</div>
+                                    <div style="display: flex; justify-content: center; gap: 20px; color: #fff;">
+                                        <span>A → 8</span>
+                                        <span>B → 1</span>
+                                        <span>C → 6</span>
+                                        <span>D → 2</span>
+                                    </div>
+                                </div>
+
+                                <p style="font-size: 0.95rem; color: #ff0055; text-align: center; font-weight: bold; margin-bottom: 20px;">
+                                    اتبع أرقام الرمز بالترتيب، وابحث عن الوحدة التي تحمل كل رقم.
+                                </p>
+
+                                <!-- Calibration Interactive Area -->
+                                <div id="calibration-area" style="position: relative; width: 100%; max-width: 320px; height: 320px; margin: 0 auto 20px; background: rgba(0, 0, 0, 0.5); border: 2px solid rgba(255, 0, 85, 0.3); border-radius: 12px; overflow: hidden; box-shadow: inset 0 0 20px rgba(0,0,0,0.8);">
+                                    
+                                    <!-- SVG overlay for drawing lines -->
+                                    <svg id="calibration-svg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 10;"></svg>
+
+                                    <!-- Calibration Nodes/Modules -->
+                                    <!-- Module A (Top Left) -->
+                                    <div id="module-A" class="calibration-node" data-module="A" style="position: absolute; top: 30px; left: 30px; width: 70px; height: 70px; border-radius: 50%; background: rgba(10, 3, 5, 0.8); border: 2px solid rgba(255, 0, 85, 0.4); display: flex; flex-direction: column; justify-content: center; align-items: center; cursor: pointer; z-index: 20; transition: all 0.3s; user-select: none;">
+                                        <span style="font-size: 0.75rem; font-weight: 900; color: #ff0055;">MODULE A</span>
+                                        <span style="font-size: 1.1rem; font-weight: bold; color: #fff; margin-top: 2px;">8</span>
+                                    </div>
+                                    <!-- Module B (Top Right) -->
+                                    <div id="module-B" class="calibration-node" data-module="B" style="position: absolute; top: 30px; right: 30px; width: 70px; height: 70px; border-radius: 50%; background: rgba(10, 3, 5, 0.8); border: 2px solid rgba(255, 0, 85, 0.4); display: flex; flex-direction: column; justify-content: center; align-items: center; cursor: pointer; z-index: 20; transition: all 0.3s; user-select: none;">
+                                        <span style="font-size: 0.75rem; font-weight: 900; color: #ff0055;">MODULE B</span>
+                                        <span style="font-size: 1.1rem; font-weight: bold; color: #fff; margin-top: 2px;">1</span>
+                                    </div>
+                                    <!-- Module C (Bottom Left) -->
+                                    <div id="module-C" class="calibration-node" data-module="C" style="position: absolute; bottom: 30px; left: 30px; width: 70px; height: 70px; border-radius: 50%; background: rgba(10, 3, 5, 0.8); border: 2px solid rgba(255, 0, 85, 0.4); display: flex; flex-direction: column; justify-content: center; align-items: center; cursor: pointer; z-index: 20; transition: all 0.3s; user-select: none;">
+                                        <span style="font-size: 0.75rem; font-weight: 900; color: #ff0055;">MODULE C</span>
+                                        <span style="font-size: 1.1rem; font-weight: bold; color: #fff; margin-top: 2px;">6</span>
+                                    </div>
+                                    <!-- Module D (Bottom Right) -->
+                                    <div id="module-D" class="calibration-node" data-module="D" style="position: absolute; bottom: 30px; right: 30px; width: 70px; height: 70px; border-radius: 50%; background: rgba(10, 3, 5, 0.8); border: 2px solid rgba(255, 0, 85, 0.4); display: flex; flex-direction: column; justify-content: center; align-items: center; cursor: pointer; z-index: 20; transition: all 0.3s; user-select: none;">
+                                        <span style="font-size: 0.75rem; font-weight: 900; color: #ff0055;">MODULE D</span>
+                                        <span style="font-size: 1.1rem; font-weight: bold; color: #fff; margin-top: 2px;">2</span>
+                                    </div>
+
+                                </div>
+
+                                <!-- Progress display -->
+                                <div id="calibration-progress" style="text-align: center; font-family: monospace; font-size: 1.4rem; font-weight: 900; color: var(--neon-main); text-shadow: 0 0 10px var(--neon-main); margin-bottom: 15px;">
+                                    0 / 4
+                                </div>
+                                <div id="calibration-feedback" style="text-align: center; font-weight: bold; font-size: 1.1rem; min-height: 24px; color: #ff0055;"></div>
+                            </div>
+                        </div>
+
+                        <!-- Success Screen Section -->
+                        <div id="red-level-3-success" class="riddle-container" style="display: none; margin: 20px 0; border-color: #2ecc71; background: rgba(5, 30, 15, 0.65); text-align: center;">
+                            <h3 style="color: #2ecc71; font-weight: 900; font-size: 1.4rem; margin-bottom: 15px;">
+                                ⚡ تمت معايرة التجربة 13 بنجاح.
+                            </h3>
+                            <p style="font-size: 1.1rem; line-height: 1.7; color: #fff; margin-bottom: 15px;">
+                                تم استعادة الصفحة المفقودة من ملف المريض 404.
+                            </p>
+                            <div style="background: rgba(0,0,0,0.4); border: 1px dashed #2ecc71; padding: 15px; border-radius: 8px; font-size: 1.25rem; font-weight: 900; color: #2ecc71; margin-bottom: 25px; text-shadow: 0 0 8px rgba(46,204,113,0.4);">
+                                🔎 الظرف رقم (4) مخبأ في: <br>
+                                <span id="unlocked-location-text" style="color: #fff; text-shadow: none;">[LOCATION]</span>
+                            </div>
+
+                            <button id="btn-next-from-red-level-3" class="hint-btn" style="background: rgba(46, 204, 113, 0.15); border-color: #2ecc71; color: #fff; padding: 12px 30px; font-size: 1.1rem; width: 100%; max-width: 250px;">
+                                الانتقال للمرحلة الرابعة ➔
+                            </button>
+                        </div>
+                    </div>
+                    <div id="hint-display-area"></div>
                 </div>
 
                 <!-- Win / Game Completed Screen -->
@@ -404,6 +546,9 @@
     </div>
 
     <script>
+        // RED TEAM Level 3 Location Variable
+        const RED_LEVEL_3_NEXT_LOCATION = "PUT LOCATION HERE";
+
         // 1. Audio State & Web Audio API Synthesizer (Strict Event Binding)
         let audioCtx = null;
         function initAudioContext() {
@@ -518,12 +663,354 @@
             } catch(e) {}
         }
 
-        // Arabic numeral normalization helper
         function convertArabicNumerals(str) {
             if (!str) return '';
             const arabicNums = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
             return str.replace(/[٠-٩]/g, d => arabicNums.indexOf(d));
         }
+
+        // ==========================================
+        // RED TEAM LEVEL 3 — WARD 13 INTERACTIVE LOGIC
+        // ==========================================
+        let currentSequence = [];
+
+        function getCenterCoords(elementId, parentElement) {
+            const el = document.getElementById(elementId);
+            if (!el) return { x: 0, y: 0 };
+            const parentRect = parentElement.getBoundingClientRect();
+            const rect = el.getBoundingClientRect();
+            const x = rect.left - parentRect.left + rect.width / 2;
+            const y = rect.top - parentRect.top + rect.height / 2;
+            return { x, y };
+        }
+
+        function drawConnectionLines() {
+            const svg = document.getElementById('calibration-svg');
+            const parent = document.getElementById('calibration-area');
+            if (!svg || !parent) return;
+            
+            svg.innerHTML = `
+                <defs>
+                    <filter id="neon-glow-red" x="-20%" y="-20%" width="140%" height="140%">
+                        <feGaussianBlur stdDeviation="3" result="blur" />
+                        <feMerge>
+                            <feMergeNode in="blur" />
+                            <feMergeNode in="SourceGraphic" />
+                        </feMerge>
+                    </filter>
+                </defs>
+            `;
+            
+            for (let i = 0; i < currentSequence.length - 1; i++) {
+                const fromNode = currentSequence[i];
+                const toNode = currentSequence[i + 1];
+                
+                const fromCoords = getCenterCoords(`module-${fromNode}`, parent);
+                const toCoords = getCenterCoords(`module-${toNode}`, parent);
+                
+                const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                line.setAttribute('x1', fromCoords.x);
+                line.setAttribute('y1', fromCoords.y);
+                line.setAttribute('x2', toCoords.x);
+                line.setAttribute('y2', toCoords.y);
+                line.setAttribute('stroke', '#ff0055');
+                line.setAttribute('stroke-width', '4');
+                line.setAttribute('filter', 'url(#neon-glow-red)');
+                line.setAttribute('stroke-linecap', 'round');
+                svg.appendChild(line);
+            }
+        }
+
+        function triggerCalibrationGlitch() {
+            playGlitchSound();
+            
+            // Glitch nodes animation
+            const nodes = document.querySelectorAll('.calibration-node');
+            nodes.forEach(node => {
+                node.classList.remove('active-node');
+                node.classList.add('glitch-node');
+                setTimeout(() => {
+                    node.classList.remove('glitch-node');
+                }, 400);
+            });
+
+            const feedback = document.getElementById('calibration-feedback');
+            if (feedback) {
+                feedback.textContent = "⚠ ترتيب غير صحيح.";
+                feedback.style.color = "#ff0055";
+            }
+            
+            // Clear lines
+            const svg = document.getElementById('calibration-svg');
+            if (svg) svg.innerHTML = '';
+            
+            currentSequence = [];
+            document.getElementById('calibration-progress').textContent = "0 / 4";
+            
+            setTimeout(() => {
+                if (feedback && feedback.textContent === "⚠ ترتيب غير صحيح.") {
+                    feedback.textContent = "";
+                }
+            }, 2000);
+        }
+
+        function completeStepB() {
+            playSynthSound('success');
+            localStorage.setItem('red_level_3_completed', 'true');
+            
+            document.getElementById('red3-step-b-status').textContent = "STEP B ✓";
+            
+            const header = document.querySelector('.level-sub-progress-header');
+            if (header && !document.getElementById('red3-complete-text')) {
+                const completeDiv = document.createElement('div');
+                completeDiv.id = 'red3-complete-text';
+                completeDiv.style.color = '#2ecc71';
+                completeDiv.style.fontWeight = 'bold';
+                completeDiv.style.marginTop = '10px';
+                completeDiv.style.fontSize = '1.2rem';
+                completeDiv.textContent = "LEVEL 3 COMPLETE";
+                header.appendChild(completeDiv);
+            }
+            
+            document.getElementById('unlocked-location-text').textContent = RED_LEVEL_3_NEXT_LOCATION;
+            
+            setTimeout(() => {
+                document.getElementById('red-level-3-step-b').style.display = 'none';
+                document.getElementById('red-level-3-success').style.display = 'block';
+            }, 1200);
+        }
+
+        function submitStepA() {
+            const d1 = document.getElementById('red-digit-1').value;
+            const d2 = document.getElementById('red-digit-2').value;
+            const d3 = document.getElementById('red-digit-3').value;
+            const d4 = document.getElementById('red-digit-4').value;
+            const code = d1 + d2 + d3 + d4;
+            
+            const feedback = document.getElementById('red-step-a-feedback');
+            
+            if (code === '6821') {
+                playSynthSound('success');
+                feedback.textContent = "✓ تم استخراج رمز التجربة بنجاح.";
+                feedback.style.color = "#2ecc71";
+                
+                localStorage.setItem('red_level_3_step_a', 'passed');
+                document.getElementById('red3-step-a-status').textContent = "STEP A ✓";
+                document.getElementById('red3-step-b-status').textContent = "STEP B ○";
+                document.getElementById('red3-step-b-status').style.opacity = "1";
+                
+                setTimeout(() => {
+                    document.getElementById('red-level-3-step-a').style.display = 'none';
+                    document.getElementById('red-level-3-step-b').style.display = 'block';
+                    feedback.textContent = "";
+                }, 1200);
+            } else {
+                playSynthSound('error');
+                feedback.textContent = "⚠ رمز التجربة غير صحيح.";
+                feedback.style.color = "#ff0055";
+                
+                // Clear digits
+                document.getElementById('red-digit-1').value = '';
+                document.getElementById('red-digit-2').value = '';
+                document.getElementById('red-digit-3').value = '';
+                document.getElementById('red-digit-4').value = '';
+                document.getElementById('red-digit-1').focus();
+                
+                setTimeout(() => {
+                    if (feedback && feedback.textContent === "⚠ رمز التجربة غير صحيح.") {
+                        feedback.textContent = "";
+                    }
+                }, 2500);
+            }
+        }
+
+        function initRedLevel3State() {
+            const isStepACompleted = localStorage.getItem('red_level_3_step_a') === 'passed';
+            const isCompleted = localStorage.getItem('red_level_3_completed') === 'true';
+            
+            document.getElementById('red-digit-1').value = '';
+            document.getElementById('red-digit-2').value = '';
+            document.getElementById('red-digit-3').value = '';
+            document.getElementById('red-digit-4').value = '';
+            
+            const feedbackA = document.getElementById('red-step-a-feedback');
+            if (feedbackA) feedbackA.textContent = '';
+            const feedbackB = document.getElementById('calibration-feedback');
+            if (feedbackB) feedbackB.textContent = '';
+            
+            // Clear SVG lines
+            const svg = document.getElementById('calibration-svg');
+            if (svg) svg.innerHTML = '';
+            
+            // Reset sequence state
+            currentSequence = [];
+            document.getElementById('calibration-progress').textContent = "0 / 4";
+            
+            // Remove node highlighting classes
+            document.querySelectorAll('.calibration-node').forEach(node => {
+                node.classList.remove('active-node');
+                node.classList.remove('glitch-node');
+            });
+
+            const header = document.querySelector('.level-sub-progress-header');
+            const existingCompleteText = document.getElementById('red3-complete-text');
+            if (existingCompleteText) {
+                existingCompleteText.remove();
+            }
+            
+            if (isCompleted) {
+                document.getElementById('red-level-3-step-a').style.display = 'none';
+                document.getElementById('red-level-3-step-b').style.display = 'none';
+                document.getElementById('red-level-3-success').style.display = 'block';
+                
+                document.getElementById('red3-step-a-status').textContent = "STEP A ✓";
+                document.getElementById('red3-step-b-status').textContent = "STEP B ✓";
+                document.getElementById('red3-step-b-status').style.opacity = "1";
+                
+                const completeDiv = document.createElement('div');
+                completeDiv.id = 'red3-complete-text';
+                completeDiv.style.color = '#2ecc71';
+                completeDiv.style.fontWeight = 'bold';
+                completeDiv.style.marginTop = '10px';
+                completeDiv.style.fontSize = '1.2rem';
+                completeDiv.textContent = "LEVEL 3 COMPLETE";
+                if (header) header.appendChild(completeDiv);
+                
+                document.getElementById('unlocked-location-text').textContent = RED_LEVEL_3_NEXT_LOCATION;
+            } else if (isStepACompleted) {
+                document.getElementById('red-level-3-step-a').style.display = 'none';
+                document.getElementById('red-level-3-step-b').style.display = 'block';
+                document.getElementById('red-level-3-success').style.display = 'none';
+                
+                document.getElementById('red3-step-a-status').textContent = "STEP A ✓";
+                document.getElementById('red3-step-b-status').textContent = "STEP B ○";
+                document.getElementById('red3-step-b-status').style.opacity = "1";
+            } else {
+                document.getElementById('red-level-3-step-a').style.display = 'block';
+                document.getElementById('red-level-3-step-b').style.display = 'none';
+                document.getElementById('red-level-3-success').style.display = 'none';
+                
+                document.getElementById('red3-step-a-status').textContent = "STEP A ○";
+                document.getElementById('red3-step-b-status').textContent = "STEP B 🔒";
+                document.getElementById('red3-step-b-status').style.opacity = "0.5";
+            }
+        }
+
+        // Initialize event listeners when DOM loads
+        document.addEventListener('DOMContentLoaded', () => {
+            // Digit Inputs listeners
+            const redDigits = document.querySelectorAll('.red-digit-input');
+            redDigits.forEach((input, index) => {
+                input.addEventListener('input', (e) => {
+                    const val = e.target.value;
+                    // Keep digits only
+                    const cleaned = val.replace(/\D/g, '');
+                    e.target.value = cleaned;
+                    
+                    if (cleaned.length > 0) {
+                        // Move focus forward
+                        if (index < redDigits.length - 1) {
+                            redDigits[index + 1].focus();
+                        }
+                    }
+                });
+
+                input.addEventListener('keydown', (e) => {
+                    if (e.key === 'Backspace') {
+                        if (input.value === '') {
+                            // Move focus backward
+                            if (index > 0) {
+                                redDigits[index - 1].focus();
+                                redDigits[index - 1].value = '';
+                            }
+                        } else {
+                            input.value = '';
+                        }
+                        e.preventDefault();
+                    } else if (e.key === 'Enter') {
+                        submitStepA();
+                        e.preventDefault();
+                    }
+                });
+
+                input.addEventListener('paste', (e) => {
+                    e.preventDefault();
+                    const text = (e.clipboardData || window.clipboardData).getData('text').trim();
+                    if (text.length === 4 && /^\d{4}$/.test(text)) {
+                        for (let i = 0; i < 4; i++) {
+                            redDigits[i].value = text[i];
+                        }
+                        redDigits[3].focus();
+                    }
+                });
+            });
+
+            // Submit Step A button click listener
+            const submitBtnA = document.getElementById('btn-submit-red-step-a');
+            if (submitBtnA) {
+                submitBtnA.addEventListener('click', submitStepA);
+            }
+
+            // Calibration Nodes / Modules click listeners
+            const calibrationNodes = document.querySelectorAll('.calibration-node');
+            calibrationNodes.forEach(node => {
+                node.addEventListener('click', () => {
+                    if (localStorage.getItem('red_level_3_completed') === 'true') return;
+                    
+                    const mId = node.getAttribute('data-module');
+                    const targetSequence = ['C', 'A', 'D', 'B'];
+                    const nextExpected = targetSequence[currentSequence.length];
+                    
+                    if (mId === nextExpected) {
+                        currentSequence.push(mId);
+                        node.classList.add('active-node');
+                        playSynthSound('click');
+                        
+                        // Draw connection lines
+                        drawConnectionLines();
+                        
+                        // Update progress
+                        const progressEl = document.getElementById('calibration-progress');
+                        progressEl.textContent = `${currentSequence.length} / 4`;
+                        
+                        if (currentSequence.length === 4) {
+                            completeStepB();
+                        }
+                    } else {
+                        // Clicked out of sequence! Glitch reset.
+                        triggerCalibrationGlitch();
+                    }
+                });
+            });
+
+            // Next from red level 3 navigation button listener
+            const btnNext3 = document.getElementById('btn-next-from-red-level-3');
+            if (btnNext3) {
+                btnNext3.addEventListener('click', () => {
+                    localStorage.setItem('red_level_3', 'passed');
+                    
+                    const completed = 3;
+                    currentLevel = 4;
+                    
+                    executeLevelTransitionOverlay(completed, currentLevel, () => {
+                        // Show normal layout elements back
+                        document.getElementById('red-level-3-container').style.display = 'none';
+                        document.getElementById('normal-answer-controls').style.display = 'flex';
+                        document.getElementById('btn-hint').style.display = 'inline-block';
+                        document.getElementById('hint-display-area').style.display = 'block';
+                        
+                        renderActiveLevel();
+                    });
+                });
+            }
+            
+            // Handle SVG lines redraw on window resize
+            window.addEventListener('resize', () => {
+                if (currentLevel === 3 && team === 'red') {
+                    drawConnectionLines();
+                }
+            });
+        });
 
         // Glitch transition helper
         function triggerGlitchAndSuddenDeath() {
@@ -757,18 +1244,54 @@
 
         // Determine active level based on localStorage
         let currentLevel = 1;
-        if (localStorage.getItem(team + '_level_6') === 'passed') {
-            currentLevel = 7; // Victory Completed Screen
-        } else if (localStorage.getItem(team + '_level_5') === 'passed') {
-            currentLevel = 6;
-        } else if (localStorage.getItem(team + '_level_4') === 'passed') {
-            currentLevel = 5;
-        } else if (localStorage.getItem(team + '_level_3') === 'passed') {
-            currentLevel = 4;
-        } else if (localStorage.getItem(team + '_level_2') === 'passed') {
-            currentLevel = 3;
-        } else if (localStorage.getItem(team + '_level_1') === 'passed') {
-            currentLevel = 2;
+        if (team === 'red') {
+            if (localStorage.getItem('red_level_7') === 'passed') {
+                currentLevel = 8; // Victory Completed Screen
+            } else if (localStorage.getItem('red_level_6') === 'passed') {
+                currentLevel = 7;
+            } else if (localStorage.getItem('red_level_5') === 'passed') {
+                currentLevel = 6;
+            } else if (localStorage.getItem('red_level_4') === 'passed') {
+                currentLevel = 5;
+            } else if (localStorage.getItem('red_level_3') === 'passed') {
+                currentLevel = 4;
+            } else if (localStorage.getItem('red_level_2') === 'passed') {
+                currentLevel = 3;
+            } else if (localStorage.getItem('red_level_1') === 'passed') {
+                currentLevel = 2;
+            }
+        } else {
+            if (localStorage.getItem(team + '_level_6') === 'passed') {
+                currentLevel = 7; // Victory Completed Screen
+            } else if (localStorage.getItem(team + '_level_5') === 'passed') {
+                currentLevel = 6;
+            } else if (localStorage.getItem(team + '_level_4') === 'passed') {
+                currentLevel = 5;
+            } else if (localStorage.getItem(team + '_level_3') === 'passed') {
+                currentLevel = 4;
+            } else if (localStorage.getItem(team + '_level_2') === 'passed') {
+                currentLevel = 3;
+            } else if (localStorage.getItem(team + '_level_1') === 'passed') {
+                currentLevel = 2;
+            }
+        }
+
+        // Helper to resolve level titles and data dynamically
+        function getLevelData(lvl, tm) {
+            if (tm === 'red') {
+                if (lvl === 3) {
+                    return {
+                        title: "الجناح 13 — ملف التجربة 13 🟥",
+                        red: {
+                            text: "تحت التجربة 13",
+                            answer: ["6821"]
+                        }
+                    };
+                } else if (lvl > 3) {
+                    return levelsData[lvl - 1];
+                }
+            }
+            return levelsData[lvl];
         }
 
         // 6. Arabic string normalization
@@ -812,7 +1335,8 @@
         function updateTimerDisplay() {
             const now = Date.now();
             
-            if (currentLevel > 6) {
+            const maxLevels = (team === 'red') ? 7 : 6;
+            if (currentLevel > maxLevels) {
                 const winTimeSaved = parseInt(localStorage.getItem('escape_room_win_time') || now, 10);
                 let diffSecs = Math.max(0, Math.floor((timerEnd - winTimeSaved) / 1000));
                 timerEl.textContent = formatTime(diffSecs);
@@ -859,13 +1383,24 @@
             const hintDisplayArea = document.getElementById('hint-display-area');
             const hintBtn = document.getElementById('btn-hint');
             const morseContainer = document.getElementById('morse-table-container');
+            const redLevel3Container = document.getElementById('red-level-3-container');
+            const normalAnswerControls = document.getElementById('normal-answer-controls');
 
             hintDisplayArea.innerHTML = '';
             hintBtn.disabled = false;
             document.getElementById('answer-input').value = '';
             morseContainer.style.display = 'none';
 
-            if (currentLevel > 6) {
+            if (redLevel3Container) {
+                redLevel3Container.style.display = 'none';
+            }
+            if (normalAnswerControls) {
+                normalAnswerControls.style.display = 'flex';
+            }
+            hintBtn.style.display = 'inline-block';
+
+            const maxLevels = (team === 'red') ? 7 : 6;
+            if (currentLevel > maxLevels) {
                 gameplayControls.style.display = 'none';
                 winSection.style.display = 'block';
                 document.body.className = 'theme-default fake-win-green'; // Real green victory layout
@@ -879,25 +1414,43 @@
                 return;
             }
 
-            const levelData = levelsData[currentLevel];
+            // Custom UI for Red Team Level 3
+            if (team === 'red' && currentLevel === 3) {
+                if (redLevel3Container) {
+                    redLevel3Container.style.display = 'block';
+                }
+                if (normalAnswerControls) {
+                    normalAnswerControls.style.display = 'none';
+                }
+                hintBtn.style.display = 'none';
+                document.getElementById('riddle-text').style.display = 'none';
+                initRedLevel3State();
+                return;
+            } else {
+                document.getElementById('riddle-text').style.display = 'block';
+            }
+
+            const levelData = getLevelData(currentLevel, team);
             let arabLevelName = "المرحلة الأولى";
             if (currentLevel === 2) arabLevelName = "المرحلة الثانية";
             if (currentLevel === 3) arabLevelName = "المرحلة الثالثة";
             if (currentLevel === 4) arabLevelName = "المرحلة الرابعة";
             if (currentLevel === 5) arabLevelName = "المرحلة الخامسة";
             if (currentLevel === 6) arabLevelName = "المرحلة السادسة";
+            if (currentLevel === 7) arabLevelName = "المرحلة السابعة";
 
             document.getElementById('current-level-title').textContent = `${arabLevelName}: ${levelData.title}`;
             
             if (team === 'blue' || team === 'red') {
-                if (currentLevel === 6) {
+                const finalLevelNum = (team === 'red') ? 7 : 6;
+                if (currentLevel === finalLevelNum) {
                     hintBtn.style.display = 'none';
                     if (!isPanicActive) {
-                        // Level 6 Master Riddle
+                        // Final level Master Riddle
                         document.getElementById('riddle-text').textContent = levelData[team].text;
                         document.getElementById('answer-input').placeholder = "أدخل كود الدمج الرئيسي هنا...";
                     } else {
-                        // Level 6 Panic Sudden Death Twist
+                        // Final level Panic Sudden Death Twist
                         document.getElementById('game-main-title').textContent = "🚨 اختراق النظام 🚨";
                         document.getElementById('game-sub-title').textContent = "فتيل القنبلة نشط الآن!";
                         document.getElementById('answer-input').placeholder = "أدخل رمز تعطيل الفتيل هنا...";
@@ -953,16 +1506,19 @@
             if (completedLevel === 4) arabLevelNameCompleted = "الرابعة";
             if (completedLevel === 5) arabLevelNameCompleted = "الخامسة";
             if (completedLevel === 6) arabLevelNameCompleted = "السادسة";
+            if (completedLevel === 7) arabLevelNameCompleted = "السابعة";
 
             let arabLevelNameNext = "الثانية";
             if (nextLevel === 3) arabLevelNameNext = "الثالثة";
             if (nextLevel === 4) arabLevelNameNext = "الرابعة";
             if (nextLevel === 5) arabLevelNameNext = "الخامسة";
             if (nextLevel === 6) arabLevelNameNext = "السادسة";
+            if (nextLevel === 7) arabLevelNameNext = "السابعة";
 
             let titleText = `تم تخطي المرحلة ${arabLevelNameCompleted} بنجاح! 🎉`;
-            let subtitleText = nextLevel <= 6 ? `جاري تهيئة تشفير المرحلة ${arabLevelNameNext}...` : 'تم إبطال مفعول الفتيل بنجاح! 🔓';
-            let iconClass = nextLevel <= 6 ? 'fa-shield-halved' : 'fa-trophy';
+            const finalLevelNum = (team === 'red') ? 7 : 6;
+            let subtitleText = nextLevel <= finalLevelNum ? `جاري تهيئة تشفير المرحلة ${arabLevelNameNext}...` : 'تم إبطال مفعول الفتيل بنجاح! 🔓';
+            let iconClass = nextLevel <= finalLevelNum ? 'fa-shield-halved' : 'fa-trophy';
 
             overlay.innerHTML = `
                 <div class="overlay-content" style="color: ${teamColor}; text-shadow: 0 0 12px ${teamColor}">
@@ -983,7 +1539,6 @@
             overlay.classList.add('active');
             
             try {
-
                 initAudioContext();
                 const now = audioCtx.currentTime;
                 const osc = audioCtx.createOscillator();
@@ -1009,7 +1564,7 @@
                 overlay.classList.remove('active');
                 setTimeout(() => {
                     overlay.remove();
-                if (callback) callback();
+                    if (callback) callback();
                 }, 500);
             }, 1800);
         }
@@ -1030,7 +1585,8 @@
         document.getElementById('btn-submit-answer').addEventListener('click', (e) => {
             initAudioContext();
             
-            if (currentLevel > 6) return;
+            const maxLevels = (team === 'red') ? 7 : 6;
+            if (currentLevel > maxLevels) return;
 
             const inputEl = document.getElementById('answer-input');
             let userAns = convertArabicNumerals(inputEl.value.trim());
@@ -1043,10 +1599,11 @@
             
             if (!userAns) return;
 
-            const levelData = levelsData[currentLevel];
+            const levelData = getLevelData(currentLevel, team);
             let isCorrect = false;
 
-            if (currentLevel === 6) {
+            const finalLevelNum = (team === 'red') ? 7 : 6;
+            if (currentLevel === finalLevelNum) {
                 if (!isPanicActive) {
                     // Step 1: Check Master Code
                     isCorrect = checkCorrect(userAns, levelData[team].answer);
@@ -1061,7 +1618,7 @@
             }
 
             if (isCorrect) {
-                if (currentLevel === 6 && !isPanicActive) {
+                if (currentLevel === finalLevelNum && !isPanicActive) {
                     // Transition the UI to green victory aesthetic
                     document.body.className = 'theme-default fake-win-green';
                     
@@ -1120,6 +1677,8 @@
                                 // Freeze for 2 full seconds
                                 setTimeout(() => {
                                     triggerGlitchAndSuddenDeath();
+                                    // Make sure it shakes in panic mode
+                                    document.body.classList.add('shake-heavy');
                                 }, 2000);
                             }
                         }, 50);
@@ -1133,7 +1692,7 @@
                         inputEl.classList.remove('success-flash');
                         
                         // Stop Panic alarm loop
-                        if (currentLevel === 6 && isPanicActive) {
+                        if (currentLevel === finalLevelNum && isPanicActive) {
                             isPanicActive = false;
                             localStorage.setItem('escape_room_panic_active', 'false');
                             stopAlarmSound();
@@ -1161,25 +1720,25 @@
                 
                 let errorMessages = [];
 
-                if (currentLevel === 3) {
+                if ((team === 'blue' && currentLevel === 3) || (team === 'red' && currentLevel === 4)) {
                     errorMessages = [
                         "الحسابات دي مش مظبوطة خالص! يظهر محتاجين آلة حاسبة من العهد القديم... 🧮🤖",
                         "الناتج غلط! فكروا في المعادلة تاني، الماث بيعيط في الزاوية... 😭📐",
                         "فشل التحقق الرقمي! راجعوا الأرقام والعمليات الحسابية كويس! ❌🧠"
                     ];
-                } else if (currentLevel === 4) {
+                } else if ((team === 'blue' && currentLevel === 4) || (team === 'red' && currentLevel === 5)) {
                     errorMessages = [
                         "الاستنتاج ده بعيد خالص! فكروا في الروابط والكلمات كويس! 🧐🧩",
                         "الرابط غير صحيح! حاولوا تربطوا القطع بذكاء أكبر! 🧠❌",
                         "النظام يرفض هذا التفسير! دققوا في معاني الكلمات! 🔍🚪"
                     ];
-                } else if (currentLevel === 5) {
+                } else if ((team === 'blue' && currentLevel === 5) || (team === 'red' && currentLevel === 6)) {
                     errorMessages = [
                         "إشارة الشفرة خاطئة! راقبوا الومضات أو الأسلاك بتركيز أكبر! 📟💥",
                         "فشل فك تشفير الشفرة! النظام مغلق، راجعوا التفاصيل مجدداً! 🔒🔌",
                         "المدخلات لا تتوافق مع البروتوكول الأمني! دققوا في شروط الاستبعاد أو ومضات النور! ⚡🔬"
                     ];
-                } else if (currentLevel === 6) {
+                } else if (currentLevel === finalLevelNum) {
                     if (!isPanicActive) {
                         errorMessages = [
                             "كود الدمج الرئيسي غير صحيح! فتشوا واجمعوا شفرات الرحلة بالترتيب الدقيق! ❌🔑",
@@ -1210,7 +1769,8 @@
         document.getElementById('btn-hint').addEventListener('click', (e) => {
             initAudioContext();
             
-            if (currentLevel > 6) return;
+            const maxLevels = (team === 'red') ? 7 : 6;
+            if (currentLevel > maxLevels) return;
 
             const hintKey = `hint_level_${currentLevel}_used`;
             if (localStorage.getItem(hintKey) === 'true') return;
@@ -1218,7 +1778,7 @@
             const promo = prompt('أدخل كود الترويج لتنشيط مساعدة هذا المستوى:');
             if (!promo) return;
 
-            const levelData = levelsData[currentLevel];
+            const levelData = getLevelData(currentLevel, team);
             const correctPromo = levelData[team].hintCode;
 
             if (promo.trim().toUpperCase() === correctPromo) {

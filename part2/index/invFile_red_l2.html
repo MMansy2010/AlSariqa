@@ -1,0 +1,1064 @@
+```html
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>الجناح 13 — ملف المريض 404</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Courier+Prime:wght@400;700&display=swap');
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background:
+                radial-gradient(circle at center, #37332d 0%, #141311 85%);
+            color: #29251f;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        /* =========================
+   PRINT BUTTON
+========================= */
+
+        .print-area {
+            text-align: center;
+            padding: 25px;
+        }
+
+        .print-btn {
+            background: #7c1014;
+            color: #f4e8cf;
+            border: 2px solid #c9b78e;
+            padding: 12px 30px;
+            border-radius: 4px;
+            font-family: 'Cairo', sans-serif;
+            font-size: 17px;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, .4);
+        }
+
+        .print-btn:hover {
+            background: #a2181d;
+        }
+
+        /* =========================
+   A4
+========================= */
+
+        .page {
+            width: 210mm;
+            min-height: 297mm;
+
+            margin: 20px auto;
+            padding: 13mm 14mm;
+
+            position: relative;
+
+            background:
+                repeating-linear-gradient(0deg,
+                    rgba(80, 60, 30, .018) 0px,
+                    rgba(80, 60, 30, .018) 1px,
+                    transparent 1px,
+                    transparent 4px),
+                #eee3ca;
+
+            border: 1px solid #b9aa89;
+
+            box-shadow:
+                0 15px 50px rgba(0, 0, 0, .5),
+                inset 0 0 40px rgba(80, 50, 20, .08);
+
+            overflow: hidden;
+        }
+
+        .content {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* =========================
+   HEADER
+========================= */
+
+        .top-secret {
+            position: absolute;
+
+            top: 20px;
+            left: 22px;
+
+            border: 3px double #861317;
+            color: #861317;
+
+            padding: 4px 11px;
+
+            font-family: 'Courier Prime', monospace;
+            font-size: 12px;
+            font-weight: bold;
+
+            transform: rotate(-8deg);
+        }
+
+        .file-number {
+            position: absolute;
+
+            top: 22px;
+            right: 22px;
+
+            font-family: 'Courier Prime', monospace;
+            font-size: 9px;
+
+            color: #655b4c;
+        }
+
+        .header {
+            text-align: center;
+
+            border-top: 4px double #302a22;
+            border-bottom: 4px double #302a22;
+
+            padding: 13px 8px 10px;
+
+            margin-bottom: 12px;
+        }
+
+        .header h1 {
+            margin: 0;
+
+            font-size: 22px;
+            font-weight: 900;
+        }
+
+        .header h2 {
+            margin: 2px 0 0;
+
+            font-size: 13px;
+            color: #7c1014;
+        }
+
+        .meta {
+            margin-top: 6px;
+
+            font-family: 'Courier Prime', monospace;
+            font-size: 9px;
+
+            color: #655b4c;
+        }
+
+        /* =========================
+   WARNING
+========================= */
+
+        .warning {
+            border: 2px solid #7c1014;
+
+            background: rgba(124, 16, 20, .055);
+
+            padding: 7px 10px;
+
+            text-align: center;
+
+            margin-bottom: 11px;
+
+            color: #7c1014;
+
+            font-size: 10px;
+            font-weight: 800;
+        }
+
+        /* =========================
+   DOCUMENT
+========================= */
+
+        .doc {
+            border: 1.5px solid #4b4235;
+
+            background: rgba(255, 255, 255, .22);
+
+            padding: 9px 11px;
+
+            margin-bottom: 10px;
+        }
+
+        .doc-title {
+            display: inline-block;
+
+            background: #342e26;
+            color: #f1e5cc;
+
+            padding: 3px 9px;
+
+            font-size: 11px;
+            font-weight: 800;
+
+            margin-bottom: 6px;
+        }
+
+        .doc p {
+            margin: 4px 0;
+
+            font-size: 10px;
+
+            line-height: 1.65;
+        }
+
+        /* =========================
+   PATIENT TABLE
+========================= */
+
+        table {
+            width: 100%;
+
+            border-collapse: collapse;
+
+            margin-top: 6px;
+
+            font-family: 'Courier Prime', monospace;
+
+            font-size: 9.5px;
+
+            text-align: center;
+        }
+
+        th,
+        td {
+            border: 1px solid #4b4235;
+
+            padding: 5px;
+        }
+
+        th {
+            background: #c9ba96;
+        }
+
+        td {
+            background: rgba(255, 255, 255, .16);
+        }
+
+        .question {
+            color: #861317;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        /* =========================
+   TYPEWRITER
+========================= */
+
+        .note {
+            background: #dfd1b2;
+
+            border-right: 5px solid #7c1014;
+
+            padding: 8px 12px;
+
+            margin-top: 7px;
+
+            font-family: 'Courier Prime', monospace;
+
+            font-size: 10px;
+
+            line-height: 1.8;
+        }
+
+        .note strong {
+            color: #7c1014;
+        }
+
+        /* =========================
+   ELECTRICAL STRIPS
+========================= */
+
+        .strips-intro {
+            margin-bottom: 6px;
+        }
+
+        /*
+    كل شريط له عدد نبضات مختلف.
+    عدد النبضات هو مفتاح ترتيب القطع.
+*/
+
+        .strip-grid {
+            display: grid;
+
+            grid-template-columns: repeat(2, 1fr);
+
+            gap: 7px;
+        }
+
+        .strip {
+            border: 1px dashed #706653;
+
+            background:
+                repeating-linear-gradient(90deg,
+                    transparent 0,
+                    transparent 9px,
+                    rgba(120, 30, 30, .08) 10px),
+                #f4ead3;
+
+            padding: 7px 8px;
+
+            direction: ltr;
+
+            text-align: left;
+
+            min-height: 55px;
+
+            position: relative;
+        }
+
+        .strip-number {
+            color: #7c1014;
+
+            font-family: 'Courier Prime', monospace;
+
+            font-weight: bold;
+
+            font-size: 10px;
+        }
+
+        .wave {
+            display: block;
+
+            margin-top: 5px;
+
+            font-family: 'Courier Prime', monospace;
+
+            font-size: 13px;
+
+            letter-spacing: 2px;
+        }
+
+        .pulse-count {
+            position: absolute;
+
+            right: 7px;
+            top: 7px;
+
+            font-family: 'Courier Prime', monospace;
+
+            font-size: 8px;
+
+            color: #655b4c;
+        }
+
+        /* =========================
+   SYMBOL TABLE
+========================= */
+
+        .symbol-table td {
+            font-size: 14px;
+
+            font-weight: bold;
+        }
+
+        .symbol-table th:first-child,
+        .symbol-table td:first-child {
+            background: #d6c8a8;
+        }
+
+        /* =========================
+   STEP A
+========================= */
+
+        .step-box {
+            border: 2px solid #342e26;
+
+            background: rgba(255, 255, 255, .25);
+
+            padding: 10px 12px;
+
+            margin-top: 9px;
+        }
+
+        .step-title {
+            color: #7c1014;
+
+            font-size: 13px;
+
+            font-weight: 900;
+
+            margin-bottom: 5px;
+        }
+
+        .steps {
+            margin: 5px 0;
+
+            padding-right: 19px;
+
+            font-size: 10px;
+
+            line-height: 1.9;
+        }
+
+        .answer {
+            margin-top: 8px;
+
+            border: 2px dashed #7c1014;
+
+            padding: 7px;
+
+            text-align: center;
+
+            font-family: 'Courier Prime', monospace;
+
+            font-size: 12px;
+
+            font-weight: bold;
+
+            color: #7c1014;
+
+            letter-spacing: 3px;
+        }
+
+        /* =========================
+   FINAL WARNING
+========================= */
+
+        .final-note {
+            margin-top: 10px;
+
+            padding: 8px;
+
+            text-align: center;
+
+            border-top: 1px dashed #675c4b;
+            border-bottom: 1px dashed #675c4b;
+
+            font-family: 'Courier Prime', monospace;
+
+            font-size: 9px;
+
+            color: #5d5447;
+        }
+
+        /* =========================
+   FOOTER
+========================= */
+
+        .footer {
+            margin-top: 9px;
+
+            text-align: center;
+
+            font-family: 'Courier Prime', monospace;
+
+            font-size: 8px;
+
+            color: #665d4f;
+        }
+
+        .footer strong {
+            color: #7c1014;
+        }
+
+        .classified {
+            position: absolute;
+
+            bottom: 23px;
+            left: 22px;
+
+            border: 1px solid #861317;
+
+            color: #861317;
+
+            padding: 3px 6px;
+
+            font-family: 'Courier Prime', monospace;
+
+            font-size: 8px;
+
+            transform: rotate(-5deg);
+
+            opacity: .7;
+        }
+
+        /* =========================
+   PRINT
+========================= */
+
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        @media print {
+
+            body {
+                background: none;
+            }
+
+            .print-area {
+                display: none !important;
+            }
+
+            .page {
+                margin: 0;
+
+                width: 210mm;
+                min-height: 297mm;
+
+                box-shadow: none;
+                border: none;
+
+                page-break-after: always;
+            }
+        }
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <div class="print-area">
+
+        <button class="print-btn" onclick="window.print()">
+            🖨️ طباعة ملف التحقيق
+        </button>
+
+    </div>
+
+
+    <div class="page">
+
+        <div class="content">
+
+
+            <div class="top-secret">
+                TOP SECRET
+            </div>
+
+            <div class="file-number">
+                FILE: W-13/404-02
+            </div>
+
+
+            <!-- HEADER -->
+
+            <div class="header">
+
+                <h1>
+                    🟥 الجناح 13 — ملف المريض 404
+                </h1>
+
+                <h2>
+                    قسم العلاج الكهربائي — وثيقة تحقيق سرية
+                </h2>
+
+                <div class="meta">
+                    DOCUMENT W-13/404-02
+                    &nbsp; | &nbsp;
+                    PATIENT 404
+                    &nbsp; | &nbsp;
+                    ARCHIVE 13
+                </div>
+
+            </div>
+
+
+            <div class="warning">
+
+                ⚠ تحذير:
+                تم العثور على هذه الوثائق داخل غرفة التحكم.
+                أي شخص يفتح الملف دون تصريح يعرض نفسه للمساءلة.
+
+            </div>
+
+
+            <!-- DOCUMENT 1 -->
+
+            <div class="doc">
+
+                <div class="doc-title">
+                    [ وثيقة 1 ] — سجل جلسات العلاج الكهربائي
+                </div>
+
+                <p>
+
+                    <strong>اسم المريض:</strong> 404
+                    &nbsp;&nbsp; | &nbsp;&nbsp;
+
+                    <strong>الطبيب:</strong> د. فيتكور هارتمان
+
+                </p>
+
+                <p>
+
+                    <strong>الجلسة:</strong> 07
+                    &nbsp;&nbsp; | &nbsp;&nbsp;
+
+                    <strong>التاريخ:</strong> 17 / 09 / 1998
+
+                </p>
+
+
+                <table>
+
+                    <tr>
+
+                        <th>الجلسة</th>
+                        <th>الوقت</th>
+                        <th>شدة التيار</th>
+                        <th>مدة النبضة</th>
+
+                    </tr>
+
+                    <tr>
+                        <td>01</td>
+                        <td>21:04</td>
+                        <td>30 mA</td>
+                        <td>08 sec</td>
+                    </tr>
+
+                    <tr>
+                        <td>02</td>
+                        <td>21:11</td>
+                        <td>40 mA</td>
+                        <td>05 sec</td>
+                    </tr>
+
+                    <tr>
+                        <td>03</td>
+                        <td>21:19</td>
+                        <td>20 mA</td>
+                        <td>13 sec</td>
+                    </tr>
+
+                    <tr>
+                        <td>04</td>
+                        <td>21:26</td>
+                        <td>50 mA</td>
+                        <td>03 sec</td>
+                    </tr>
+
+                    <tr>
+                        <td>05</td>
+                        <td>21:34</td>
+                        <td>10 mA</td>
+                        <td>21 sec</td>
+                    </tr>
+
+                    <tr>
+                        <td>06</td>
+                        <td>21:41</td>
+                        <td>60 mA</td>
+                        <td>02 sec</td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>07</strong></td>
+                        <td><strong>21:49</strong></td>
+                        <td class="question">؟</td>
+                        <td class="question">؟</td>
+                    </tr>
+
+                </table>
+
+
+                <div class="note">
+
+                    <strong>ملاحظة الطبيب:</strong>
+
+                    <br>
+
+                    "الآلة لا تكذب...
+                    لكن من يعرف ترتيبها يستطيع أن يجعلها تقول أي شيء."
+
+                </div>
+
+            </div>
+
+
+            <!-- DOCUMENT 2 -->
+
+            <div class="doc">
+
+                <div class="doc-title">
+                    [ وثيقة 2 ] — ملاحظة خلف لوحة التحكم
+                </div>
+
+                <div class="note">
+
+                    الأرقام ليست أرقامًا.
+
+                    <br>
+
+                    اقرأ النبضات.
+
+                    <br>
+
+                    رتّب القطع من
+                    <strong>الأقل إلى الأعلى</strong>.
+
+                    <br><br>
+
+                    ثم استخدم ترتيب القطع
+                    للوصول إلى الجلسات الصحيحة.
+
+                </div>
+
+            </div>
+
+
+            <!-- DOCUMENT 3 -->
+
+            <div class="doc">
+
+                <div class="doc-title">
+                    [ وثيقة 3 ] — شريط التخطيط الكهربائي
+                </div>
+
+                <p class="strips-intro">
+
+                    الشريط تم تقطيعه إلى ستة أجزاء.
+
+                    <strong>
+                        عدد النبضات الظاهرة في كل قطعة هو مفتاح ترتيبها.
+                    </strong>
+
+                </p>
+
+
+                <div class="strip-grid">
+
+
+                    <!-- SESSION 04 — 5 pulses -->
+
+                    <div class="strip">
+
+                        <span class="strip-number">
+                            PIECE / SESSION 04
+                        </span>
+
+                        <span class="pulse-count">
+                            5 PULSES
+                        </span>
+
+                        <span class="wave">
+                            ▄▆▄▂▄▆▄▂▄
+                        </span>
+
+                    </div>
+
+
+                    <!-- SESSION 01 — 3 pulses -->
+
+                    <div class="strip">
+
+                        <span class="strip-number">
+                            PIECE / SESSION 01
+                        </span>
+
+                        <span class="pulse-count">
+                            3 PULSES
+                        </span>
+
+                        <span class="wave">
+                            ▄▆▄▂▄▆▄
+                        </span>
+
+                    </div>
+
+
+                    <!-- SESSION 06 — 6 pulses -->
+
+                    <div class="strip">
+
+                        <span class="strip-number">
+                            PIECE / SESSION 06
+                        </span>
+
+                        <span class="pulse-count">
+                            6 PULSES
+                        </span>
+
+                        <span class="wave">
+                            ▄▆▄▆▄▆▄▂▄▆▄
+                        </span>
+
+                    </div>
+
+
+                    <!-- SESSION 03 — 2 pulses -->
+
+                    <div class="strip">
+
+                        <span class="strip-number">
+                            PIECE / SESSION 03
+                        </span>
+
+                        <span class="pulse-count">
+                            2 PULSES
+                        </span>
+
+                        <span class="wave">
+                            ▄▆▄▂▄
+                        </span>
+
+                    </div>
+
+
+                    <!-- SESSION 05 — 1 pulse -->
+
+                    <div class="strip">
+
+                        <span class="strip-number">
+                            PIECE / SESSION 05
+                        </span>
+
+                        <span class="pulse-count">
+                            1 PULSE
+                        </span>
+
+                        <span class="wave">
+                            ▄▂▄
+                        </span>
+
+                    </div>
+
+
+                    <!-- SESSION 02 — 4 pulses -->
+
+                    <div class="strip">
+
+                        <span class="strip-number">
+                            PIECE / SESSION 02
+                        </span>
+
+                        <span class="pulse-count">
+                            4 PULSES
+                        </span>
+
+                        <span class="wave">
+                            ▄▆▄▆▄▂▄▆▄
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+
+                <div class="note">
+
+                    <strong>قاعدة الطبيب:</strong>
+
+                    <br>
+
+                    لا تقرأ أرقام الجلسات بالترتيب المكتوب.
+
+                    <br>
+
+                    اتبع ترتيب النبضات:
+
+                    <strong>
+                        1 → 2 → 3 → 4 → 5 → 6
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- DOCUMENT 4 -->
+
+            <div class="doc">
+
+                <div class="doc-title">
+                    [ وثيقة 4 ] — جدول تحويل التيار إلى حروف
+                </div>
+
+                <p>
+
+                    بعد معرفة ترتيب الجلسات من شريط الكهرباء،
+                    خذ <strong>شدة التيار</strong> الخاصة بكل جلسة.
+
+                </p>
+
+
+                <table class="symbol-table">
+
+                    <tr>
+
+                        <th>شدة التيار</th>
+
+                    <tr>
+                        <th>40</th>
+                        <th>10</th>
+                        <th>60</th>
+                        <th>30</th>
+                        <th>50</th>
+                        <th>20</th>
+                    </tr>
+
+                    <tr>
+                        <th>الحرف</th>
+                        <td>C</td>
+                        <td>V</td>
+                        <td>R</td>
+                        <td>T</td>
+                        <td>O</td>
+                        <td>I</td>
+                    </tr>
+
+                    </tr>
+
+                </table>
+
+
+                <div class="note">
+
+                    <strong>مثال:</strong>
+
+                    <br>
+
+                    إذا كانت شدة التيار
+                    <strong>30 mA</strong>
+
+                    فالحرف المقابل هو:
+
+                    <strong>C</strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- DOCUMENT 5 -->
+
+            <div class="doc">
+
+                <div class="doc-title">
+                    [ وثيقة 5 ] — آخر ملاحظة
+                </div>
+
+                <div class="note">
+
+                    "وجدت الاسم...
+
+                    <br>
+
+                    لكن الاسم لم يكن مكتوبًا في أي مكان."
+
+                    <br><br>
+
+                    <strong>
+                        إذا عرفت الكلمة...
+                        لا تدخلها في النظام.
+                    </strong>
+
+                    <br><br>
+
+                    ↓
+
+                    <br>
+
+                    <strong>
+                        STEP B
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- STEP A -->
+
+            <div class="step-box">
+
+                <div class="step-title">
+                    🧩 STEP A — اكتشف اسم الطبيب
+                </div>
+
+
+                <ol class="steps">
+
+                    <li>
+                        عدّ النبضات الموجودة في كل قطعة من شريط الكهرباء.
+                    </li>
+
+                    <li>
+                        رتّب القطع من 1 إلى 6 حسب عدد النبضات.
+                    </li>
+
+                    <li>
+                        اكتب أرقام الجلسات التي ظهرت بهذا الترتيب.
+                    </li>
+
+                    <li>
+                        خذ شدة التيار من كل جلسة بالترتيب الجديد.
+                    </li>
+
+                    <li>
+                        حوّل كل شدة تيار إلى حرف باستخدام جدول الرموز.
+                    </li>
+
+                    <li>
+                        الكلمة الناتجة هي إجابة Step A.
+                    </li>
+
+                </ol>
+
+
+                <div class="answer">
+
+                    ANSWER:
+
+                    &nbsp;&nbsp;&nbsp;
+
+                    _ _ _ _ _ _
+
+                </div>
+
+            </div>
+
+
+            <div class="final-note">
+
+                ⚠ لا تبحث عن الكلمة في أي مكان آخر.
+                الملف نفسه يحتوي على كل ما تحتاجه.
+
+            </div>
+
+
+            <div class="footer">
+
+                W-13 / PATIENT 404
+
+                &nbsp; • &nbsp;
+
+                <strong>
+                    EYES ONLY
+                </strong>
+
+                &nbsp; • &nbsp;
+
+                DO NOT DUPLICATE
+
+            </div>
+
+
+            <div class="classified">
+                ARCHIVE COPY — 13/404
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+</body>
+
+</html>
+```
