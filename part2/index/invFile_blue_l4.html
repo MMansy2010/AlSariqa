@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>BLUE TEAM — CASE B-04</title>
+
+    <style>
+
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Courier+Prime:wght@400;700&display=swap');
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: #11171c;
+            color: #292d30;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        /* ==============================
+           PRINT BUTTON
+        ============================== */
+
+        .print-controls {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .print-btn {
+            background: #173c58;
+            color: #eee7d8;
+            border: 2px solid #a99b7c;
+            padding: 12px 28px;
+            font-family: 'Cairo', sans-serif;
+            font-weight: 900;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: .2s;
+        }
+
+        .print-btn:hover {
+            background: #244f70;
+            transform: translateY(-2px);
+        }
+
+
+        /* ==============================
+           A4 PAGE
+        ============================== */
+
+        .page {
+            width: 210mm;
+            min-height: 297mm;
+
+            margin: 15px auto;
+            padding: 14mm;
+
+            background:
+                repeating-linear-gradient(
+                    0deg,
+                    rgba(30, 50, 70, .025) 0px,
+                    rgba(30, 50, 70, .025) 1px,
+                    transparent 1px,
+                    transparent 4px
+                ),
+                #e8e3d7;
+
+            position: relative;
+
+            border: 1px solid #aaa18f;
+
+            box-shadow:
+                0 15px 50px rgba(0, 0, 0, .55),
+                inset 0 0 50px rgba(30, 50, 70, .07);
+
+            overflow: hidden;
+        }
+
+
+        /* ==============================
+           STAMPS / FILE NUMBER
+        ============================== */
+
+        .stamp {
+            position: absolute;
+
+            top: 25px;
+            left: 25px;
+
+            color: #174563;
+
+            border: 3px double #174563;
+
+            padding: 4px 12px;
+
+            font-family: 'Courier Prime', monospace;
+
+            font-weight: bold;
+            font-size: 11px;
+
+            transform: rotate(-8deg);
+        }
+
+        .file {
+            position: absolute;
+
+            top: 28px;
+            right: 25px;
+
+            font-family: 'Courier Prime', monospace;
+
+            font-size: 9px;
+
+            color: #656057;
+        }
+
+
+        /* ==============================
+           HEADER
+        ============================== */
+
+        .header {
+            text-align: center;
+
+            border-top: 4px double #30363a;
+            border-bottom: 4px double #30363a;
+
+            padding: 14px 8px 10px;
+
+            margin-bottom: 12px;
+        }
+
+        .header h1 {
+            margin: 0;
+
+            font-size: 22px;
+            font-weight: 900;
+        }
+
+        .header h2 {
+            margin: 3px 0 4px;
+
+            color: #174563;
+
+            font-size: 15px;
+        }
+
+        .meta {
+            font-family: 'Courier Prime', monospace;
+
+            color: #676158;
+
+            font-size: 9px;
+        }
+
+
+        /* ==============================
+           WARNING
+        ============================== */
+
+        .warning {
+            border: 2px solid #174563;
+
+            background: rgba(23, 69, 99, .05);
+
+            color: #174563;
+
+            padding: 9px;
+
+            text-align: center;
+
+            font-size: 10px;
+            font-weight: 900;
+
+            margin-bottom: 10px;
+        }
+
+
+        /* ==============================
+           DOCUMENT BOX
+        ============================== */
+
+        .doc {
+            border: 1.5px solid #5e5b54;
+
+            background: rgba(255, 255, 255, .22);
+
+            padding: 9px 11px;
+
+            margin-bottom: 10px;
+        }
+
+        .title {
+            display: inline-block;
+
+            background: #30383d;
+            color: #eee7d8;
+
+            padding: 3px 10px;
+
+            margin-bottom: 7px;
+
+            font-size: 11px;
+            font-weight: 900;
+        }
+
+
+        /* ==============================
+           TYPEWRITER NOTE
+        ============================== */
+
+        .typewriter {
+            background: #dbd5c7;
+
+            border-right: 5px solid #174563;
+
+            padding: 9px 12px;
+
+            font-family: 'Courier Prime', monospace;
+
+            font-size: 10px;
+
+            line-height: 1.9;
+        }
+
+        .typewriter strong {
+            color: #174563;
+        }
+
+
+        /* ==============================
+           REAL EVIDENCE PHOTOGRAPH
+        ============================== */
+
+        .evidence-photo {
+            width: 100%;
+
+            border: 3px solid #363a3c;
+
+            background: #f5f1e7;
+
+            padding: 7px;
+
+            margin-top: 8px;
+
+            box-shadow:
+                0 5px 12px rgba(0, 0, 0, .22),
+                inset 0 0 8px rgba(0, 0, 0, .08);
+
+            position: relative;
+        }
+
+        .evidence-photo img {
+            width: 100%;
+
+            max-height: 185mm;
+
+            object-fit: contain;
+
+            display: block;
+
+            border: 1px solid #77736b;
+
+            background: #222;
+        }
+
+        .photo-caption {
+            margin-top: 6px;
+
+            text-align: center;
+
+            font-family: 'Courier Prime', monospace;
+
+            font-size: 9px;
+
+            font-weight: bold;
+
+            color: #55514a;
+
+            letter-spacing: .5px;
+        }
+
+        .photo-instruction {
+            font-size: 9px;
+
+            text-align: center;
+
+            margin: 7px 0 0;
+
+            color: #403d38;
+
+            line-height: 1.7;
+        }
+
+
+        /* ==============================
+           CLUE GRID
+        ============================== */
+
+        .clues {
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 7px;
+
+            margin-top: 7px;
+        }
+
+        .clue {
+            border: 1px dashed #77736b;
+
+            padding: 7px;
+
+            font-size: 9px;
+
+            line-height: 1.7;
+
+            background: rgba(255, 255, 255, .12);
+        }
+
+        .clue strong {
+            color: #174563;
+        }
+
+
+        /* ==============================
+           TABLE
+        ============================== */
+
+        .table {
+            width: 100%;
+
+            border-collapse: collapse;
+
+            font-family: 'Courier Prime', monospace;
+
+            font-size: 9px;
+
+            text-align: center;
+
+            margin-top: 7px;
+        }
+
+        .table th,
+        .table td {
+            border: 1px solid #55534d;
+
+            padding: 6px;
+        }
+
+        .table th {
+            background: #c5c0b1;
+        }
+
+        .table td {
+            background: rgba(255, 255, 255, .2);
+        }
+
+
+        /* ==============================
+           STEP A
+        ============================== */
+
+        .final {
+            border: 2px dashed #174563;
+
+            padding: 10px;
+
+            text-align: center;
+
+            margin-top: 10px;
+        }
+
+        .final h3 {
+            margin: 0 0 6px;
+
+            color: #174563;
+
+            font-size: 12px;
+        }
+
+        .final p {
+            font-size: 10px;
+
+            margin: 4px 0 8px;
+        }
+
+        .boxes {
+            display: flex;
+
+            justify-content: center;
+
+            gap: 8px;
+
+            direction: ltr;
+        }
+
+        .box {
+            width: 38px;
+            height: 40px;
+
+            border: 2px solid #45433f;
+
+            background: #f0ebdf;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            font-family: 'Courier Prime', monospace;
+
+            font-size: 18px;
+        }
+
+
+        /* ==============================
+           FOOTER NOTE
+        ============================== */
+
+        .footer-note {
+            border-top: 3px double #30363a;
+
+            border-bottom: 3px double #30363a;
+
+            margin-top: 10px;
+
+            padding: 9px;
+
+            text-align: center;
+
+            font-family: 'Courier Prime', monospace;
+
+            font-size: 9px;
+
+            line-height: 1.9;
+        }
+
+        .footer-note strong {
+            color: #174563;
+        }
+
+
+        /* ==============================
+           FOOTER
+        ============================== */
+
+        .footer {
+            margin-top: 9px;
+
+            text-align: center;
+
+            font-family: 'Courier Prime', monospace;
+
+            font-size: 8px;
+
+            color: #686158;
+        }
+
+
+        /* ==============================
+           PRINT
+        ============================== */
+
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        @media print {
+
+            body {
+                background: none;
+            }
+
+            .print-controls {
+                display: none;
+            }
+
+            .page {
+                margin: 0;
+
+                width: 210mm;
+
+                min-height: 297mm;
+
+                border: none;
+
+                box-shadow: none;
+
+                page-break-after: always;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- ==============================
+     PRINT BUTTON
+============================== -->
+
+<div class="print-controls">
+
+    <button
+        class="print-btn"
+        onclick="window.print()"
+    >
+        🖨️ طباعة ملف الأدلة
+    </button>
+
+</div>
+
+
+
+<!-- ==============================
+     MAIN A4 PAGE
+============================== -->
+
+<div class="page">
+
+
+    <!-- STAMP -->
+
+    <div class="stamp">
+        BLUE / EVIDENCE
+    </div>
+
+
+    <!-- FILE NUMBER -->
+
+    <div class="file">
+        CASE B-04 / PHOTO-FORENSICS
+    </div>
+
+
+
+    <!-- ==============================
+         HEADER
+    ============================== -->
+
+    <div class="header">
+
+        <h1>
+            🔵 قسم الأدلة الجنائية
+        </h1>
+
+        <h2>
+            القضية B-04 — الصورة التي تكذب
+        </h2>
+
+        <div class="meta">
+
+            CASE STATUS: ACTIVE
+            &nbsp; | &nbsp;
+            EVIDENCE: PHOTOGRAPH
+            &nbsp; | &nbsp;
+            ACCESS: RESTRICTED
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ==============================
+         WARNING
+    ============================== -->
+
+    <div class="warning">
+
+        ⚠ الصورة الموجودة في هذا الملف ليست نسخة أصلية.
+        <br>
+        لا تثق بكل ما تراه.
+
+    </div>
+
+
+
+    <!-- ==============================
+         DOCUMENT 1
+    ============================== -->
+
+    <div class="doc">
+
+        <div class="title">
+            [ وثيقة 1 ] — تقرير مسرح الجريمة
+        </div>
+
+
+        <div class="typewriter">
+
+            تم العثور على صورة Polaroid
+            داخل منزل المشتبه به.
+
+            <br><br>
+
+            تم التأكد من أن الصورة التُقطت
+            بعد وصول الشرطة مباشرة.
+
+            <br><br>
+
+            <strong>
+                وقت دخول أول ضابط: 23:17
+            </strong>
+
+            <br>
+
+            <strong>
+                وقت التقاط الصورة: 23:28
+            </strong>
+
+            <br><br>
+
+            ملاحظة المحقق:
+
+            <br>
+
+            "الصورة تبدو طبيعية..."
+
+            <br>
+
+            <strong>
+                "...لكن أحد الأرقام الظاهرة فيها
+                لا ينتمي إلى المشهد."
+            </strong>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ==============================
+         DOCUMENT 2
+         REAL IMAGE
+    ============================== -->
+
+    <div class="doc">
+
+        <div class="title">
+            [ وثيقة 2 ] — Evidence Photograph
+        </div>
+
+
+        <div class="evidence-photo">
+
+            <img
+                src="../assets/blue_l4.png"
+                alt="Blue Team Level 4 Evidence Photograph"
+            >
+
+
+            <div class="photo-caption">
+
+                EVIDENCE PHOTO #221 —
+                CRIME SCENE / 23:28
+
+            </div>
+
+        </div>
+
+
+        <p class="photo-instruction">
+
+            الصورة تحتوي على أكثر من دليل.
+            <br>
+
+            افحص الوقت، الانعكاس،
+            والأشياء الموجودة في الغرفة.
+
+        </p>
+
+    </div>
+
+
+
+    <!-- ==============================
+         DOCUMENT 3
+    ============================== -->
+
+    <div class="doc">
+
+        <div class="title">
+            [ وثيقة 3 ] — ملاحظات المصور الجنائي
+        </div>
+
+
+        <div class="clues">
+
+
+            <div class="clue">
+
+                <strong>
+                    ملاحظة A
+                </strong>
+
+                <br>
+
+                الساعة الموجودة على الحائط
+                تشير إلى 11:15 تقريبًا.
+
+            </div>
+
+
+            <div class="clue">
+
+                <strong>
+                    ملاحظة B
+                </strong>
+
+                <br>
+
+                وقت الصورة موثق عند 23:28،
+                أي بعد دخول الشرطة بـ 11 دقيقة.
+
+            </div>
+
+
+            <div class="clue">
+
+                <strong>
+                    ملاحظة C
+                </strong>
+
+                <br>
+
+                لا توجد ساعة ثانية داخل الغرفة،
+                لكن المرآة تُظهر الرقم 11:42.
+
+            </div>
+
+
+            <div class="clue">
+
+                <strong>
+                    ملاحظة D
+                </strong>
+
+                <br>
+
+                لا يوجد أي جسم في المرآة
+                يمكن أن يفسر ظهور 11:42.
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ==============================
+         DOCUMENT 4
+    ============================== -->
+
+    <div class="doc">
+
+        <div class="title">
+            [ وثيقة 4 ] — ملاحظة مجهولة
+        </div>
+
+
+        <div class="typewriter">
+
+            "لا تبحث عن الوقت الصحيح..."
+
+            <br>
+
+            "ابحث عن الشيء الذي لا يمكن
+            أن يكون انعكاسًا حقيقيًا."
+
+            <br><br>
+
+            "إذا ظهر رقم داخل المرآة..."
+
+            <br>
+
+            <strong>
+                "فأين الساعة التي يفترض أن تعكسه؟"
+            </strong>
+
+            <br><br>
+
+            ثم جملة مكتوبة بقلم مختلف:
+
+            <br>
+
+            "الانعكاس يعكس شيئًا موجودًا."
+
+            <br>
+
+            "وليس رقمًا ظهر من العدم." "
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ==============================
+         DOCUMENT 5
+    ============================== -->
+
+    <div class="doc">
+
+        <div class="title">
+            [ وثيقة 5 ] — رمز الصورة
+        </div>
+
+
+        <table class="table">
+
+            <tr>
+
+                <th>
+                    العنصر
+                </th>
+
+                <th>
+                    القيمة
+                </th>
+
+                <th>
+                    المعنى
+                </th>
+
+            </tr>
+
+
+            <tr>
+
+                <td>
+                    الساعة
+                </td>
+
+                <td>
+                    11:15
+                </td>
+
+                <td>
+                    وقت ظاهر على الساعة
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <td>
+                    وقت الصورة
+                </td>
+
+                <td>
+                    23:28
+                </td>
+
+                <td>
+                    وقت موثق
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <td>
+                    الفرق
+                </td>
+
+                <td>
+                    11 دقيقة
+                </td>
+
+                <td>
+                    زمن الوصول → التصوير
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <td>
+                    الرقم الغريب
+                </td>
+
+                <td>
+                    11:42
+                </td>
+
+                <td>
+                    لا يوجد جسم يعكسه
+                </td>
+
+            </tr>
+
+        </table>
+
+
+        <div
+            class="typewriter"
+            style="margin-top:8px;"
+        >
+
+            آخر سطر:
+
+            <br><br>
+
+            <strong>
+                "حين تعرف الوقت الصحيح،
+                ستعرف أن الصورة ليست كما تبدو."
+            </strong>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ==============================
+         STEP A
+    ============================== -->
+
+    <div class="final">
+
+        <h3>
+            🧩 STEP A — PHOTO PASSWORD
+        </h3>
+
+
+        <p>
+
+            استخرج الرقم الذي لا ينتمي إلى المشهد
+            ثم أدخله بصيغة HHMM.
+
+        </p>
+
+
+        <div class="boxes">
+
+            <div class="box">
+                _
+            </div>
+
+            <div class="box">
+                _
+            </div>
+
+            <div class="box">
+                _
+            </div>
+
+            <div class="box">
+                _
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ==============================
+         STEP B
+    ============================== -->
+
+    <div class="footer-note">
+
+        <strong>
+            "الصورة لا تكذب..."
+        </strong>
+
+        <br>
+
+        "لكن الشخص الذي التقطها فعل."
+
+        <br><br>
+
+        ↓
+
+        <br>
+
+        <strong>
+            STEP B — PHOTO FORENSICS
+        </strong>
+
+    </div>
+
+
+
+    <!-- ==============================
+         FOOTER
+    ============================== -->
+
+    <div class="footer">
+
+        BLUE TEAM / CASE B-04
+        &nbsp; • &nbsp;
+        EVIDENCE ARCHIVE
+        &nbsp; • &nbsp;
+        DO NOT REMOVE
+
+    </div>
+
+
+</div>
+
+
+
+</body>
+
+</html>

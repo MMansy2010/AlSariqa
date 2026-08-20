@@ -110,6 +110,22 @@
                 </div>
             </div>
 
+            <!-- Room Code (Shared) for multiplayer sync -->
+            <div class="control-group">
+                <label for="roomCode" class="cyber-label">
+                    <span class="label-prefix">[03]</span> رمز الغرفة المشترك (لمزامنة بدء الفريقين)
+                </label>
+                <div class="input-container">
+                    <span class="input-bracket">[</span>
+                    <input type="text" id="roomCode" class="cyber-input" placeholder="أدخل رمز الغرفة (اختياري، مثال: 1234)..." autocomplete="off" maxlength="6">
+                    <span class="input-bracket">]</span>
+                    <div class="input-glow-line"></div>
+                </div>
+                <p class="small-desc" style="font-size: 11px; color: var(--text-muted); margin-top: 4px; text-align: right; line-height: 1.5;">
+                    * اختياري: لمزامنة اللعب بين هاتفين. لن تبدأ اللعبة إلا بعد قيام كلا الفريقين بالدخول بنفس رمز الغرفة والضغط على زر البدء.
+                </p>
+            </div>
+
             <!-- Footer / Action Area -->
             <div class="footer-actions">
                 <button type="button" id="startProtocolBtn" class="cyber-start-btn">
@@ -123,6 +139,37 @@
 
     <!-- Cyber Toast Container -->
     <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Waiting Room Overlay -->
+    <div class="waiting-room-overlay hidden" id="waitingRoomOverlay">
+        <div class="waiting-room-content">
+            <div class="waiting-scanner"></div>
+            <h2 class="waiting-title">غرفة الانتظار الرقمية</h2>
+            <p class="waiting-room-id">رمز الغرفة المشترك: <span id="waitingRoomIdVal">0000</span></p>
+            
+            <div class="teams-status-container">
+                <div class="team-status-box blue-status" id="blueTeamStatus">
+                    <span class="status-icon">⌛</span>
+                    <span class="status-label">الفريق الأزرق (Blue Team)</span>
+                    <span class="status-state">في الانتظار...</span>
+                </div>
+                <div class="team-status-box red-status" id="redTeamStatus">
+                    <span class="status-icon">⌛</span>
+                    <span class="status-label">الفريق الأحمر (Red Team)</span>
+                    <span class="status-state">في الانتظار...</span>
+                </div>
+            </div>
+
+            <div class="waiting-countdown-box hidden" id="waitingCountdownBox">
+                <div class="countdown-label">تبدأ اللعبة معاً خلال</div>
+                <div class="countdown-number" id="waitingCountdownNumber">3</div>
+            </div>
+
+            <button type="button" id="cancelWaitingBtn" class="print-btn" style="margin-top: 1.5rem; background: var(--neon-red); border-color: transparent; width: 100%;">
+                إلغاء الانتظار والعودة
+            </button>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>

@@ -1,0 +1,465 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="utf-8">
+    <title>LEVEL 6 - BLUE TEAM</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Courier+Prime:wght@400;700&family=Share+Tech+Mono&display=swap');
+
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: #0f1319;
+            color: #292d30;
+            font-family: 'Cairo', sans-serif;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        .print-controls {
+            text-align: center;
+            padding: 24px;
+        }
+
+        .print-btn {
+            background: #173c58;
+            color: #eee7d8;
+            border: 2px solid #a99b7c;
+            padding: 12px 28px;
+            font-family: 'Cairo', sans-serif;
+            font-weight: 900;
+            cursor: pointer;
+            border-radius: 4px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            transition: .2s;
+        }
+
+        .print-btn:hover {
+            background: #244f70;
+            transform: translateY(-2px);
+        }
+
+        .page {
+            width: 210mm;
+            height: 297mm;
+            margin: 25px auto;
+            padding: 16mm;
+            background: 
+                repeating-linear-gradient(
+                     0deg,
+                     rgba(30, 50, 70, .015) 0px,
+                     rgba(30, 50, 70, .015) 1px,
+                     transparent 1px,
+                     transparent 4px
+                ),
+                #f6f2e8;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #c9beaa;
+            box-shadow: 
+                0 15px 45px rgba(0, 0, 0, .45),
+                inset 0 0 40px rgba(30, 50, 70, .05);
+            page-break-after: always;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .page:last-child {
+            page-break-after: auto;
+        }
+
+        h1, h2, h3 {
+            margin: 0 0 10px;
+            color: #172c3d;
+        }
+
+        h1 {
+            font-size: 26px;
+            font-weight: 900;
+            letter-spacing: 1px;
+        }
+
+        h2 {
+            font-size: 20px;
+            border-bottom: 2px double #4a5568;
+            padding-bottom: 6px;
+            font-weight: 700;
+        }
+
+        h3 {
+            font-size: 15px;
+            font-weight: 700;
+            color: #2b4560;
+        }
+
+        p, li, td, th {
+            font-size: 12.5px;
+            line-height: 1.7;
+            color: #2d3748;
+        }
+
+        .small {
+            font-size: 11px;
+            color: #718096;
+        }
+
+        .mono {
+            font-family: 'Share Tech Mono', 'Courier Prime', monospace;
+            font-weight: bold;
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        .stamp {
+            display: inline-block;
+            padding: 6px 16px;
+            border: 3px double #8a1c1c;
+            color: #8a1c1c;
+            transform: rotate(-3deg);
+            font-weight: 900;
+            font-size: 13px;
+            letter-spacing: 1.5px;
+            font-family: 'Courier Prime', monospace;
+            box-shadow: 0 0 1px rgba(138, 28, 28, 0.2);
+            background: rgba(138, 28, 28, 0.03);
+        }
+
+        .warning {
+            border: 2px solid #8a1c1c;
+            border-right: 6px solid #8a1c1c;
+            padding: 12px 16px;
+            margin: 14px 0;
+            background: #faeceb;
+            color: #741b1b;
+            border-radius: 2px;
+        }
+
+        .note {
+            border-right: 5px solid #1c4563;
+            padding: 10px 14px;
+            background: #e8eaf0;
+            color: #1a2e3b;
+            margin: 12px 0;
+            border-radius: 2px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin: 10px 0;
+        }
+
+        .card {
+            border: 1px solid #c9c3b4;
+            border-top: 4px solid #1c4563;
+            padding: 12px;
+            background: #ffffff;
+            min-height: 120px;
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.04);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .card p {
+            margin: 0 0 8px;
+            font-size: 11.5px;
+            line-height: 1.6;
+        }
+
+        .card .id {
+            font-family: 'Share Tech Mono', monospace;
+            font-weight: 800;
+            color: #1c4563;
+            font-size: 12px;
+            border-bottom: 1px dashed #cbd5e0;
+            padding-bottom: 4px;
+            margin-bottom: 6px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 14px 0;
+            background: #ffffff;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+        }
+
+        th, td {
+            border: 1px solid #cbd5e0;
+            padding: 8px 10px;
+            vertical-align: top;
+        }
+
+        th {
+            background: #e2e8f0;
+            color: #1a202c;
+            font-weight: bold;
+            text-align: right;
+        }
+
+        .blank {
+            height: 38px;
+            border-bottom: 2px dashed #a0aec0;
+            margin: 10px 0;
+        }
+
+        .codebox {
+            border: 2px dashed #4a5568;
+            background: rgba(255,255,255,0.4);
+            padding: 16px;
+            text-align: center;
+            margin-top: 14px;
+            border-radius: 4px;
+        }
+
+        .bigcode {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 24px;
+            letter-spacing: 4px;
+            font-weight: bold;
+            color: #1c4563;
+        }
+
+        .rule {
+            display: flex;
+            gap: 10px;
+            margin: 8px 0;
+        }
+
+        .rule b {
+            min-width: 26px;
+            color: #1c4563;
+        }
+
+        .terminal {
+            background: #111417;
+            color: #38bdf8;
+            padding: 16px;
+            font-family: 'Share Tech Mono', monospace;
+            border-radius: 4px;
+            border: 1px solid #23282f;
+            box-shadow: inset 0 0 12px rgba(0,0,0,0.85);
+            position: relative;
+            overflow: hidden;
+            font-size: 12px;
+            line-height: 1.8;
+            text-align: left;
+            direction: ltr;
+        }
+
+        .terminal::after {
+            content: " ";
+            display: block;
+            position: absolute;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
+            background-size: 100% 4px;
+            pointer-events: none;
+        }
+
+        .red {
+            color: #c53030;
+            font-weight: bold;
+        }
+
+        .blue {
+            color: #2b6cb0;
+            font-weight: bold;
+        }
+
+        .footer {
+            margin-top: auto;
+            padding-top: 10px;
+            border-top: 1px solid #cbd5e0;
+            font-size: 9px;
+            color: #718096;
+            display: flex;
+            justify-content: space-between;
+            font-family: 'Courier Prime', monospace;
+            width: 100%;
+        }
+
+        .page-number {
+            font-family: 'Share Tech Mono', monospace;
+            font-weight: bold;
+        }
+
+        .two-col {
+            columns: 2;
+            column-gap: 20px;
+        }
+
+        .cut {
+            border-top: 2px dashed #a0aec0;
+            margin: 16px 0;
+            padding-top: 10px;
+        }
+
+        @media print {
+            body {
+                background: #fff;
+            }
+
+            .print-controls {
+                display: none;
+            }
+
+            .page {
+                margin: 0;
+                border: 0;
+                width: 210mm;
+                height: 297mm;
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="print-controls">
+        <button class="print-btn" onclick="window.print()">
+            🖨️ طباعة ملف الأدلة النهائي (A4)
+        </button>
+    </div>
+
+    <!-- PAGE 1: COVER -->
+    <section class="page">
+        <div class="center" style="padding-top:55mm">
+            <div class="stamp">CONFIDENTIAL // FINAL CASE ACCUSATION</div>
+            <h1 style="margin-top:18px">BLUE TEAM // LEVEL 6</h1>
+            <h2 style="border:0">THE SERIAL KILLER ACCUSATION</h2>
+            <p style="font-size:18px">الاتهام الجنائي النهائي وكشف القاتل</p>
+            <div class="warning" style="max-width:145mm;margin:25px auto;text-align:right">
+                <b>تحذير هام:</b><br>
+                القضية وصلت لنهايتها. لحل هذا التحدي الأخير، يجب دمج جميع المعلومات المستخلصة من المراحل السابقة (هوية المشتبه به، نمط القاتل المعتمد، والتلاعب الذي تم اكتشافه في صورة مسرح الجريمة) مع الأدلة المادية الجديدة المرفقة في هذا الملف.
+            </div>
+            <p class="mono">RECONSTRUCT THE EVIDENCE CHAIN TO ACCUSE THE SUSPECT.</p>
+        </div>
+        <div class="footer"><span>BLUE TEAM // LEVEL 6 // CONFIDENTIAL</span><span class="page-number">01</span></div>
+    </section>
+
+    <!-- PAGE 2: EVIDENCE PACKET Part 1 -->
+    <section class="page">
+        <h2>وثيقة 6-A — الأدلة والمقارنات الجنائية</h2>
+        <div class="note"><b>مراجعة سريعة للحقائق المسجلة:</b>
+            <ul>
+                <li><strong>المشتبه به من المستوى 1:</strong> Daniel Roth.</li>
+                <li><strong>النمط المسجل من المستوى 3:</strong> توقيت 02:17، اتجاه EAST، وعلامة BLACK.</li>
+                <li><strong>تحقيقات الصورة من المستوى 4:</strong> الصورة تم التلاعب بها وتحريك الأدلة لاحقاً بعد التقاطها، والوقت المعكوس بالمرآة أثبت التوقيت 17:04.</li>
+            </ul>
+        </div>
+
+        <div class="grid">
+            <div class="card">
+                <div class="id">EVIDENCE F-1: FINAL VICTIM REPORT</div>
+                <p><b>تقرير الضحية الأخيرة:</b> تم العثور على مسرح جريمة جديد بالكامل يتبع نفس النمط الجنائي بدقة:</p>
+                <ul>
+                    <li>التوقيت الفعلي: <b>02:17</b></li>
+                    <li>الاتجاه: <b>EAST (الممر الشرقي)</b></li>
+                    <li>العلامة الجنائية: <b>BLACK (الحبر الأسود)</b></li>
+                    <li>عينة البصمة المستخرجة: <b>B-3</b></li>
+                </ul>
+            </div>
+            <div class="card">
+                <div class="id">EVIDENCE F-2: FINGERPRINT COMPARISON</div>
+                <p><b>تقرير مقارنة البصمات:</b> بمطابقة عينة البصمة المستخرجة <b>B-3</b> مع قاعدة البيانات الجنائية للمشتبه بهم:</p>
+                <ul>
+                    <li>العينة <b>B-3</b> تطابق الهوية المرمزة بـ <b>D.R.</b></li>
+                    <li>الهوية <b>D.R.</b> تطابق المشتبه به الرئيسي: <b>Daniel Roth</b></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer"><span>BLUE TEAM // LEVEL 6 // CONFIDENTIAL</span><span class="page-number">02</span></div>
+    </section>
+
+    <!-- PAGE 3: EVIDENCE PACKET Part 2 -->
+    <section class="page">
+        <h2>وثيقة 6-B — البيانات التقنية والسجلات الميدانية</h2>
+        
+        <div class="grid">
+            <div class="card">
+                <div class="id">EVIDENCE F-3: PHONE LOCATION LOGS</div>
+                <p><b>تتبع هاتف المشتبه به:</b> يظهر تقرير البرج الخلوي لشبكة الهاتف الجوال البيانات التالية:</p>
+                <ul>
+                    <li>في تمام الساعة <b>02:17</b>، تم رصد الهاتف الشخصي لـ <b>Daniel Roth</b> نشطاً.</li>
+                    <li>الإحداثيات تضع الجوال بدقة داخل الغرفة رقم <b>EAST-04</b> (الممر الشرقي).</li>
+                </ul>
+            </div>
+            <div class="card">
+                <div class="id">EVIDENCE F-4: PHOTO INTEGRITY SCAN</div>
+                <p><b>سلامة صورة مسرح الجريمة #221:</b></p>
+                <p>الفحص الفني الدقيق لصورة مسرح الجريمة المكتشفة بالمستوى الرابع يؤكد أن الأغراض المادية الموثقة بالداخل تم تحريكها وإخفاؤها بعد التقاط الصورة بـ 4 دقائق، مما يثبت حضور شخص بمسرح الجريمة لإخفاء معالم النمط الجنائي.</p>
+            </div>
+        </div>
+
+        <div class="terminal">
+            MASTER REGISTRATION MATRIX // ACCUSATION PROTOCOL<br>
+            ==================================================<br>
+            [02:17] Master access log: Eastern Corridor door opened.<br>
+            [02:17] Device match: Daniel Roth cellular registered.<br>
+            [02:19] Sensor Alert: Eastern corridor corridor motion detected.<br>
+            [STATUS] EVIDENCE LINKS SUSPECT IRREFUTABLY.
+        </div>
+
+        <div class="footer"><span>BLUE TEAM // LEVEL 6 // CONFIDENTIAL</span><span class="page-number">03</span></div>
+    </section>
+
+    <!-- PAGE 4: WORKSHEET -->
+    <section class="page">
+        <h2>وثيقة 6-C — ورقة عمل التحقيق والربط النهائي</h2>
+        <p>استخدم هذا التخطيط لربط أطراف القضية وإثبات الإدانة بمسار التحقيق المادي:</p>
+        
+        <table>
+            <tr>
+                <th>السؤال الجنائي</th>
+                <th>المعلومات المستخرجة</th>
+                <th>رمز الإثبات / الأثر</th>
+            </tr>
+            <tr>
+                <td>من هو القاتل المتسلسل؟</td>
+                <td><br><br></td>
+                <td>بصمة الإصبع: ________</td>
+            </tr>
+            <tr>
+                <td>ما هو التوقيت الجنائي للقاتل؟</td>
+                <td><br><br></td>
+                <td>الساعة الفعالة: ________</td>
+            </tr>
+            <tr>
+                <td>ما هو الاتجاه المتبع؟</td>
+                <td><br><br></td>
+                <td>الاتجاه الجغرافي: ________</td>
+            </tr>
+            <tr>
+                <td>ما هي العلامة المميزة للنمط؟</td>
+                <td><br><br></td>
+                <td>اللون المستهدف: ________</td>
+            </tr>
+        </table>
+
+        <div class="warning">
+            <b>تنبيه أمني للتقديم:</b><br>
+            لإغلاق القضية عبر شاشة النظام الرقمي بنجاح، يجب إدخال اسم القاتل بالكامل (في الخطوة أ) ثم تحديد التوقيت والاتجاه والعلامة وربط الأدلة المادية الثلاثة المؤكدة للاتهام (بصمة B-3، موقع هاتف المشتبه به، وسجل الوصول الذي يضعه في الممر) لتخطي حماية الاتهام النهائي.
+        </div>
+
+        <div class="footer"><span>BLUE TEAM // LEVEL 6 // CONFIDENTIAL</span><span class="page-number">04</span></div>
+    </section>
+</body>
+
+</html>

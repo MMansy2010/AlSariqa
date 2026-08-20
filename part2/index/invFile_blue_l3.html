@@ -1,787 +1,787 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>BLUE TEAM — CASE 03</title>
-
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Courier+Prime:wght@400;700&display=swap');
-
-*{
-    box-sizing:border-box;
-}
-
-body{
-    margin:0;
-    background:#15191d;
-    color:#272c30;
-    font-family:'Cairo',sans-serif;
-}
-
-.print-area{
-    text-align:center;
-    padding:20px;
-}
-
-.print-btn{
-    background:#193d59;
-    color:#f3ead7;
-    border:2px solid #b8a77f;
-    padding:11px 28px;
-    font-family:'Cairo',sans-serif;
-    font-weight:900;
-    cursor:pointer;
-    border-radius:4px;
-}
-
-.page{
-    width:210mm;
-    min-height:297mm;
-    margin:15px auto;
-    padding:14mm;
-
-    position:relative;
-
-    background:
-        repeating-linear-gradient(
-            0deg,
-            rgba(30,50,70,.025) 0px,
-            rgba(30,50,70,.025) 1px,
-            transparent 1px,
-            transparent 4px
-        ),
-        #e9e4d7;
-
-    border:1px solid #aaa28f;
-
-    box-shadow:
-        0 15px 45px rgba(0,0,0,.55),
-        inset 0 0 45px rgba(30,50,70,.07);
-}
-
-.stamp{
-    position:absolute;
-    top:25px;
-    left:25px;
-
-    border:3px double #173e5d;
-    color:#173e5d;
-
-    padding:4px 12px;
-
-    font-family:'Courier Prime',monospace;
-    font-weight:bold;
-    font-size:11px;
-
-    transform:rotate(-8deg);
-}
-
-.file-number{
-    position:absolute;
-    top:27px;
-    right:25px;
-
-    font-family:'Courier Prime',monospace;
-    font-size:9px;
-    color:#66645e;
-}
-
-.header{
-    text-align:center;
-
-    border-top:4px double #2d3337;
-    border-bottom:4px double #2d3337;
-
-    padding:13px 8px 10px;
-    margin-bottom:12px;
-}
-
-.header h1{
-    margin:0;
-    font-size:22px;
-    font-weight:900;
-}
-
-.header h2{
-    margin:3px 0;
-    color:#17466b;
-    font-size:14px;
-}
-
-.meta{
-    font-family:'Courier Prime',monospace;
-    font-size:9px;
-    color:#625f57;
-}
-
-.warning{
-    border:2px solid #17466b;
-    background:rgba(23,70,107,.06);
-
-    padding:8px 10px;
-    margin-bottom:11px;
-
-    text-align:center;
-
-    color:#17466b;
-    font-size:10px;
-    font-weight:900;
-}
-
-.doc{
-    border:1.5px solid #55534d;
-    background:rgba(255,255,255,.23);
-
-    padding:9px 11px;
-    margin-bottom:10px;
-}
-
-.doc-title{
-    display:inline-block;
-
-    background:#30383e;
-    color:#f1e8d5;
-
-    padding:3px 10px;
-    margin-bottom:7px;
-
-    font-size:11px;
-    font-weight:900;
-}
-
-.doc p{
-    margin:4px 0;
-    font-size:10px;
-    line-height:1.8;
-}
-
-.case-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:7px;
-}
-
-.case-item{
-    border:1px dashed #77736a;
-    background:rgba(255,255,255,.2);
-    padding:7px;
-    font-size:9px;
-}
-
-.case-item strong{
-    color:#17466b;
-}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>BLUE TEAM — CASE 03</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Courier+Prime:wght@400;700&display=swap');
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: #15191d;
+            color: #272c30;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        .print-area {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .print-btn {
+            background: #193d59;
+            color: #f3ead7;
+            border: 2px solid #b8a77f;
+            padding: 11px 28px;
+            font-family: 'Cairo', sans-serif;
+            font-weight: 900;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .page {
+            width: 210mm;
+            min-height: 297mm;
+            margin: 15px auto;
+            padding: 14mm;
+
+            position: relative;
+
+            background:
+                repeating-linear-gradient(0deg,
+                    rgba(30, 50, 70, .025) 0px,
+                    rgba(30, 50, 70, .025) 1px,
+                    transparent 1px,
+                    transparent 4px),
+                #e9e4d7;
+
+            border: 1px solid #aaa28f;
+
+            box-shadow:
+                0 15px 45px rgba(0, 0, 0, .55),
+                inset 0 0 45px rgba(30, 50, 70, .07);
+        }
+
+        .stamp {
+            position: absolute;
+            top: 25px;
+            left: 25px;
+
+            border: 3px double #173e5d;
+            color: #173e5d;
+
+            padding: 4px 12px;
+
+            font-family: 'Courier Prime', monospace;
+            font-weight: bold;
+            font-size: 11px;
+
+            transform: rotate(-8deg);
+        }
+
+        .file-number {
+            position: absolute;
+            top: 27px;
+            right: 25px;
+
+            font-family: 'Courier Prime', monospace;
+            font-size: 9px;
+            color: #66645e;
+        }
+
+        .header {
+            text-align: center;
+
+            border-top: 4px double #2d3337;
+            border-bottom: 4px double #2d3337;
+
+            padding: 13px 8px 10px;
+            margin-bottom: 12px;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 22px;
+            font-weight: 900;
+        }
+
+        .header h2 {
+            margin: 3px 0;
+            color: #17466b;
+            font-size: 14px;
+        }
+
+        .meta {
+            font-family: 'Courier Prime', monospace;
+            font-size: 9px;
+            color: #625f57;
+        }
+
+        .warning {
+            border: 2px solid #17466b;
+            background: rgba(23, 70, 107, .06);
+
+            padding: 8px 10px;
+            margin-bottom: 11px;
 
-.evidence-table{
-    width:100%;
-    border-collapse:collapse;
+            text-align: center;
+
+            color: #17466b;
+            font-size: 10px;
+            font-weight: 900;
+        }
+
+        .doc {
+            border: 1.5px solid #55534d;
+            background: rgba(255, 255, 255, .23);
+
+            padding: 9px 11px;
+            margin-bottom: 10px;
+        }
+
+        .doc-title {
+            display: inline-block;
+
+            background: #30383e;
+            color: #f1e8d5;
+
+            padding: 3px 10px;
+            margin-bottom: 7px;
+
+            font-size: 11px;
+            font-weight: 900;
+        }
+
+        .doc p {
+            margin: 4px 0;
+            font-size: 10px;
+            line-height: 1.8;
+        }
+
+        .case-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 7px;
+        }
+
+        .case-item {
+            border: 1px dashed #77736a;
+            background: rgba(255, 255, 255, .2);
+            padding: 7px;
+            font-size: 9px;
+        }
+
+        .case-item strong {
+            color: #17466b;
+        }
 
-    margin-top:7px;
-
-    font-family:'Courier Prime',monospace;
-    font-size:9px;
-    text-align:center;
-}
-
-.evidence-table th,
-.evidence-table td{
-    border:1px solid #55534d;
-    padding:6px;
-}
-
-.evidence-table th{
-    background:#c3c0b4;
-}
-
-.evidence-table td{
-    background:rgba(255,255,255,.17);
-}
-
-.note{
-    background:#d8d4c7;
-
-    border-right:5px solid #17466b;
-
-    padding:9px 12px;
-    margin-top:8px;
-
-    font-family:'Courier Prime',monospace;
-    font-size:10px;
-    line-height:1.9;
-}
-
-.note strong{
-    color:#17466b;
-}
-
-.index-table{
-    width:100%;
-    border-collapse:collapse;
-
-    margin-top:8px;
+        .evidence-table {
+            width: 100%;
+            border-collapse: collapse;
 
-    font-family:'Courier Prime',monospace;
-    font-size:10px;
-    text-align:center;
-}
-
-.index-table th,
-.index-table td{
-    border:1px solid #514f49;
-    padding:7px;
-}
+            margin-top: 7px;
 
-.index-table th{
-    background:#c3c0b4;
-}
+            font-family: 'Courier Prime', monospace;
+            font-size: 9px;
+            text-align: center;
+        }
+
+        .evidence-table th,
+        .evidence-table td {
+            border: 1px solid #55534d;
+            padding: 6px;
+        }
+
+        .evidence-table th {
+            background: #c3c0b4;
+        }
+
+        .evidence-table td {
+            background: rgba(255, 255, 255, .17);
+        }
+
+        .note {
+            background: #d8d4c7;
+
+            border-right: 5px solid #17466b;
+
+            padding: 9px 12px;
+            margin-top: 8px;
+
+            font-family: 'Courier Prime', monospace;
+            font-size: 10px;
+            line-height: 1.9;
+        }
+
+        .note strong {
+            color: #17466b;
+        }
 
-.index-table td{
-    background:#e3dfd3;
-    font-weight:bold;
-}
+        .index-table {
+            width: 100%;
+            border-collapse: collapse;
 
-.rule-box{
-    border:2px solid #363b3e;
+            margin-top: 8px;
 
-    background:rgba(255,255,255,.23);
+            font-family: 'Courier Prime', monospace;
+            font-size: 10px;
+            text-align: center;
+        }
 
-    padding:10px 12px;
-    margin-top:8px;
-}
+        .index-table th,
+        .index-table td {
+            border: 1px solid #514f49;
+            padding: 7px;
+        }
 
-.rule-title{
-    color:#17466b;
-    font-size:12px;
-    font-weight:900;
-    margin-bottom:5px;
-}
+        .index-table th {
+            background: #c3c0b4;
+        }
 
-.rules{
-    margin:4px 0;
-    padding-right:20px;
+        .index-table td {
+            background: #e3dfd3;
+            font-weight: bold;
+        }
 
-    font-size:10px;
-    line-height:1.95;
-}
-
-.code-area{
-    margin-top:9px;
-
-    border:2px dashed #17466b;
-
-    padding:9px;
-
-    text-align:center;
-}
-
-.code-label{
-    color:#17466b;
-    font-size:11px;
-    font-weight:900;
-    margin-bottom:7px;
-}
-
-.code-boxes{
-    display:flex;
-    justify-content:center;
-    gap:8px;
-    direction:ltr;
-}
-
-.code-box{
-    width:36px;
-    height:40px;
-
-    border:2px solid #403f3a;
-    background:#f4f0e5;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    font-family:'Courier Prime',monospace;
-    font-size:18px;
-    font-weight:bold;
-}
-
-.final-note{
-    margin-top:10px;
-
-    border-top:3px double #303437;
-    border-bottom:3px double #303437;
-
-    padding:9px;
-
-    text-align:center;
-
-    font-family:'Courier Prime',monospace;
-    font-size:10px;
-    line-height:1.9;
-}
-
-.final-note strong{
-    color:#17466b;
-}
-
-.footer{
-    margin-top:10px;
-
-    text-align:center;
-
-    font-family:'Courier Prime',monospace;
-    font-size:8px;
-
-    color:#666157;
-}
-
-.footer strong{
-    color:#17466b;
-}
-
-@page{
-    size:A4;
-    margin:0;
-}
-
-@media print{
-
-    body{
-        background:none;
-    }
-
-    .print-area{
-        display:none !important;
-    }
-
-    .page{
-        margin:0;
-        width:210mm;
-        min-height:297mm;
-        border:none;
-        box-shadow:none;
-    }
-}
-</style>
+        .rule-box {
+            border: 2px solid #363b3e;
+
+            background: rgba(255, 255, 255, .23);
+
+            padding: 10px 12px;
+            margin-top: 8px;
+        }
+
+        .rule-title {
+            color: #17466b;
+            font-size: 12px;
+            font-weight: 900;
+            margin-bottom: 5px;
+        }
+
+        .rules {
+            margin: 4px 0;
+            padding-right: 20px;
+
+            font-size: 10px;
+            line-height: 1.95;
+        }
+
+        .code-area {
+            margin-top: 9px;
+
+            border: 2px dashed #17466b;
+
+            padding: 9px;
+
+            text-align: center;
+        }
+
+        .code-label {
+            color: #17466b;
+            font-size: 11px;
+            font-weight: 900;
+            margin-bottom: 7px;
+        }
+
+        .code-boxes {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            direction: ltr;
+        }
+
+        .code-box {
+            width: 36px;
+            height: 40px;
+
+            border: 2px solid #403f3a;
+            background: #f4f0e5;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-family: 'Courier Prime', monospace;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .final-note {
+            margin-top: 10px;
+
+            border-top: 3px double #303437;
+            border-bottom: 3px double #303437;
+
+            padding: 9px;
+
+            text-align: center;
+
+            font-family: 'Courier Prime', monospace;
+            font-size: 10px;
+            line-height: 1.9;
+        }
+
+        .final-note strong {
+            color: #17466b;
+        }
+
+        .footer {
+            margin-top: 10px;
+
+            text-align: center;
+
+            font-family: 'Courier Prime', monospace;
+            font-size: 8px;
+
+            color: #666157;
+        }
+
+        .footer strong {
+            color: #17466b;
+        }
+
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        @media print {
+
+            body {
+                background: none;
+            }
+
+            .print-area {
+                display: none !important;
+            }
+
+            .page {
+                margin: 0;
+                width: 210mm;
+                min-height: 297mm;
+                border: none;
+                box-shadow: none;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-<div class="print-area">
-    <button class="print-btn" onclick="window.print()">
-        🖨️ طباعة ملف التحقيق
-    </button>
-</div>
-
-<div class="page">
-
-<div class="stamp">
-    CONFIDENTIAL
-</div>
-
-<div class="file-number">
-    BLUE / CASE-03 / EVIDENCE
-</div>
-
-<div class="header">
-
-    <h1>
-        🔵 قسم التحقيقات الجنائية
-    </h1>
-
-    <h2>
-        ملف القضية — نمط القاتل
-    </h2>
-
-    <div class="meta">
-        CASE: B-13 &nbsp; | &nbsp;
-        STATUS: ACTIVE &nbsp; | &nbsp;
-        EVIDENCE LEVEL: RESTRICTED
+    <div class="print-area">
+        <button class="print-btn" onclick="window.print()">
+            🖨️ طباعة ملف التحقيق
+        </button>
     </div>
 
-</div>
+    <div class="page">
 
-<div class="warning">
+        <div class="stamp">
+            CONFIDENTIAL
+        </div>
 
-    ⚠ لا يوجد رقم عشوائي في هذا الملف.
-    كل رقم موجود له وظيفة.
-    لا تبدأ بالحل قبل قراءة جميع الوثائق.
+        <div class="file-number">
+            BLUE / CASE-03 / EVIDENCE
+        </div>
 
-</div>
+        <div class="header">
 
+            <h1>
+                🔵 قسم التحقيقات الجنائية
+            </h1>
 
-<!-- DOCUMENT 1 -->
+            <h2>
+                ملف القضية — نمط القاتل
+            </h2>
 
-<div class="doc">
+            <div class="meta">
+                CASE: B-13 &nbsp; | &nbsp;
+                STATUS: ACTIVE &nbsp; | &nbsp;
+                EVIDENCE LEVEL: RESTRICTED
+            </div>
 
-<div class="doc-title">
-    [ وثيقة 1 ] — ملخص القضية
-</div>
+        </div>
 
-<div class="case-grid">
+        <div class="warning">
 
-<div class="case-item">
-<strong>الموقع:</strong><br>
-منزل مهجور — القطاع الشمالي
-</div>
+            ⚠ لا يوجد رقم عشوائي في هذا الملف.
+            كل رقم موجود له وظيفة.
+            لا تبدأ بالحل قبل قراءة جميع الوثائق.
 
-<div class="case-item">
-<strong>المحقق:</strong><br>
-UNIT 17
-</div>
+        </div>
 
-<div class="case-item">
-<strong>الحالة:</strong><br>
-القاتل غير معروف
-</div>
 
-<div class="case-item">
-<strong>آخر دليل:</strong><br>
-نمط متكرر في مسرح الجريمة
-</div>
+        <!-- DOCUMENT 1 -->
 
-</div>
+        <div class="doc">
 
-<div class="note">
+            <div class="doc-title">
+                [ وثيقة 1 ] — ملخص القضية
+            </div>
 
-تم العثور على أربع عينات من سجلات
-مسرح الجريمة.
+            <div class="case-grid">
 
-<br><br>
+                <div class="case-item">
+                    <strong>الموقع:</strong><br>
+                    منزل مهجور — القطاع الشمالي
+                </div>
 
-كتب المحقق في هامش الملف:
+                <div class="case-item">
+                    <strong>المحقق:</strong><br>
+                    UNIT 17
+                </div>
 
-<br>
+                <div class="case-item">
+                    <strong>الحالة:</strong><br>
+                    القاتل غير معروف
+                </div>
 
-<strong>
-"القاتل يكرر نفسه...
-لكن لا يكرر المكان."
-</strong>
+                <div class="case-item">
+                    <strong>آخر دليل:</strong><br>
+                    نمط متكرر في مسرح الجريمة
+                </div>
 
-<br><br>
+            </div>
 
-"إذا عرفت ماذا يكرر،
-ستعرف أين سيظهر."
+            <div class="note">
 
-</div>
+                تم العثور على أربع عينات من سجلات
+                مسرح الجريمة.
 
-</div>
+                <br><br>
 
+                كتب المحقق في هامش الملف:
 
-<!-- DOCUMENT 2 -->
+                <br>
 
-<div class="doc">
+                <strong>
+                    "القاتل يكرر نفسه...
+                    لكن لا يكرر المكان."
+                </strong>
 
-<div class="doc-title">
-    [ وثيقة 2 ] — سجلات الأدلة
-</div>
+                <br><br>
 
-<p>
-كل سجل يحتوي على ستة أرقام.
-هناك رقم واحد فقط يظهر مرتين.
-هذا الرقم هو
-<strong>علامة النمط</strong>.
-</p>
+                "إذا عرفت ماذا يكرر،
+                ستعرف أين سيظهر."
 
-<table class="evidence-table">
+            </div>
 
-<tr>
-<th>السجل</th>
-<th>الأرقام</th>
-<th>وقت العثور</th>
-</tr>
+        </div>
 
-<tr>
-<td>E-01</td>
-<td>
-4 — 9 — 2 — 7 — 1 — 7
-</td>
-<td>
-23:18
-</td>
-</tr>
 
-<tr>
-<td>E-02</td>
-<td>
-8 — 3 — 5 — 1 — 5 — 4
-</td>
-<td>
-21:42
-</td>
-</tr>
+        <!-- DOCUMENT 2 -->
 
-<tr>
-<td>E-03</td>
-<td>
-6 — 2 — 8 — 3 — 1 — 3
-</td>
-<td>
-22:05
-</td>
-</tr>
+        <div class="doc">
 
-<tr>
-<td>E-04</td>
-<td>
-9 — 4 — 6 — 2 — 8 — 9
-</td>
-<td>
-20:51
-</td>
-</tr>
+            <div class="doc-title">
+                [ وثيقة 2 ] — سجلات الأدلة
+            </div>
+
+            <p>
+                كل سجل يحتوي على ستة أرقام.
+                هناك رقم واحد فقط يظهر مرتين.
+                هذا الرقم هو
+                <strong>علامة النمط</strong>.
+            </p>
+
+            <table class="evidence-table">
 
-</table>
+                <tr>
+                    <th>السجل</th>
+                    <th>الأرقام</th>
+                    <th>وقت العثور</th>
+                </tr>
+
+                <tr>
+                    <td>E-01</td>
+                    <td>
+                        4 — 9 — 2 — 7 — 1 — 7
+                    </td>
+                    <td>
+                        23:18
+                    </td>
+                </tr>
 
-</div>
+                <tr>
+                    <td>E-02</td>
+                    <td>
+                        8 — 3 — 5 — 1 — 5 — 4
+                    </td>
+                    <td>
+                        21:42
+                    </td>
+                </tr>
 
+                <tr>
+                    <td>E-03</td>
+                    <td>
+                        6 — 2 — 8 — 3 — 1 — 3
+                    </td>
+                    <td>
+                        22:05
+                    </td>
+                </tr>
 
-<!-- DOCUMENT 3 -->
+                <tr>
+                    <td>E-04</td>
+                    <td>
+                        9 — 4 — 6 — 2 — 8 — 9
+                    </td>
+                    <td>
+                        20:51
+                    </td>
+                </tr>
 
-<div class="doc">
+            </table>
 
-<div class="doc-title">
-    [ وثيقة 3 ] — Killer Index
-</div>
+        </div>
 
-<div class="note">
 
-وجد المحققون هذا الجدول خلف صورة
-معلقة داخل المنزل.
+        <!-- DOCUMENT 3 -->
 
-<br><br>
+        <div class="doc">
 
-<strong>
-"لا تستخدم علامة النمط كما هي."
-</strong>
+            <div class="doc-title">
+                [ وثيقة 3 ] — Killer Index
+            </div>
 
-<br>
+            <div class="note">
 
-"القاتل يعرف أن المحققين يبحثون
-عن الأرقام."
+                وجد المحققون هذا الجدول خلف صورة
+                معلقة داخل المنزل.
 
-</div>
+                <br><br>
 
-<table class="index-table">
+                <strong>
+                    "لا تستخدم علامة النمط كما هي."
+                </strong>
 
-<tr>
+                <br>
 
-<th>علامة النمط</th>
+                "القاتل يعرف أن المحققين يبحثون
+                عن الأرقام."
 
-<th>1</th>
-<th>2</th>
-<th>3</th>
-<th>4</th>
-<th>5</th>
-<th>6</th>
-<th>7</th>
-<th>8</th>
-<th>9</th>
+            </div>
 
-</tr>
+            <table class="index-table">
 
-<tr>
+                <tr>
 
-<th>قيمة الدليل</th>
+                    <th>علامة النمط</th>
 
-<td>Q</td>
-<td>4</td>
-<td>N</td>
-<td>8</td>
-<td>1</td>
-<td>R</td>
-<td>2</td>
-<td>6</td>
-<td>K</td>
+                    <th>1</th>
+                    <th>2</th>
+                    <th>3</th>
+                    <th>4</th>
+                    <th>5</th>
+                    <th>6</th>
+                    <th>7</th>
+                    <th>8</th>
+                    <th>9</th>
 
-</tr>
+                </tr>
 
-</table>
+                <tr>
 
-</div>
+                    <th>قيمة الدليل</th>
 
+                    <td>Q</td>
+                    <td>4</td>
+                    <td>9</td>
+                    <td>8</td>
+                    <td>1</td>
+                    <td>R</td>
+                    <td>2</td>
+                    <td>6</td>
+                    <td>7</td>
 
-<!-- DOCUMENT 4 -->
+                </tr>
 
-<div class="doc">
+            </table>
 
-<div class="doc-title">
-    [ وثيقة 4 ] — ملاحظة المحقق
-</div>
+        </div>
 
-<div class="rule-box">
+        <br><br><br><br><br>
+        <!-- DOCUMENT 4 -->
 
-<div class="rule-title">
-    طريقة استخراج رمز القضية
-</div>
+        <div class="doc">
 
-<ol class="rules">
+            <div class="doc-title">
+                [ وثيقة 4 ] — ملاحظة المحقق
+            </div>
 
-<li>
-ابحث عن الرقم الذي يظهر مرتين
-في كل سجل.
-</li>
+            <div class="rule-box">
 
-<li>
-هذا الرقم هو
-<strong>علامة النمط</strong>.
-</li>
+                <div class="rule-title">
+                    طريقة استخراج رمز القضية
+                </div>
 
-<li>
-استخدم علامة النمط مع
-<strong>Killer Index</strong>.
-</li>
+                <ol class="rules">
 
-<li>
-القيمة الناتجة هي قيمة السجل.
-</li>
+                    <li>
+                        ابحث عن الرقم الذي يظهر مرتين
+                        في كل سجل.
+                    </li>
 
-<li>
-لا تجمع النتائج الآن.
-</li>
+                    <li>
+                        هذا الرقم هو
+                        <strong>علامة النمط</strong>.
+                    </li>
 
-<li>
-رتب السجلات حسب
-<strong>وقت العثور</strong>
-من الأقدم إلى الأحدث.
-</li>
+                    <li>
+                        استخدم علامة النمط مع
+                        <strong>Killer Index</strong>.
+                    </li>
 
-<li>
-اكتب قيم السجلات بعد الترتيب.
-</li>
+                    <li>
+                        القيمة الناتجة هي قيمة السجل.
+                    </li>
 
-</ol>
+                    <li>
+                        لا تجمع النتائج الآن.
+                    </li>
 
-</div>
+                    <li>
+                        رتب السجلات حسب
+                        <strong>وقت العثور</strong>
+                        من الأقدم إلى الأحدث.
+                    </li>
 
-</div>
+                    <li>
+                        اكتب قيم السجلات بعد الترتيب.
+                    </li>
 
+                </ol>
 
-<!-- DOCUMENT 5 -->
+            </div>
 
-<div class="doc">
+        </div>
 
-<div class="doc-title">
-    [ وثيقة 5 ] — آخر سطر في الملف
-</div>
 
-<div class="note">
+        <!-- DOCUMENT 5 -->
 
-"ثلاثة من الأدلة تكفي لمعرفة الماضي."
+        <div class="doc">
 
-<br><br>
+            <div class="doc-title">
+                [ وثيقة 5 ] — آخر سطر في الملف
+            </div>
 
-<strong>
-"لكن الرابع يخبرك بما سيحدث."
-</strong>
+            <div class="note">
 
-<br><br>
+                "ثلاثة من الأدلة تكفي لمعرفة الماضي."
 
-"لا تثق في ترتيب الملفات."
+                <br><br>
 
-<br>
+                <strong>
+                    "لكن الرابع يخبرك بما سيحدث."
+                </strong>
 
-"ثق في الساعة."
+                <br><br>
 
-</div>
+                "لا تثق في ترتيب الملفات."
 
-</div>
+                <br>
 
+                "ثق في الساعة."
 
-<!-- STEP A -->
+            </div>
 
-<div class="rule-box">
+        </div>
 
-<div class="rule-title">
-    🧩 STEP A — CASE PASSWORD
-</div>
 
-<ol class="rules">
+        <!-- STEP A -->
 
-<li>
-استخرج علامة النمط من كل سجل.
-</li>
+        <div class="rule-box">
 
-<li>
-حوّلها باستخدام Killer Index.
-</li>
+            <div class="rule-title">
+                🧩 STEP A — CASE PASSWORD
+            </div>
 
-<li>
-رتب السجلات حسب الوقت.
-</li>
+            <ol class="rules">
 
-<li>
-اجمع القيم بالترتيب الجديد.
-</li>
+                <li>
+                    استخرج علامة النمط من كل سجل.
+                </li>
 
-<li>
-أدخل الرمز في الموقع.
-</li>
+                <li>
+                    حوّلها باستخدام Killer Index.
+                </li>
 
-</ol>
+                <li>
+                    رتب السجلات حسب الوقت.
+                </li>
 
-<div class="code-area">
+                <li>
+                    اجمع القيم بالترتيب الجديد.
+                </li>
 
-<div class="code-label">
-CASE PASSWORD
-</div>
+                <li>
+                    أدخل الرمز في الموقع.
+                </li>
 
-<div class="code-boxes">
+            </ol>
 
-<div class="code-box">_</div>
-<div class="code-box">_</div>
-<div class="code-box">_</div>
-<div class="code-box">_</div>
+            <div class="code-area">
 
-</div>
+                <div class="code-label">
+                    CASE PASSWORD
+                </div>
 
-</div>
+                <div class="code-boxes">
 
-</div>
+                    <div class="code-box">_</div>
+                    <div class="code-box">_</div>
+                    <div class="code-box">_</div>
+                    <div class="code-box">_</div>
 
+                </div>
 
-<div class="final-note">
+            </div>
 
-<strong>
-"لقد عرفت كيف يقرأ القاتل الأدلة."
-</strong>
+        </div>
 
-<br><br>
 
-"الآن حاول أن تعرف أين سيترك
-دليله التالي."
+        <div class="final-note">
 
-<br><br>
+            <strong>
+                "لقد عرفت كيف يقرأ القاتل الأدلة."
+            </strong>
 
-↓
+            <br><br>
 
-<br>
+            "الآن حاول أن تعرف أين سيترك
+            دليله التالي."
 
-<strong>
-STEP B
-</strong>
+            <br><br>
 
-</div>
+            ↓
 
+            <br>
 
-<div class="footer">
+            <strong>
+                STEP B
+            </strong>
 
-BLUE TEAM / CASE B-13
+        </div>
 
-&nbsp; • &nbsp;
 
-<strong>
-SERIAL PATTERN ANALYSIS
-</strong>
+        <div class="footer">
 
-&nbsp; • &nbsp;
+            BLUE TEAM / CASE B-13
 
-RESTRICTED
+            &nbsp; • &nbsp;
 
-</div>
+            <strong>
+                SERIAL PATTERN ANALYSIS
+            </strong>
 
-</div>
+            &nbsp; • &nbsp;
+
+            RESTRICTED
+
+        </div>
+
+    </div>
 
 </body>
+
 </html>

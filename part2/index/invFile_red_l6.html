@@ -1,0 +1,466 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="utf-8">
+    <title>LEVEL 6 - RED TEAM</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Courier+Prime:wght@400;700&family=Share+Tech+Mono&display=swap');
+
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: #140909;
+            color: #292d30;
+            font-family: 'Cairo', sans-serif;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        .print-controls {
+            text-align: center;
+            padding: 24px;
+        }
+
+        .print-btn {
+            background: #5c1313;
+            color: #eee7d8;
+            border: 2px solid #a9937c;
+            padding: 12px 28px;
+            font-family: 'Cairo', sans-serif;
+            font-weight: 900;
+            cursor: pointer;
+            border-radius: 4px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            transition: .2s;
+        }
+
+        .print-btn:hover {
+            background: #7e1e1e;
+            transform: translateY(-2px);
+        }
+
+        .page {
+            width: 210mm;
+            height: 297mm;
+            margin: 25px auto;
+            padding: 16mm;
+            background: 
+                repeating-linear-gradient(
+                     0deg,
+                     rgba(110, 21, 21, .015) 0px,
+                     rgba(110, 21, 21, .015) 1px,
+                     transparent 1px,
+                     transparent 4px
+                ),
+                #f6f2e8;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #c9bca0;
+            box-shadow: 
+                0 15px 45px rgba(0, 0, 0, .45),
+                inset 0 0 40px rgba(110, 21, 21, .05);
+            page-break-after: always;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .page:last-child {
+            page-break-after: auto;
+        }
+
+        h1, h2, h3 {
+            margin: 0 0 10px;
+            color: #5c1313;
+        }
+
+        h1 {
+            font-size: 26px;
+            font-weight: 900;
+            letter-spacing: 1px;
+        }
+
+        h2 {
+            font-size: 20px;
+            border-bottom: 2px double #6e1515;
+            padding-bottom: 6px;
+            font-weight: 700;
+        }
+
+        h3 {
+            font-size: 15px;
+            font-weight: 700;
+            color: #6e1515;
+        }
+
+        p, li, td, th {
+            font-size: 12.5px;
+            line-height: 1.7;
+            color: #2d3748;
+        }
+
+        .small {
+            font-size: 11px;
+            color: #718096;
+        }
+
+        .mono {
+            font-family: 'Share Tech Mono', 'Courier Prime', monospace;
+            font-weight: bold;
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        .stamp {
+            display: inline-block;
+            padding: 6px 16px;
+            border: 3px double #8a1c1c;
+            color: #8a1c1c;
+            transform: rotate(-3deg);
+            font-weight: 900;
+            font-size: 13px;
+            letter-spacing: 1.5px;
+            font-family: 'Courier Prime', monospace;
+            box-shadow: 0 0 1px rgba(138, 28, 28, 0.2);
+            background: rgba(138, 28, 28, 0.03);
+        }
+
+        .warning {
+            border: 2px solid #8a1c1c;
+            border-right: 6px solid #8a1c1c;
+            padding: 12px 16px;
+            margin: 14px 0;
+            background: #faeceb;
+            color: #741b1b;
+            border-radius: 2px;
+        }
+
+        .note {
+            border-right: 5px solid #8a1c1c;
+            padding: 10px 14px;
+            background: #f5eae4;
+            color: #4a1c1c;
+            margin: 12px 0;
+            border-radius: 2px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin: 10px 0;
+        }
+
+        .card {
+            border: 1px solid #c9c3b4;
+            border-top: 4px solid #8a1c1c;
+            padding: 12px;
+            background: #ffffff;
+            min-height: 120px;
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.04);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .card p {
+            margin: 0 0 8px;
+            font-size: 11.5px;
+            line-height: 1.6;
+        }
+
+        .card .id {
+            font-family: 'Share Tech Mono', monospace;
+            font-weight: 800;
+            color: #8a1c1c;
+            font-size: 12px;
+            border-bottom: 1px dashed #cbd5e0;
+            padding-bottom: 4px;
+            margin-bottom: 6px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 14px 0;
+            background: #ffffff;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+        }
+
+        th, td {
+            border: 1px solid #cbd5e0;
+            padding: 8px 10px;
+            vertical-align: top;
+        }
+
+        th {
+            background: #f2e5df;
+            color: #2d1a12;
+            font-weight: bold;
+            text-align: right;
+        }
+
+        .blank {
+            height: 38px;
+            border-bottom: 2px dashed #a0aec0;
+            margin: 10px 0;
+        }
+
+        .codebox {
+            border: 2px dashed #8a1c1c;
+            background: rgba(255,255,255,0.4);
+            padding: 16px;
+            text-align: center;
+            margin-top: 14px;
+            border-radius: 4px;
+        }
+
+        .bigcode {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 24px;
+            letter-spacing: 4px;
+            font-weight: bold;
+            color: #8a1c1c;
+        }
+
+        .rule {
+            display: flex;
+            gap: 10px;
+            margin: 8px 0;
+        }
+
+        .rule b {
+            min-width: 26px;
+            color: #8a1c1c;
+        }
+
+        .terminal {
+            background: #110909;
+            color: #ff8080;
+            padding: 16px;
+            font-family: 'Share Tech Mono', monospace;
+            border-radius: 4px;
+            border: 1px solid rgba(110, 21, 21, 0.3);
+            box-shadow: inset 0 0 12px rgba(0,0,0,0.85);
+            position: relative;
+            overflow: hidden;
+            font-size: 12px;
+            line-height: 1.8;
+            text-align: left;
+            direction: ltr;
+        }
+
+        .terminal::after {
+            content: " ";
+            display: block;
+            position: absolute;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
+            background-size: 100% 4px;
+            pointer-events: none;
+        }
+
+        .red {
+            color: #c53030;
+            font-weight: bold;
+        }
+
+        .blue {
+            color: #2b6cb0;
+            font-weight: bold;
+        }
+
+        .footer {
+            margin-top: auto;
+            padding-top: 10px;
+            border-top: 1px solid #cbd5e0;
+            font-size: 9px;
+            color: #718096;
+            display: flex;
+            justify-content: space-between;
+            font-family: 'Courier Prime', monospace;
+            width: 100%;
+        }
+
+        .page-number {
+            font-family: 'Share Tech Mono', monospace;
+            font-weight: bold;
+        }
+
+        .two-col {
+            columns: 2;
+            column-gap: 20px;
+        }
+
+        .cut {
+            border-top: 2px dashed #a0aec0;
+            margin: 16px 0;
+            padding-top: 10px;
+        }
+
+        @media print {
+            body {
+                background: #fff;
+            }
+
+            .print-controls {
+                display: none;
+            }
+
+            .page {
+                margin: 0;
+                border: 0;
+                width: 210mm;
+                height: 297mm;
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="print-controls">
+        <button class="print-btn" onclick="window.print()">
+            🖨️ طباعة ملف الأدلة النهائي (A4)
+        </button>
+    </div>
+
+    <!-- PAGE 1: COVER -->
+    <section class="page">
+        <div class="center" style="padding-top:55mm">
+            <div class="stamp">CONFIDENTIAL // WARD 13 CASE CLOSURE</div>
+            <h1 style="margin-top:18px">RED TEAM // LEVEL 6</h1>
+            <h2 style="border:0">THE BODY DISPLACEMENT INVESTIGATION</h2>
+            <p style="font-size:18px">تحقيق اختفاء جثة المريض 404 وإغلاق الملف</p>
+            <div class="warning" style="max-width:145mm;margin:25px auto;text-align:right">
+                <b>تحذير هام للسرية:</b><br>
+                لغز الجناح 13 يوشك على الانتهاء. لمعرفة أين ذهبت الجثة ومن قام بنقلها، يجب الربط والتحليل بين التوقيت الرسمي للوفاة، توقيت اختفاء الجثة، مسار النقل المستغل، والوجهة النهائية بالاعتماد على سجلات الأبواب وتتبع الشبكة وعربات النقل السري.
+            </div>
+            <p class="mono">RECONSTRUCT THE PATHWAY TO LOCATE PATIENT 404.</p>
+        </div>
+        <div class="footer"><span>RED TEAM // LEVEL 6 // CONFIDENTIAL</span><span class="page-number">01</span></div>
+    </section>
+
+    <!-- PAGE 2: ASYLUM AND MORGUE LOGS -->
+    <section class="page">
+        <h2>وثيقة 6-A — السجلات الطبية وسجلات المشرحة</h2>
+        
+        <div class="grid">
+            <div class="card">
+                <div class="id">EVIDENCE F-1: PATIENT 404 SUMMARY</div>
+                <p><b>ملخص حالة المريض 404:</b></p>
+                <p>تم إعلان وفاة المريض 404 رسمياً في الجناح 13 بمرض مزمن، وتم نقل السجلات الطبية للمشرحة لإتمام إجراءات الدفن. ومع ذلك، هناك تعارض زمني بين تقارير الدورية وسجلات الفحص الطبي.</p>
+            </div>
+            <div class="card">
+                <div class="id">EVIDENCE F-2: MORGUE SYSTEM LOG</div>
+                <p><b>سجل المشرحة الرقمي:</b> يوضح تتابع الأحداث المسجلة للسرير الرئيسي:</p>
+                <ul>
+                    <li>الساعة <b>21:49</b>: تم إغلاق ملف الوفاة رسمياً (Death record closed).</li>
+                    <li>الساعة <b>21:56</b>: تم رصد حركة لسرير المشرحة (Morgue bed moved).</li>
+                    <li>الساعة <b>22:08</b>: تبين اختفاء الجثة بالكامل (Body missing).</li>
+                    <li>الساعة <b>22:12</b>: تحرير تقرير فقد الجثة الأولي.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer"><span>RED TEAM // LEVEL 6 // CONFIDENTIAL</span><span class="page-number">02</span></div>
+    </section>
+
+    <!-- PAGE 3: CORRIDORS AND TRANSPORT DATA -->
+    <section class="page">
+        <h2>وثيقة 6-B — ممر الخدمة وعربات النقل السرية</h2>
+        
+        <div class="grid">
+            <div class="card">
+                <div class="id">EVIDENCE F-3: SERVICE-DOOR LOG</div>
+                <p><b>سجل ممر الخدمة السري:</b></p>
+                <ul>
+                    <li>الساعة <b>22:04</b>: فُتح الممر الخدمي الداخلي.</li>
+                    <li>الساعة <b>22:07</b>: انقطاع بث كاميرا الجناح <b>CAM-13</b>.</li>
+                    <li>الساعة <b>22:09</b>: فتح باب الخدمة الرئيسي.</li>
+                    <li>الساعة <b>22:16</b>: إغلاق باب الخدمة نهائياً.</li>
+                </ul>
+            </div>
+            <div class="card">
+                <div class="id">EVIDENCE F-4: TRANSPORT CART SYSTEM</div>
+                <p><b>سجل تتبع عربة النقل الكهربائية:</b></p>
+                <ul>
+                    <li>الساعة <b>22:06</b>: عربة نقل فارغة تدخل مسار ممر الخدمة.</li>
+                    <li>الساعة <b>22:10</b>: رصد تحرك عربة محملة نحو المنطقة غير المسجلة بالخريطة.</li>
+                    <li>الساعة <b>22:15</b>: العربة المحملة تصل للحجرة السفلية (Lower chamber).</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="terminal">
+            DR. VICTOR'S CONFIDENTIAL MEMORANDUM // ROOM 13 ROUTE<br>
+            ====================================================<br>
+            The official blueprint is a facade. Room 13 has a hidden route.<br>
+            To transport subjects unnoticed, the service route must be activated.<br>
+            Corridor opens into a lower chamber directly underneath Room 13.<br>
+            All movements must be aligned with the camera blackout window.
+        </div>
+
+        <div class="footer"><span>RED TEAM // LEVEL 6 // CONFIDENTIAL</span><span class="page-number">03</span></div>
+    </section>
+
+    <!-- PAGE 4: WORKSHEET -->
+    <section class="page">
+        <h2>وثيقة 6-C — إعادة بناء مسار الجثة والتقديم النهائي</h2>
+        <p>قم بتحليل السجلات السابقة وتعبئة ورقة العمل لإعادة بناء الواقعة بدقة:</p>
+
+        <table>
+            <tr>
+                <th>السؤال الجنائي</th>
+                <th>التفاصيل الفنية</th>
+                <th>المصدر الداعم</th>
+            </tr>
+            <tr>
+                <td>من حرك جثة المريض 404؟</td>
+                <td><br><br></td>
+                <td>اسم الطبيب: ____________</td>
+            </tr>
+            <tr>
+                <td>ما هو وقت الوفاة الفعلي؟</td>
+                <td><br><br></td>
+                <td>توقيت الإغلاق: ____________</td>
+            </tr>
+            <tr>
+                <td>متى تم اكتشاف اختفاء الجثة؟</td>
+                <td><br><br></td>
+                <td>توقيت الفقد: ____________</td>
+            </tr>
+            <tr>
+                <td>ما هو مسار النقل المستخدم؟</td>
+                <td><br><br></td>
+                <td>الممر المستخدم: ____________</td>
+            </tr>
+            <tr>
+                <td>ما هي الوجهة النهائية للجثة؟</td>
+                <td><br><br></td>
+                <td>الموقع السري: ____________</td>
+            </tr>
+        </table>
+
+        <div class="warning">
+            <b>تنبيه أمني للتقديم:</b><br>
+            لإغلاق القضية عبر شاشة النظام الرقمي بنجاح، يجب إدخال اسم الطبيب المسؤول بالكامل (في الخطوة أ) ثم تحديد وقت الوفاة ووقت اكتشاف الاختفاء وممر الخدمة والوجهة النهائية وتحديد القرائن الثلاث الداعمة للنقل (باب الخدمة، انقطاع CAM-13، وعربة النقل) لتجاوز النظام.
+        </div>
+
+        <div class="footer"><span>RED TEAM // LEVEL 6 // CONFIDENTIAL</span><span class="page-number">04</span></div>
+    </section>
+</body>
+
+</html>

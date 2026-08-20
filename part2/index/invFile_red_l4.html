@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>W-13 — ROOM 13</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Courier+Prime:wght@400;700&display=swap');
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: #111416;
+            font-family: 'Cairo', sans-serif;
+            color: #292521;
+        }
+
+        .print-controls {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .print-btn {
+            background: #4a1111;
+            color: #eee3d0;
+            border: 2px solid #a58c67;
+            padding: 12px 30px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'Cairo', sans-serif;
+            font-weight: 900;
+            font-size: 15px;
+        }
+
+        .page {
+            width: 210mm;
+            min-height: 297mm;
+            margin: 15px auto;
+            padding: 14mm;
+
+            position: relative;
+
+            background:
+                repeating-linear-gradient(0deg,
+                    rgba(80, 60, 40, .025) 0px,
+                    rgba(80, 60, 40, .025) 1px,
+                    transparent 1px,
+                    transparent 4px),
+                #e8e0d0;
+
+            border: 1px solid #aaa08e;
+
+            box-shadow:
+                0 15px 50px rgba(0, 0, 0, .6),
+                inset 0 0 50px rgba(60, 35, 20, .08);
+        }
+
+        .stamp {
+            position: absolute;
+            top: 27px;
+            left: 25px;
+
+            color: #6e1515;
+            border: 3px double #6e1515;
+
+            padding: 4px 12px;
+
+            font-family: 'Courier Prime', monospace;
+            font-weight: bold;
+            font-size: 11px;
+
+            transform: rotate(-9deg);
+        }
+
+        .file-id {
+            position: absolute;
+            top: 29px;
+            right: 25px;
+
+            font-family: 'Courier Prime', monospace;
+            font-size: 9px;
+
+            color: #625c53;
+        }
+
+        .header {
+            text-align: center;
+
+            border-top: 4px double #302b26;
+            border-bottom: 4px double #302b26;
+
+            padding: 14px 8px 10px;
+            margin-bottom: 12px;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 22px;
+            font-weight: 900;
+        }
+
+        .header h2 {
+            margin: 3px 0 5px;
+            color: #651717;
+            font-size: 15px;
+        }
+
+        .meta {
+            font-family: 'Courier Prime', monospace;
+            color: #686157;
+            font-size: 9px;
+        }
+
+        .warning {
+            border: 2px solid #651717;
+            background: rgba(101, 23, 23, .055);
+
+            padding: 9px 12px;
+            margin-bottom: 11px;
+
+            text-align: center;
+
+            color: #651717;
+            font-size: 10px;
+            font-weight: 900;
+        }
+
+        .document {
+            border: 1.5px solid #625c53;
+            background: rgba(255, 255, 255, .25);
+
+            padding: 9px 11px;
+            margin-bottom: 10px;
+        }
+
+        .document-title {
+            display: inline-block;
+
+            background: #34302b;
+            color: #eee3d0;
+
+            padding: 3px 10px;
+            margin-bottom: 7px;
+
+            font-size: 11px;
+            font-weight: 900;
+        }
+
+        .document p {
+            font-size: 10px;
+            line-height: 1.8;
+            margin: 4px 0;
+        }
+
+        .typewriter {
+            background: #ddd5c5;
+
+            border-right: 5px solid #651717;
+
+            padding: 9px 12px;
+
+            font-family: 'Courier Prime', monospace;
+            font-size: 10px;
+            line-height: 1.9;
+        }
+
+        .typewriter strong {
+            color: #651717;
+        }
+
+        .floorplan {
+            position: relative;
+
+            width: 100%;
+            height: 235px;
+
+            border: 3px solid #3d3933;
+
+            background: #e3dccd;
+
+            margin-top: 8px;
+
+            overflow: hidden;
+        }
+
+        .room {
+            position: absolute;
+
+            border: 2px solid #4b4740;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: rgba(255, 255, 255, .18);
+
+            font-family: 'Courier Prime', monospace;
+            font-size: 11px;
+            font-weight: bold;
+
+            color: #3c3934;
+        }
+
+        .room small {
+            position: absolute;
+            bottom: 4px;
+            font-size: 7px;
+            color: #777067;
+        }
+
+        .door {
+            position: absolute;
+            width: 25px;
+            height: 5px;
+            background: #e3dccd;
+            border-top: 2px solid #4b4740;
+        }
+
+        .r1 {
+            left: 2%;
+            top: 5%;
+            width: 21%;
+            height: 29%;
+        }
+
+        .r2 {
+            left: 26%;
+            top: 5%;
+            width: 21%;
+            height: 29%;
+        }
+
+        .r3 {
+            left: 50%;
+            top: 5%;
+            width: 21%;
+            height: 29%;
+        }
+
+        .r4 {
+            left: 74%;
+            top: 5%;
+            width: 23%;
+            height: 29%;
+        }
+
+        .r5 {
+            left: 2%;
+            top: 40%;
+            width: 21%;
+            height: 25%;
+        }
+
+        .r6 {
+            left: 26%;
+            top: 40%;
+            width: 21%;
+            height: 25%;
+        }
+
+        .r7 {
+            left: 50%;
+            top: 40%;
+            width: 21%;
+            height: 25%;
+        }
+
+        .r8 {
+            left: 74%;
+            top: 40%;
+            width: 23%;
+            height: 25%;
+        }
+
+        .r9 {
+            left: 2%;
+            top: 71%;
+            width: 21%;
+            height: 24%;
+        }
+
+        .r10 {
+            left: 26%;
+            top: 71%;
+            width: 21%;
+            height: 24%;
+        }
+
+        .r11 {
+            left: 50%;
+            top: 71%;
+            width: 21%;
+            height: 24%;
+        }
+
+        .r12 {
+            left: 74%;
+            top: 71%;
+            width: 23%;
+            height: 24%;
+        }
+
+        /*
+ROOM 13 IS NOT LABELLED.
+It is represented only by the strange door
+between Room 11 and Room 12.
+*/
+
+        .secret-door {
+            position: absolute;
+
+            left: 69%;
+            top: 88%;
+
+            width: 28px;
+            height: 8px;
+
+            background: #e3dccd;
+
+            border-top: 3px solid #651717;
+            border-bottom: 3px solid #651717;
+        }
+
+        .red-mark {
+            position: absolute;
+
+            left: 68%;
+            top: 80%;
+
+            color: #651717;
+
+            font-family: 'Courier Prime', monospace;
+            font-size: 8px;
+            font-weight: bold;
+
+            transform: rotate(-12deg);
+        }
+
+        .legend {
+            margin-top: 7px;
+
+            display: flex;
+            justify-content: space-between;
+
+            font-family: 'Courier Prime', monospace;
+            font-size: 8px;
+            color: #625c53;
+        }
+
+        .clues {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 7px;
+
+            margin-top: 8px;
+        }
+
+        .clue {
+            border: 1px dashed #777067;
+            padding: 7px;
+
+            background: rgba(255, 255, 255, .18);
+
+            font-size: 9px;
+            line-height: 1.7;
+        }
+
+        .clue strong {
+            color: #651717;
+        }
+
+        .timeline {
+            width: 100%;
+            border-collapse: collapse;
+
+            margin-top: 7px;
+
+            font-family: 'Courier Prime', monospace;
+            font-size: 9px;
+
+            text-align: center;
+        }
+
+        .timeline th,
+        .timeline td {
+            border: 1px solid #575149;
+            padding: 6px;
+        }
+
+        .timeline th {
+            background: #c7bdab;
+        }
+
+        .timeline td {
+            background: rgba(255, 255, 255, .18);
+        }
+
+        .crossout {
+            text-decoration: line-through;
+            color: #817a70;
+        }
+
+        .final-box {
+            border: 2px dashed #651717;
+
+            margin-top: 10px;
+
+            padding: 10px;
+
+            text-align: center;
+        }
+
+        .final-box h3 {
+            margin: 0 0 7px;
+
+            color: #651717;
+
+            font-size: 12px;
+        }
+
+        .answer-slots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+
+            direction: ltr;
+        }
+
+        .slot {
+            width: 40px;
+            height: 42px;
+
+            border: 2px solid #514a41;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: #f0e9dc;
+
+            font-family: 'Courier Prime', monospace;
+            font-size: 18px;
+        }
+
+        .footer-note {
+            margin-top: 10px;
+
+            border-top: 3px double #302b26;
+            border-bottom: 3px double #302b26;
+
+            padding: 9px;
+
+            text-align: center;
+
+            font-family: 'Courier Prime', monospace;
+            font-size: 9px;
+            line-height: 1.9;
+        }
+
+        .footer-note strong {
+            color: #651717;
+        }
+
+        .footer {
+            margin-top: 9px;
+
+            text-align: center;
+
+            font-family: 'Courier Prime', monospace;
+            font-size: 8px;
+
+            color: #6b655b;
+        }
+
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        @media print {
+
+            body {
+                background: none;
+            }
+
+            .print-controls {
+                display: none;
+            }
+
+            .page {
+                margin: 0;
+                width: 210mm;
+                min-height: 297mm;
+
+                border: none;
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="print-controls">
+        <button class="print-btn" onclick="window.print()">
+            🖨️ طباعة ملف الجناح 13
+        </button>
+    </div>
+
+    <div class="page">
+
+        <div class="stamp">
+            WARD 13 / CONFIDENTIAL
+        </div>
+
+        <div class="file-id">
+            W-13 / 404 / 04
+        </div>
+
+        <div class="header">
+
+            <h1>
+                🟥 مستشفى سانت فيكتور للأمراض العصبية
+            </h1>
+
+            <h2>
+                ملف الجناح 13 — المخطط المحظور
+            </h2>
+
+            <div class="meta">
+                PATIENT: 404 &nbsp; | &nbsp;
+                ARCHIVE: 1998 &nbsp; | &nbsp;
+                ACCESS: RESTRICTED
+            </div>
+
+        </div>
+
+        <div class="warning">
+
+            ⚠ ملاحظة أرشيفية:
+            المخطط الموجود في هذه الوثيقة ليس نسخة هندسية رسمية.
+            تم العثور عليه داخل مكتب د. فيكتور.
+
+        </div>
+
+
+        <!-- DOCUMENT 1 -->
+
+        <div class="document">
+
+            <div class="document-title">
+                [ وثيقة 1 ] — ملاحظة عامل الصيانة
+            </div>
+
+            <div class="typewriter">
+
+                "عملت في الجناح 13 لمدة سبع سنوات."
+
+                <br>
+
+                "الغرف كلها لها باب."
+
+                <br>
+
+                "كل باب يؤدي إلى ممر."
+
+                <br><br>
+
+                <strong>
+                    "إلا الغرفة التي طلب مني الطبيب ألا أفتح بابها."
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <!-- DOCUMENT 2 -->
+
+        <div class="document">
+
+            <div class="document-title">
+                [ وثيقة 2 ] — مخطط الدور
+            </div>
+
+            <p>
+                الخريطة التالية هي النسخة التي عثر عليها المحققون.
+                الغرف المرقمة هي الغرف المسجلة رسميًا.
+            </p>
+
+            <div class="floorplan">
+
+                <div class="room r1">01<small>NORTH</small></div>
+                <div class="room r2">02<small>NORTH</small></div>
+                <div class="room r3">03<small>NORTH</small></div>
+                <div class="room r4">04<small>NORTH</small></div>
+
+                <div class="room r5">05<small>WEST</small></div>
+                <div class="room r6">06<small>WEST</small></div>
+                <div class="room r7">07<small>EAST</small></div>
+                <div class="room r8">08<small>EAST</small></div>
+
+                <div class="room r9">09<small>SOUTH</small></div>
+                <div class="room r10">10<small>SOUTH</small></div>
+                <div class="room r11">11<small>SOUTH</small></div>
+                <div class="room r12">12<small>SOUTH</small></div>
+
+                <div class="secret-door"></div>
+
+                <div class="red-mark">
+                    ?
+                </div>
+
+            </div>
+
+            <div class="legend">
+                <span>█ = جدار</span>
+                <span>□ = غرفة</span>
+                <span>— = ممر</span>
+                <span style="color:#651717;">? = علامة غير مسجلة</span>
+            </div>
+
+        </div>
+
+
+        <!-- DOCUMENT 3 -->
+
+        <div class="document">
+
+            <div class="document-title">
+                [ وثيقة 3 ] — تقرير التحقيق
+            </div>
+
+            <div class="clues">
+
+                <div class="clue">
+
+                    <strong>الملاحظة A</strong><br>
+
+                    كل الغرف المسجلة في الجناح
+                    تحمل رقمًا من 01 إلى 12.
+
+                </div>
+
+                <div class="clue">
+
+                    <strong>الملاحظة B</strong><br>
+
+                    كل غرفة رسمية لها باب واحد
+                    على الأقل يؤدي إلى الممر الرئيسي.
+
+                </div>
+
+                <div class="clue">
+
+                    <strong>الملاحظة C</strong><br>
+
+                    في النسخة الأصلية من المخطط،
+                    وُجدت علامة باب إضافية.
+
+                </div>
+
+                <div class="clue">
+
+                    <strong>الملاحظة D</strong><br>
+
+                    لا يوجد رقم بجانب الباب الإضافي.
+
+                </div>
+
+            </div>
+
+            <div class="typewriter" style="margin-top:8px;">
+
+                كتب المحقق:
+
+                <br><br>
+
+                <strong>
+                    "إذا كانت الغرفة غير مسجلة،
+                    فلا تبحث عن رقمها."
+                </strong>
+
+                <br><br>
+
+                "ابحث عن الشيء الذي يجعلها غرفة."
+
+            </div>
+
+        </div>
+
+<br><br><br><br><br>
+        <!-- DOCUMENT 4 -->
+
+        <div class="document">
+
+            <div class="document-title">
+                [ وثيقة 4 ] — سجل جلسة المريض 404
+            </div>
+
+            <p>
+                تم العثور على هذه الصفحة منفصلة عن ملف المريض.
+                الساعات التالية تخص جلسات اليوم الأخير:
+            </p>
+
+            <table class="timeline">
+
+                <tr>
+                    <th>الجلسة</th>
+                    <th>الوقت</th>
+                    <th>الحالة</th>
+                </tr>
+
+                <tr>
+                    <td>04</td>
+                    <td>20:31</td>
+                    <td>مستقرة</td>
+                </tr>
+
+                <tr>
+                    <td>05</td>
+                    <td>20:58</td>
+                    <td>مستقرة</td>
+                </tr>
+
+                <tr>
+                    <td>06</td>
+                    <td>21:17</td>
+                    <td>مضطربة</td>
+                </tr>
+
+                <tr>
+                    <td>07</td>
+                    <td>21:49</td>
+                    <td>انقطاع التسجيل</td>
+                </tr>
+
+                <tr>
+                    <td>08</td>
+                    <td class="crossout">22:14</td>
+                    <td>لم تحدث</td>
+                </tr>
+
+            </table>
+
+            <div class="typewriter" style="margin-top:8px;">
+
+                في أسفل الصفحة:
+
+                <br>
+
+                <strong>
+                    "لا يوجد تسجيل بعد الجلسة الأخيرة."
+                </strong>
+
+                <br>
+
+                "الوقت الأخير ليس وقت الجلسة..."
+
+                <br>
+
+                <strong>
+                    "إنه وقت الوفاة."
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <!-- DOCUMENT 5 -->
+
+        <div class="document">
+
+            <div class="document-title">
+                [ وثيقة 5 ] — رسالة د. فيكتور
+            </div>
+
+            <div class="typewriter">
+
+                "أنتم تبحثون عن الغرفة 13."
+
+                <br><br>
+
+                "لكن الغرفة 13 ليست مكتوبة على الخريطة."
+
+                <br><br>
+
+                "لا تحتاجون إلى رقم."
+
+                <br>
+
+                "لا تحتاجون إلى مفتاح."
+
+                <br><br>
+
+                <strong>
+                    "أنتم تحتاجون فقط إلى معرفة متى انتهى كل شيء."
+                </strong>
+
+                <br><br>
+
+                "بعدها..."
+
+                <br>
+
+                "ابحثوا عن الباب الذي لا ينتمي إلى أي غرفة."
+
+            </div>
+
+        </div>
+
+
+        <!-- STEP A -->
+
+        <div class="final-box">
+
+            <h3>
+                🧩 STEP A — افتح الغرفة التي لا تظهر
+            </h3>
+
+            <p style="font-size:10px;">
+                استنتج وقت الوفاة من سجل المريض،
+                ثم استخدمه لفتح المرحلة الرقمية.
+            </p>
+
+            <div class="answer-slots">
+
+                <div class="slot">_</div>
+                <div class="slot">_</div>
+                <div class="slot">_</div>
+                <div class="slot">_</div>
+
+            </div>
+
+            <p style="font-family:'Courier Prime',monospace;font-size:9px;">
+                HHMM
+            </p>
+
+        </div>
+
+
+        <div class="footer-note">
+
+            <strong>
+                "الغرفة 13 لم تكن مخفية."
+            </strong>
+
+            <br>
+
+            "كان الجميع ينظرون إلى الأرقام."
+
+            <br><br>
+
+            ↓
+
+            <br>
+
+            <strong>
+                STEP B — FIND THE ROOM
+            </strong>
+
+        </div>
+
+
+        <div class="footer">
+
+            WARD 13 / PATIENT 404 / ARCHIVE 1998
+            &nbsp; • &nbsp;
+            DOCUMENT 04
+            &nbsp; • &nbsp;
+            DO NOT REMOVE
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

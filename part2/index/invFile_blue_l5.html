@@ -1,0 +1,629 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="utf-8">
+    <title>LEVEL 5 - BLUE TEAM</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Courier+Prime:wght@400;700&family=Share+Tech+Mono&display=swap');
+
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: #0f1319;
+            color: #292d30;
+            font-family: 'Cairo', sans-serif;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        .print-controls {
+            text-align: center;
+            padding: 24px;
+        }
+
+        .print-btn {
+            background: #173c58;
+            color: #eee7d8;
+            border: 2px solid #a99b7c;
+            padding: 12px 28px;
+            font-family: 'Cairo', sans-serif;
+            font-weight: 900;
+            cursor: pointer;
+            border-radius: 4px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            transition: .2s;
+        }
+
+        .print-btn:hover {
+            background: #244f70;
+            transform: translateY(-2px);
+        }
+
+        .page {
+            width: 210mm;
+            height: 297mm;
+            margin: 25px auto;
+            padding: 16mm;
+            background: 
+                repeating-linear-gradient(
+                    0deg,
+                    rgba(30, 50, 70, .015) 0px,
+                    rgba(30, 50, 70, .015) 1px,
+                    transparent 1px,
+                    transparent 4px
+                ),
+                #f6f2e8;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #c9beaa;
+            box-shadow: 
+                0 15px 45px rgba(0, 0, 0, .45),
+                inset 0 0 40px rgba(30, 50, 70, .05);
+            page-break-after: always;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .page:last-child {
+            page-break-after: auto;
+        }
+
+        h1, h2, h3 {
+            margin: 0 0 10px;
+            color: #172c3d;
+        }
+
+        h1 {
+            font-size: 26px;
+            font-weight: 900;
+            letter-spacing: 1px;
+        }
+
+        h2 {
+            font-size: 20px;
+            border-bottom: 2px double #4a5568;
+            padding-bottom: 6px;
+            font-weight: 700;
+        }
+
+        h3 {
+            font-size: 15px;
+            font-weight: 700;
+            color: #2b4560;
+        }
+
+        p, li, td, th {
+            font-size: 12.5px;
+            line-height: 1.7;
+            color: #2d3748;
+        }
+
+        .small {
+            font-size: 11px;
+            color: #718096;
+        }
+
+        .mono {
+            font-family: 'Share Tech Mono', 'Courier Prime', monospace;
+            font-weight: bold;
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        .stamp {
+            display: inline-block;
+            padding: 6px 16px;
+            border: 3px double #8a1c1c;
+            color: #8a1c1c;
+            transform: rotate(-3deg);
+            font-weight: 900;
+            font-size: 13px;
+            letter-spacing: 1.5px;
+            font-family: 'Courier Prime', monospace;
+            box-shadow: 0 0 1px rgba(138, 28, 28, 0.2);
+            background: rgba(138, 28, 28, 0.03);
+        }
+
+        .warning {
+            border: 2px solid #8a1c1c;
+            border-right: 6px solid #8a1c1c;
+            padding: 12px 16px;
+            margin: 14px 0;
+            background: #faeceb;
+            color: #741b1b;
+            border-radius: 2px;
+        }
+
+        .note {
+            border-right: 5px solid #1c4563;
+            padding: 10px 14px;
+            background: #e8eaf0;
+            color: #1a2e3b;
+            margin: 12px 0;
+            border-radius: 2px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin: 10px 0;
+        }
+
+        .card {
+            border: 1px solid #c9c3b4;
+            border-top: 4px solid #1c4563;
+            padding: 12px;
+            background: #ffffff;
+            min-height: 120px;
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.04);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .card p {
+            margin: 0 0 8px;
+            font-size: 11.5px;
+            line-height: 1.6;
+        }
+
+        .card .id {
+            font-family: 'Share Tech Mono', monospace;
+            font-weight: 800;
+            color: #1c4563;
+            font-size: 12px;
+            border-bottom: 1px dashed #cbd5e0;
+            padding-bottom: 4px;
+            margin-bottom: 6px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 14px 0;
+            background: #ffffff;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+        }
+
+        th, td {
+            border: 1px solid #cbd5e0;
+            padding: 8px 10px;
+            vertical-align: top;
+        }
+
+        th {
+            background: #e2e8f0;
+            color: #1a202c;
+            font-weight: bold;
+            text-align: right;
+        }
+
+        .blank {
+            height: 38px;
+            border-bottom: 2px dashed #a0aec0;
+            margin: 10px 0;
+        }
+
+        .codebox {
+            border: 2px dashed #4a5568;
+            background: rgba(255,255,255,0.4);
+            padding: 16px;
+            text-align: center;
+            margin-top: 14px;
+            border-radius: 4px;
+        }
+
+        .bigcode {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 24px;
+            letter-spacing: 4px;
+            font-weight: bold;
+            color: #1c4563;
+        }
+
+        .rule {
+            display: flex;
+            gap: 10px;
+            margin: 8px 0;
+        }
+
+        .rule b {
+            min-width: 26px;
+            color: #1c4563;
+        }
+
+        .terminal {
+            background: #111417;
+            color: #38bdf8;
+            padding: 16px;
+            font-family: 'Share Tech Mono', monospace;
+            border-radius: 4px;
+            border: 1px solid #23282f;
+            box-shadow: inset 0 0 12px rgba(0,0,0,0.85);
+            position: relative;
+            overflow: hidden;
+            font-size: 12px;
+            line-height: 1.8;
+            text-align: left;
+            direction: ltr;
+        }
+
+        .terminal::after {
+            content: " ";
+            display: block;
+            position: absolute;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
+            background-size: 100% 4px;
+            pointer-events: none;
+        }
+
+        .red {
+            color: #c53030;
+            font-weight: bold;
+        }
+
+        .blue {
+            color: #2b6cb0;
+            font-weight: bold;
+        }
+
+        .footer {
+            margin-top: auto;
+            padding-top: 10px;
+            border-top: 1px solid #cbd5e0;
+            font-size: 9px;
+            color: #718096;
+            display: flex;
+            justify-content: space-between;
+            font-family: 'Courier Prime', monospace;
+            width: 100%;
+        }
+
+        .page-number {
+            font-family: 'Share Tech Mono', monospace;
+            font-weight: bold;
+        }
+
+        .two-col {
+            columns: 2;
+            column-gap: 20px;
+        }
+
+        .cut {
+            border-top: 2px dashed #a0aec0;
+            margin: 16px 0;
+            padding-top: 10px;
+        }
+
+        @media print {
+            body {
+                background: #fff;
+            }
+
+            .print-controls {
+                display: none;
+            }
+
+            .page {
+                margin: 0;
+                border: 0;
+                width: 210mm;
+                height: 297mm;
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="print-controls">
+        <button class="print-btn" onclick="window.print()">
+            🖨️ طباعة ملف الأدلة (A4)
+        </button>
+    </div>
+    <section class="page">
+        <div class="center" style="padding-top:55mm">
+            <div class="stamp">CONFIDENTIAL // CASE FILE</div>
+            <h1 style="margin-top:18px">BLUE TEAM // LEVEL 5</h1>
+            <h2 style="border:0">THE BLACK FILE</h2>
+            <p style="font-size:18px">أصعب مرحلة في التحقيق</p>
+            <div class="warning" style="max-width:145mm;margin:25px auto;text-align:right">
+                <b>تحذير:</b><br>
+                الأظرف السابقة اختبرت قدرتك على ملاحظة الأدلة. هذا الملف يختبر قدرتك على
+                <b>ربط الأدلة، استبعاد المعلومات غير الموثوقة، وإعادة بناء التسلسل الصحيح.</b>
+                لا يوجد دليل واحد يحمل الإجابة. لا تفترض أن أكثر ورقة وضوحًا هي الأهم.
+            </div>
+            <p class="mono">DO NOT TRUST A SINGLE SOURCE.</p>
+        </div>
+        <div class="footer"><span>BLUE TEAM // CONFIDENTIAL</span><span class="page-number">01</span></div>
+    </section>
+    <section class="page">
+        <h2>وثيقة 5-A — بروتوكول التحقيق</h2>
+        <div class="warning"><b>قواعد الملف:</b>
+            <ul>
+                <li>كل معلومة يجب أن تُعامل كادعاء حتى يؤيدها مصدر مستقل.</li>
+                <li>السجل الزمني لا يحدد الحقيقة وحده؛ استخدم مصدرين على الأقل.</li>
+                <li>إذا تعارض مصدران، لا تحذف أحدهما فورًا. سجّل التعارض.</li>
+                <li>عند اكتمال السلسلة، ابحث عن <b>ما يتكرر</b>، وليس فقط ما يظهر مرة واحدة.</li>
+            </ul>
+        </div>
+        <div class="note"><b>ملاحظة مجهولة:</b><br>
+            "بعض الأدلة لا تخبرك بما حدث. إنها تخبرك أي دليل آخر يجب أن تثق به."</div>
+        <h3>مهمتك</h3>
+        <p>ابنِ خطًا زمنيًا متسقًا من الأدلة التالية. هناك أحداث حقيقية، وأحداث صيغت بطريقة تجعلها تبدو حقيقية.</p>
+        <table>
+            <tr>
+                <th>المصدر</th>
+                <th>ماذا تبحث عنه؟</th>
+            </tr>
+            <tr>
+                <td>سجل الكاميرات</td>
+                <td>الوقت والمكان</td>
+            </tr>
+            <tr>
+                <td>سجل الأبواب</td>
+                <td>فتح/إغلاق وموقع الباب</td>
+            </tr>
+            <tr>
+                <td>سجل الهاتف</td>
+                <td>بداية الاتصال ونهايته</td>
+            </tr>
+            <tr>
+                <td>بطاقات الأدلة</td>
+                <td>حرف صغير أسفل كل بطاقة</td>
+            </tr>
+        </table>
+        <div class="footer"><span>BLUE TEAM // CONFIDENTIAL</span><span class="page-number">02</span></div>
+    </section>
+    <section class="page">
+        <h2>وثيقة 5-B — السجل الزمني الخام</h2>
+        <table>
+            <tr>
+                <th>الوقت</th>
+                <th>السجل</th>
+            </tr>
+            <tr>
+                <td>23:09</td>
+                <td>دخول أول ضابط — المدخل الرئيسي</td>
+            </tr>
+            <tr>
+                <td>23:17</td>
+                <td>فتح باب الممر الشرقي — كاميرا 02</td>
+            </tr>
+            <tr>
+                <td>23:21</td>
+                <td>هاتف المكتب: اتصال وارد، 04:12</td>
+            </tr>
+            <tr>
+                <td>23:27</td>
+                <td>بطاقة موظف #17 — غرفة الملفات</td>
+            </tr>
+            <tr>
+                <td>23:31</td>
+                <td>باب المختبر — فتح ثم إغلاق خلال 19 ثانية</td>
+            </tr>
+            <tr>
+                <td>23:36</td>
+                <td>التقاط Evidence Photo #221</td>
+            </tr>
+            <tr>
+                <td>23:42</td>
+                <td>اتصال صادر من المكتب، 06:18</td>
+            </tr>
+            <tr>
+                <td>23:49</td>
+                <td>قفل الممر الشرقي</td>
+            </tr>
+        </table>
+        <div class="note"><b>تنبيه:</b> هذا السجل "ملخص". السجلات الأصلية في الصفحات التالية تحتوي على تفاصيل أكثر.
+        </div>
+        <h3>خطك الزمني</h3>
+        <table>
+            <tr>
+                <th>1</th>
+                <th>2</th>
+                <th>3</th>
+                <th>4</th>
+                <th>5</th>
+                <th>6</th>
+            </tr>
+            <tr>
+                <td style="height:55px"></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+        <div class="footer"><span>BLUE TEAM // CONFIDENTIAL</span><span class="page-number">03</span></div>
+    </section>
+    <section class="page">
+        <h2>وثيقة 5-C — بطاقات الأدلة</h2>
+        <div class="grid">
+            <div class="card">
+                <div class="id">CARD A</div>
+                <p>23:17 — الممر الشرقي. يقول سجل الباب إن الباب فُتح، لكن كاميرا 02 لا تسجل مرور شخص.</p><b>حرف
+                    البطاقة: C</b>
+            </div>
+            <div class="card">
+                <div class="id">CARD B</div>
+                <p>23:21 — الاتصال الوارد انتهى 23:25:12. ميكروفون المكتب سجّل صوت كرسي يتحرك في 23:23.</p><b>حرف
+                    البطاقة: Y</b>
+            </div>
+            <div class="card">
+                <div class="id">CARD C</div>
+                <p>23:27 — بطاقة #17 دخلت غرفة الملفات. كاميرا الممر تسجل خروج الشخص نفسه من الممر الشرقي قبلها
+                    بدقيقتين.</p><b>حرف البطاقة: P</b>
+            </div>
+            <div class="card">
+                <div class="id">CARD D</div>
+                <p>23:31 — باب المختبر فُتح 19 ثانية. سجل الإنذار يؤكد أن الباب لم يُفتح من الداخل.</p><b>حرف البطاقة:
+                    H</b>
+            </div>
+            <div class="card">
+                <div class="id">CARD E</div>
+                <p>23:36 — صورة #221. ساعة الكاميرا متزامنة مع سجل الخادم، لكن الساعة الحائطية في الصورة لا تطابقهما.
+                </p><b>حرف البطاقة: E</b>
+            </div>
+            <div class="card">
+                <div class="id">CARD F</div>
+                <p>23:42 — الاتصال الصادر يبدأ 23:42:11. سجل المقسم يطابق البداية والنهاية.</p><b>حرف البطاقة: R</b>
+            </div>
+            <div class="card">
+                <div class="id">CARD G</div>
+                <p>23:49 — قفل الممر الشرقي. السجل المحلي يحمل توقيعًا رقميًا صحيحًا، لكن النسخة المطبوعة لا تحمل توقيع
+                    المشرف.</p><b>حرف البطاقة: M</b>
+            </div>
+            <div class="card">
+                <div class="id">CARD H</div>
+                <p>23:27 — بطاقة #17. رقم البطاقة صحيح، لكن سجل الخادم يضعها في "غرفة 07" بدل غرفة الملفات.</p><b>حرف
+                    البطاقة: Q</b>
+            </div>
+        </div>
+        <div class="footer"><span>BLUE TEAM // CONFIDENTIAL</span><span class="page-number">04</span></div>
+    </section>
+    <section class="page">
+        <h2>وثيقة 5-D — المصدر الثاني</h2>
+        <table>
+            <tr>
+                <th>الوقت</th>
+                <th>كاميرا</th>
+                <th>معلومة مستقلة</th>
+            </tr>
+            <tr>
+                <td>23:17</td>
+                <td>02</td>
+                <td>الممر خالٍ. الباب يتحرك، ولا يظهر شخص.</td>
+            </tr>
+            <tr>
+                <td>23:21–23:25</td>
+                <td>MIC-01</td>
+                <td>صوت مكتب مستمر؛ لا يمكن تحديد الشخص.</td>
+            </tr>
+            <tr>
+                <td>23:27</td>
+                <td>03</td>
+                <td>شخص يحمل بطاقة #17 يظهر متجهًا إلى غرفة الملفات.</td>
+            </tr>
+            <tr>
+                <td>23:31</td>
+                <td>04</td>
+                <td>فتح المختبر من الخارج.</td>
+            </tr>
+            <tr>
+                <td>23:36</td>
+                <td>02</td>
+                <td>التقاط الصورة #221.</td>
+            </tr>
+            <tr>
+                <td>23:42</td>
+                <td>PHONE-01</td>
+                <td>اتصال صادر يبدأ 23:42:11.</td>
+            </tr>
+        </table>
+        <div class="note"><b>سؤال المحقق:</b> أي بطاقات يمكن إثباتها من مصدر مستقل دون الحاجة إلى افتراض إضافي؟</div>
+        <p class="small">لا تحاول استخدام الحروف الآن. أولًا حدّد البطاقات التي تستحق الثقة.</p>
+        <p class="small"><b>ملاحظة دقيقة:</b> "الصدى" لاحقًا يعني حدثًا ظهر كحدث مستقل في مصدرين، وليس مجرد تطابق وقت أو
+            مزامنة ساعة.</p>
+        <div class="footer"><span>BLUE TEAM // CONFIDENTIAL</span><span class="page-number">05</span></div>
+    </section>
+    <section class="page">
+        <h2>وثيقة 5-E — ملاحظة المشرف</h2>
+        <div class="terminal">
+            SOURCE RULE // TWO-SOURCE VERIFICATION<br><br>
+            An event is VERIFIED only when:<br>
+            1. its time exists in the master log;<br>
+            2. a second independent record supports the same event;<br>
+            3. no other record directly contradicts it.
+        </div>
+        <div class="note"><b>ملاحظة بالقلم:</b><br>
+            "إذا بقيت بطاقة واحدة بلا تفسير، لا تُجبرها على الدخول في السلسلة. اتركها خارجها."</div>
+        <h3>اكتب البطاقات الموثقة بالترتيب الزمني:</h3>
+        <div class="blank"></div>
+        <div class="blank"></div>
+        <div class="blank"></div>
+        <div class="blank"></div>
+        <div class="blank"></div>
+        <div class="blank"></div>
+        <h3>الحروف الناتجة:</h3>
+        <div class="codebox">
+            <div class="bigcode">_ _ _ _ _ _</div>
+        </div>
+        <div class="footer"><span>BLUE TEAM // CONFIDENTIAL</span><span class="page-number">06</span></div>
+    </section>
+    <section class="page">
+        <h2>وثيقة 5-F — طبقة "ECHO"</h2>
+        <div class="note"><b>تذكّر الجملة الأولى:</b> "بعض المعلومات يجب أن يؤيدها مصدر مستقل."</div>
+        <p>بعد تحديد البطاقات الموثقة، راجعها مرة أخرى. لا تبحث عن حرف جديد.</p>
+        <p><b>ECHO ≠ تطابق وقت.</b> عدّ فقط الأحداث التي ظهر نفس الحدث فيها كـ<strong>سجل مستقل قابل للمطابقة</strong>
+            في مصدرين.</p>
+        <table>
+            <tr>
+                <th>البطاقة</th>
+                <th>هل لها مصدران مستقلان؟</th>
+                <th>علامة</th>
+            </tr>
+            <tr>
+                <td>________</td>
+                <td>نعم / لا</td>
+                <td>□</td>
+            </tr>
+            <tr>
+                <td>________</td>
+                <td>نعم / لا</td>
+                <td>□</td>
+            </tr>
+            <tr>
+                <td>________</td>
+                <td>نعم / لا</td>
+                <td>□</td>
+            </tr>
+            <tr>
+                <td>________</td>
+                <td>نعم / لا</td>
+                <td>□</td>
+            </tr>
+            <tr>
+                <td>________</td>
+                <td>نعم / لا</td>
+                <td>□</td>
+            </tr>
+        </table>
+        <div class="warning"><b>لا تستخدم عدد الحروف.</b> ابحث عن عدد <b>الأحداث التي "ترددت" في مصدرين مستقلين</b>.
+        </div>
+        <p>الناتج الثاني: <span class="mono">ECHO-___</span></p>
+        <div class="footer"><span>BLUE TEAM // CONFIDENTIAL</span><span class="page-number">07</span></div>
+    </section>
+    <section class="page">
+        <h2>وثيقة 5-G — كلمة العبور</h2>
+        <p>هناك كلمتان مخفيتان في الملف، لكن واحدة فقط هي ناتج السلسلة الموثقة. استخدم الحروف التي استخرجتها من البطاقات
+            الصحيحة، ثم اكتبها متصلة.</p>
+        <div class="codebox">
+            <div>الكلمة: <span class="bigcode">____________</span></div>
+        </div>
+        <div class="note">بعدها اكتب الصيغة التي طلبتها الملاحظة: <b>WORD_ECHO_NUMBER</b></div>
+        <div class="codebox">
+            <div class="bigcode">________________</div>
+        </div>
+        <div class="warning"><b>لا تكتب الرمز في أي مكان آخر.</b> هذا هو رمز الظرف الخامس للفريق الأزرق.</div>
+        <div class="footer"><span>BLUE TEAM // CONFIDENTIAL</span><span class="page-number">08</span></div>
+    </section>
+</body>
+
+</html>

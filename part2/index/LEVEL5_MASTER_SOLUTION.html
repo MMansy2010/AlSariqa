@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head><meta charset="utf-8"><title>LEVEL 5 MASTER SOLUTION</title><style>
+@page { size: A4; margin: 12mm; }
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: #ddd; color: #171717;
+  font-family: "Arial", "Tahoma", sans-serif;
+}
+.page {
+  width: 210mm; min-height: 273mm; margin: 10mm auto; padding: 12mm;
+  background: #f5f1e7; position: relative; overflow: hidden;
+  border: 1px solid #aaa; page-break-after: always;
+}
+.page:last-child { page-break-after: auto; }
+h1,h2,h3 { margin: 0 0 8px; }
+h1 { font-size: 28px; letter-spacing: 1px; }
+h2 { font-size: 20px; border-bottom: 2px solid #222; padding-bottom: 5px; }
+h3 { font-size: 15px; }
+p, li, td, th { font-size: 13px; line-height: 1.65; }
+.small { font-size: 11px; }
+.mono { font-family: "Courier New", monospace; }
+.center { text-align: center; }
+.stamp {
+  display:inline-block; padding:6px 12px; border:2px solid #8a1c1c;
+  color:#8a1c1c; transform:rotate(-3deg); font-weight:800; letter-spacing:1px;
+}
+.warning { border:2px solid #8a1c1c; padding:12px; margin:12px 0; background:#eee2d7; }
+.note { border-left:5px solid #444; padding:10px 12px; background:#ebe6db; margin:10px 0; }
+.grid { display:grid; grid-template-columns: 1fr 1fr; gap:10px; }
+.card { border:1.5px solid #444; padding:10px; background:#faf8f0; min-height:115px; }
+.card .id { font-family:monospace; font-weight:800; }
+table { width:100%; border-collapse:collapse; margin:10px 0; }
+th,td { border:1px solid #555; padding:7px; vertical-align:top; }
+th { background:#ded8ca; }
+.blank { height: 36px; border-bottom:1px solid #333; }
+.codebox { border:2px dashed #444; padding:14px; text-align:center; margin-top:14px; }
+.bigcode { font-family:monospace; font-size:25px; letter-spacing:4px; }
+.rule { display:flex; gap:10px; margin:8px 0; }
+.rule b { min-width:26px; }
+.terminal { background:#161616; color:#d7f7d7; padding:14px; font-family:monospace; border-radius:3px; }
+.red { color:#8a1c1c; }
+.blue { color:#174a73; }
+.footer { position:absolute; bottom:8mm; left:12mm; right:12mm; font-size:9px; color:#666; display:flex; justify-content:space-between; }
+.page-number { font-family:monospace; }
+.two-col { columns:2; column-gap:18px; }
+.cut { border-top:2px dashed #888; margin:16px 0; padding-top:10px; }
+@media print {
+  body { background:#fff; }
+  .page { margin:0; border:0; width:auto; min-height:273mm; }
+}
+</style></head>
+<body>
+<section class="page">
+<h1>LEVEL 5 — MASTER SOLUTION</h1>
+<div class="warning"><b>للمصمم فقط — لا تطبع هذه الصفحة للاعبين.</b></div>
+<h2>الهدف</h2>
+<p>الفريقان لا يحصلان على نفس الأدلة. لكن آلية الحل متطابقة: <b>تحقق بمصدرين → استخرج الحروف → اكتشف ECHO → كوّن كلمة العبور.</b></p>
+<h2>BLUE TEAM</h2>
+<table>
+<tr><th>البطاقة</th><th>الحكم</th><th>السبب</th><th>الحرف</th></tr>
+<tr><td>A</td><td>موثقة</td><td>23:17 موجودة في السجل، ومصدر الكاميرا يؤكد حركة الباب في نفس اللحظة.</td><td>C</td></tr>
+<tr><td>B</td><td>موثقة</td><td>نافذة الاتصال 23:21–23:25 مدعومة بنشاط ميكروفون المكتب في نفس الفترة.</td><td>Y</td></tr>
+<tr><td>C</td><td>موثقة</td><td>بطاقة #17 تظهر في كاميرا 03 متجهة إلى غرفة الملفات في 23:27.</td><td>P</td></tr>
+<tr><td>D</td><td>موثقة</td><td>فتح المختبر في 23:31 مدعوم بسجل الإنذار الذي يثبت الفتح من الخارج.</td><td>H</td></tr>
+<tr><td>E</td><td>موثقة</td><td>وقت الصورة 23:36 متطابق مع خادم الوقت؛ هذا إثبات زمني مستقل، لكنه ليس "Echo" لحدث مسجل مرتين.</td><td>E</td></tr>
+<tr><td>F</td><td>موثقة</td><td>بداية الاتصال 23:42:11 مطابقة لسجل المقسم.</td><td>R</td></tr>
+<tr><td>G</td><td>مرفوضة</td><td>النسخة المطبوعة ناقصة توقيع المشرف، ولا يوجد مصدر مستقل يثبت واقعة القفل نفسها.</td><td>M</td></tr>
+<tr><td>H</td><td>مرفوضة</td><td>يتعارض مع موقع بطاقة #17 في السجل الرئيسي.</td><td>Q</td></tr>
+</table>
+<p>الحروف الموثقة بالترتيب الزمني: <span class="bigcode">CYPHER</span>.</p>
+<p>طبقة ECHO: البطاقات A, B, C, D, F هي أحداث لها ظهور مستقل قابل للمطابقة في مصدرين؛ E مجرد مزامنة زمنية، لذلك لا يدخل في العد.</p>
+<p><b>عدد الـEchoes = 5</b>.</p>
+<h2>BLUE FINAL</h2>
+<p><span class="bigcode">CYPHER_ECHO_5</span></p>
+<h2>RED TEAM</h2>
+<p>البطاقات A-E هي الأحداث الخمسة الموثقة، وتقرأ حروفها بالترتيب:</p>
+<div class="bigcode">G H O S T</div>
+<p>F مرفوضة لأن توقيع V.H. لا يطابق وقت السجل. G وH ليستا ضمن السلسلة لأن مصدرهما لا يثبت نفس الحدث بشكل مستقل وكامل.</p>
+<p>كل البطاقات A-E لها Echo مستقل قابل للمطابقة، لذلك <b>عدد الـEchoes = 5</b>.</p>
+<h2>RED FINAL</h2>
+<p><span class="bigcode">GHOST_ECHO_5</span></p>
+<h2>تدفق Level 5</h2>
+<ol>
+<li>يقرأون التحذير لكن لا يعرفون ما هو اللغز النهائي.</li>
+<li>يبنون Timeline من السجلات.</li>
+<li>يقارنون كل بطاقة بمصدر مستقل.</li>
+<li>يستبعدون البطاقات المتعارضة.</li>
+<li>يقرأون الحروف من البطاقات الموثقة بالترتيب الزمني.</li>
+<li>يكتشفون أن التعليمات تتحدث عن "التكرار/echo".</li>
+<li>يعدون الأحداث التي تكررت في مصدرين مستقلين = 5.</li>
+<li>يصيغون WORD_ECHO_5.</li>
+</ol>
+<h2>Hint ladder — لا تعطهم كل شيء مرة واحدة</h2>
+<table>
+<tr><th>Hint 1</th><td>لا تحاولوا حل الحروف قبل أن تثبتوا الأحداث.</td></tr>
+<tr><th>Hint 2</th><td>كل حدث حقيقي يجب أن يترك أثرًا في مصدر آخر.</td></tr>
+<tr><th>Hint 3</th><td>رتبوا الأحداث زمنيًا بعد التحقق، ثم اقرأوا الحروف.</td></tr>
+<tr><th>Hint 4</th><td>هناك طبقة ثانية: ما الذي "تكرر"؟</td></tr>
+<tr><th>Hint 5</th><td>عدد الـEchoes ليس عدد الحروف؛ إنه عدد الأحداث المؤكدة بمصدرين.</td></tr>
+</table>
+<div class="footer"><span>MASTER SOLUTION // CONFIDENTIAL</span><span class="page-number">01</span></div></section>
+</body></html>

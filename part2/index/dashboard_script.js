@@ -1,42 +1,38 @@
-const RED_LEVEL_2_NEXT_LOCATION = "خلف مرآة الحمام الرئيسي";
-const BLUE_LEVEL_2_NEXT_LOCATION = "تحت لوحة المفاتيح الاحتياطية في غرفة التحكم";
-const RED_LEVEL_3_NEXT_LOCATION = "PUT LOCATION HERE";
+const RED_LEVEL_2_NEXT_LOCATION = "مع خالتو شيماء";
+const BLUE_LEVEL_2_NEXT_LOCATION = "مع عمو احمد";
+const BLUE_LEVEL_3_NEXT_LOCATION = "فوق التكييف";
+const RED_LEVEL_3_NEXT_LOCATION = "اسفل السرير";
+const RED_LEVEL_4_NEXT_LOCATION = "محمد";
+const BLUE_LEVEL_4_NEXT_LOCATION = "محمد";
 
 const ENVELOPE_DATA = {
     blue: {
-        passwords: ["8143", "BLUE_DECRYPT_2", "MATRIX_KEY_3", "SIGNAL_LOCK_4", "CYPHER_ECHO_5", "FINAL_SYSTEM_6"],
+        passwords: ["8143", "BLUE_DECRYPT_2", "7192", "5649", "CYPHER_ECHO_5", "DANIELROTH"],
         locations: [
-            "🔎 تم مطابقة الصوت بنجاح! الظرف رقم (2) مخبأ خلف الستارة البيضاء.",
+            "🔎 تم مطابقة الصوت بنجاح! الظرف رقم (2) مخبأ فوق الثلاجة.",
             `⚡ تم تحديد تسلسل الأحداث بنجاح!\n\n🔎 الظرف رقم (3) مخبأ في: ${BLUE_LEVEL_2_NEXT_LOCATION}`,
-            "🔎 ممتاز! الظرف رقم (4) مخبأ داخل كتاب 'تاريخ البرمجة' على الرف الخشبي.",
-            "🔎 ممتاز! الظرف رقم (5) مخبأ تحت كرسي قائد الفريق في غرفة العمليات.",
-            "🔎 ممتاز! الظرف رقم (6) مخبأ داخل علبة الإسعافات الأولية المعلقة على الحائط.",
-            "🏁 لقد فككت تشفير كل الأظرفة بنجاح! هذا هو الرمز النهائي لفتح صندوق القفل الفعلي."
+            `🔎 تم تحديد النمط بنجاح.\n\nالقاتل سيترك دليله التالي في:\n\nالظرف رقم (4) مخبأ في:\n${BLUE_LEVEL_3_NEXT_LOCATION}`,
+            `🔎 الظرف رقم (5) مخبأ مع:\n\n${BLUE_LEVEL_4_NEXT_LOCATION}`,
+            "🔎 ممتاز! الظرف رقم (6) مخبأ مع خالتو شيماء.",
+            "🏁 لقد فككت تشفير كافة الأظرفة والأدلة بنجاح! اضغط أدناه لإظهار رمز فتح القفل المادي النهائي."
         ],
         finalCode: "1984"
     },
     red: {
-        passwords: ["531", "VITCOR", "6821", "ALARM_LOCK_4", "GHOST_ECHO_5", "FINAL_OVERRIDE_6"],
+        passwords: ["531", "VITCOR", "6821", "2149", "GHOST_ECHO_5", "VICTORHARTMANN"],
         locations: [
-            "🔎 تم استقرار الدائرة الكهربائية! الظرف رقم (2) مخبأ أسفل طاولة الطعام.",
+            "🔎 تم استقرار الدائرة الكهربائية! الظرف رقم (2) مخبأ أسفل السجادة .",
             `⚡ تمت استعادة تسلسل الجلسة بنجاح!\n\n🔎 الظرف رقم (3) مخبأ في: ${RED_LEVEL_2_NEXT_LOCATION}`,
             `⚡ تمت معايرة التجربة 13 بنجاح.\n\nتم استعادة الصفحة المفقودة من ملف المريض 404.\n\n🔎 الظرف رقم (4) مخبأ في:\n${RED_LEVEL_3_NEXT_LOCATION}`,
-            "🔎 ممتاز! الظرف رقم (4) مخبأ داخل الميكروويف في المطبخ.",
-            "🔎 ممتاز! الظرف رقم (5) مخبأ خلف شاشة التلفاز في غرفة المعيشة.",
-            "🔎 ممتاز! الظرف رقم (6) مخبأ تحت فازة الزهور الكبيرة بجوار الباب.",
-            "🏁 لقد فككت تشفير كل الأظرفة بنجاح! هذا هو الرمز النهائي لفتح صندوق القفل الفعلي."
-        ],
-        finalCode: "2077"
-    }
-};� تسلسل الجلسة بنجاح!\n\n🔎 الظرف رقم (3) مخبأ في: ${RED_LEVEL_2_NEXT_LOCATION}`,
-            "🔎 ممتاز! الظرف رقم (4) مخبأ داخل الميكروويف في المطبخ.",
-            "🔎 ممتاز! الظرف رقم (5) مخبأ خلف شاشة التلفاز في غرفة المعيشة.",
-            "🔎 ممتاز! الظرف رقم (6) مخبأ تحت فازة الزهور الكبيرة بجوار الباب.",
-            "🏁 لقد فككت تشفير كل الأظرفة بنجاح! هذا هو الرمز النهائي لفتح صندوق القفل الفعلي."
+            `🔎 الظرف رقم (5) مخبأ مع:\n\n${RED_LEVEL_4_NEXT_LOCATION}`,
+            "🔎 ممتاز! الظرف رقم (6) مخبأ مع عمو احمد   .",
+            "🏁 لقد فككت تشفير كافة الأظرفة والأدلة بنجاح! اضغط أدناه لإظهار رمز فتح القفل المادي النهائي."
         ],
         finalCode: "2077"
     }
 };
+
+
 
 const BRIEFINGS = [
     "الخطوة الأولى: ابحث عن الظرف رقم (1) المادي في الغرفة. قم بفك لغزه الورقي وأدخل الكلمة المفتاحية لبدء الفك الرقمي.",
@@ -180,7 +176,7 @@ let isPanicMode = false;
 
 function startTimerTicking() {
     setInterval(() => {
-        const elapsed = Math.floor((Date.now() - startTime) / 1000);
+        const elapsed = Math.max(0, Math.floor((Date.now() - startTime) / 1000));
         const remaining = 5400 - elapsed; // 90 minutes total
 
         if (remaining <= 0) {
@@ -273,7 +269,134 @@ function playCustomAudio(url) {
     }
 }
 
+// --- Hospital Terminal Transition (Red Team Level 4) ---
+function runRedLevel4Transition(callback) {
+    const overlay = document.createElement('div');
+    overlay.className = 'hospital-terminal-overlay';
+    overlay.innerHTML = `
+        <div class="terminal-scanlines"></div>
+        <div class="terminal-text-container">
+            <p class="terminal-line" id="t-line1"></p>
+            <p class="terminal-line" id="t-line2"></p>
+            <p class="terminal-line" id="t-line3"></p>
+            <p class="terminal-line" id="t-line4"></p>
+        </div>
+    `;
+    document.body.appendChild(overlay);
 
+    playSynthTone(100, 'sawtooth', 1.8, 0.12);
+
+    const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+    function typeText(element, text, speed) {
+        return new Promise(resolve => {
+            let i = 0;
+            element.textContent = '';
+            const interval = setInterval(() => {
+                element.textContent += text.charAt(i);
+                i++;
+                if (i >= text.length) {
+                    clearInterval(interval);
+                    resolve();
+                }
+            }, speed);
+        });
+    }
+
+    async function animate() {
+        const line1 = document.getElementById('t-line1');
+        const line2 = document.getElementById('t-line2');
+        const line3 = document.getElementById('t-line3');
+        const line4 = document.getElementById('t-line4');
+
+        line1.classList.add('active');
+        await typeText(line1, "PATIENT 404", 40);
+        line1.classList.remove('active');
+        await delay(300);
+
+        line2.classList.add('active');
+        await typeText(line2, "TIME OF DEATH CONFIRMED", 35);
+        line2.classList.remove('active');
+        await delay(300);
+
+        line3.classList.add('active');
+        await typeText(line3, "21:49", 60);
+        line3.classList.remove('active');
+        await delay(300);
+
+        line4.classList.add('active');
+        await typeText(line4, "ROOM 13 ACCESSING...", 35);
+        await delay(800);
+
+        overlay.classList.add('fade-out');
+        await delay(600);
+        overlay.remove();
+        callback();
+    }
+
+    animate();
+}
+
+// --- Forensics Terminal Transition (Blue Team Level 4) ---
+function runBlueLevel4Transition(callback) {
+    const overlay = document.createElement('div');
+    overlay.className = 'forensics-terminal-overlay';
+    overlay.innerHTML = `
+        <div class="terminal-scanlines"></div>
+        <div class="terminal-text-container">
+            <p class="terminal-line" id="b-line1"></p>
+            <p class="terminal-line" id="b-line2"></p>
+            <p class="terminal-line" id="b-line3"></p>
+        </div>
+    `;
+    document.body.appendChild(overlay);
+
+    playSynthTone(150, 'square', 1.5, 0.1);
+
+    const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+    function typeText(element, text, speed) {
+        return new Promise(resolve => {
+            let i = 0;
+            element.textContent = '';
+            const interval = setInterval(() => {
+                element.textContent += text.charAt(i);
+                i++;
+                if (i >= text.length) {
+                    clearInterval(interval);
+                    resolve();
+                }
+            }, speed);
+        });
+    }
+
+    async function animate() {
+        const line1 = document.getElementById('b-line1');
+        const line2 = document.getElementById('b-line2');
+        const line3 = document.getElementById('b-line3');
+
+        line1.classList.add('active');
+        await typeText(line1, "EVIDENCE PHOTO", 40);
+        line1.classList.remove('active');
+        await delay(400);
+
+        line2.classList.add('active');
+        await typeText(line2, "INTEGRITY CHECK", 40);
+        line2.classList.remove('active');
+        await delay(400);
+
+        line3.classList.add('active');
+        await typeText(line3, "ORIGINALITY: QUESTIONABLE", 50);
+        await delay(1000);
+
+        overlay.classList.add('fade-out');
+        await delay(600);
+        overlay.remove();
+        callback();
+    }
+
+    animate();
+}
 
 // --- INITIALIZATION ---
 function initDashboard() {
@@ -282,13 +405,17 @@ function initDashboard() {
     teamDisplay.textContent = selectedTeam === 'blue' ? "الفريق الأزرق" : "الفريق الأحمر";
     
     // Set theme custom variable - IMMEDIATELY apply colors
-    const themeColor = selectedTeam === 'blue' ? '#00f3ff' : '#ff0055';
-    const borderColor = selectedTeam === 'blue' ? 'rgba(0, 243, 255, 0.25)' : 'rgba(255, 0, 85, 0.25)';
+    const themeColor = selectedTeam === 'blue' ? '#00f3ff' : '#ff3344';
+    const borderColor = selectedTeam === 'blue' ? 'rgba(0, 243, 255, 0.25)' : 'rgba(255, 51, 68, 0.25)';
     
     console.log('Applying theme colors:', { team: selectedTeam, color: themeColor });
     
     root.style.setProperty('--neon-main', themeColor);
     root.style.setProperty('--panel-border', borderColor);
+
+    // Apply team-specific body classes
+    document.body.classList.remove('blue-team', 'red-team');
+    document.body.classList.add(selectedTeam + '-team');
 
     // Populate team members
     membersContainer.innerHTML = '';
@@ -339,11 +466,12 @@ function updateStepProgressUI() {
     const progressUI = document.getElementById('stepProgressUI');
     if (!progressUI) return;
 
-    if (currentLevel === 1 && selectedTeam === 'blue') {
+    if ((currentLevel === 1 || currentLevel === 2 || currentLevel === 3) && selectedTeam === 'blue') {
         progressUI.classList.remove('hidden');
         
         const stepAHidden = stepABox.classList.contains('hidden');
         const successShown = !successBox.classList.contains('hidden');
+        const displayLevelNum = currentLevel + 1;
 
         if (successShown) {
             progressUI.innerHTML = `
@@ -351,7 +479,7 @@ function updateStepProgressUI() {
                 <div class="step-progress-divider">/</div>
                 <div class="step-indicator completed">STEP B <span class="status-icon">✓</span></div>
                 <div class="step-progress-divider">|</div>
-                <div class="step-indicator completed" style="font-weight: bold; color: var(--terminal-green);">LEVEL 2 COMPLETE</div>
+                <div class="step-indicator completed" style="font-weight: bold; color: var(--terminal-green);">LEVEL ${displayLevelNum} COMPLETE</div>
             `;
         } else if (stepAHidden) {
             progressUI.innerHTML = `
@@ -377,13 +505,88 @@ function loadLevel(level) {
         return;
     }
 
-    // Update Briefing Text
-    envelopeBriefing.textContent = BRIEFINGS[level];
+    // Update Briefing Text - customized for Blue Team Level 3, Blue Team Level 4, Red Team Level 4, Level 5 & Level 6
+    if (selectedTeam === 'blue' && level === 2) {
+        envelopeBriefing.textContent = "الخطوة الثالثة: توجه نحو الظرف رقم (3). قم بتحليل سجلات الأدلة الأربعة في منزل القاتل واستخرج رمز المرور لتفعيل التحليل الجنائي.";
+    } else if (selectedTeam === 'blue' && level === 3) {
+        envelopeBriefing.textContent = "الخطوة الرابعة: ابحث عن الظرف رقم (4) المادي. افحص صورة مسرح الجريمة واستنتج وقت التقاطها المكتوب لكسر التشفير.";
+    } else if (selectedTeam === 'red' && level === 3) {
+        envelopeBriefing.textContent = "الخطوة الرابعة: قم بتحليل ملف الجناح 13 الخاص بالمريض 404 واستنتج وقت الوفاة لفتح البوابة الرقمية.";
+    } else if (level === 4) {
+        envelopeBriefing.innerHTML = `<span style="color: var(--neon-red); font-weight: bold; font-size: 1.1rem; display: block; margin-bottom: 0.5rem;">⚠ أنت الآن تدخل أصعب مرحلة في التحقيق.</span>الخطوة الخامسة: ابحث عن الملف الأسود المادي. تتبع السجلات والبطاقات لربط الأدلة وفك تشفير السلسلة.`;
+    } else if (level === 5) {
+        if (selectedTeam === 'blue') {
+            envelopeBriefing.innerHTML = `<span style="color: var(--neon-main); font-weight: bold; font-size: 1.1rem; display: block; margin-bottom: 0.5rem;">🏁 المواجهة النهائية: كشف القاتل المتسلسل</span>استخدم كافة الأدلة الجنائية، البصمات، وسجلات الاتصالات لتحديد هوية الجاني وإغلاق القضية.`;
+        } else {
+            envelopeBriefing.innerHTML = `<span style="color: var(--neon-main); font-weight: bold; font-size: 1.1rem; display: block; margin-bottom: 0.5rem;">🏁 كشف الحقيقة: سرقة جثة المريض 404</span>حدد الشخص المسؤول عن نقل الجثة والمسار السري والقرائن الجنائية لإغلاق تحقيق الجناح 13.`;
+        }
+    } else {
+        envelopeBriefing.textContent = BRIEFINGS[level];
+    }
 
     stepAError.textContent = '';
     stepABox.classList.remove('hidden');
     stepBBox.classList.add('hidden');
     successBox.classList.add('hidden');
+
+    // Reset Step B Title & Instruction defaults
+    const stepBBadge = document.querySelector('#stepBBox .step-badge');
+    const stepBInstruction = document.getElementById('stepBInstruction');
+    if (selectedTeam === 'blue' && level === 2) {
+        if (stepBBadge) stepBBadge.textContent = "STEP B — تحليل الضحية التالية";
+        if (stepBInstruction) {
+            stepBInstruction.innerHTML = `
+                <div style="font-size: 1.15rem; font-weight: bold; color: var(--terminal-green); margin-bottom: 0.5rem;">✓ تم تحليل نمط الأدلة بنجاح.</div>
+                <div style="color: var(--text-muted); margin-bottom: 0.4rem;">لقد عرفت كيف يقرأ القاتل الأدلة. الآن حاول أن تعرف أين سيترك دليله التالي.</div>
+            `;
+        }
+    } else if (selectedTeam === 'blue' && level === 3) {
+        if (stepBBadge) stepBBadge.textContent = "PHOTO FORENSICS";
+        if (stepBInstruction) {
+            stepBInstruction.innerHTML = `
+                <div style="font-size: 1.15rem; font-weight: bold; color: var(--terminal-green); margin-bottom: 0.5rem;">✓ TIMESTAMP VERIFIED</div>
+                <div style="color: var(--text-muted); margin-bottom: 0.4rem;">تفحص الصورة الرقمية بدقة. اضغط على أجزاء الصورة للتحقق الجنائي والعثور على أي شذوذ في الأدلة.</div>
+            `;
+        }
+    } else if (selectedTeam === 'red' && level === 3) {
+        if (stepBBadge) stepBBadge.textContent = "THE ROOM THAT DOES NOT EXIST";
+        if (stepBInstruction) {
+            stepBInstruction.innerHTML = `
+                <div style="font-size: 1.15rem; font-weight: bold; color: #ff3344; margin-bottom: 0.5rem;">الخريطة الرسمية تحتوي على 12 غرفة.</div>
+                <div style="color: var(--text-muted); margin-bottom: 0.4rem;">لكن تقرير الصيانة يتحدث عن باب رابع عشر...</div>
+                <div style="color: #fff; font-weight: bold;">أي باب لا ينتمي إلى أي غرفة؟</div>
+            `;
+        }
+    } else if (level === 4) {
+        if (stepBBadge) stepBBadge.textContent = "الملف الأسود — THE BLACK FILE";
+        if (stepBInstruction) {
+            stepBInstruction.innerHTML = `
+                <div style="font-size: 1.15rem; font-weight: bold; color: var(--terminal-green); margin-bottom: 0.5rem;">✓ تم إثبات صحة السلسلة الجنائية.</div>
+                <div style="color: var(--text-muted); margin-bottom: 0.4rem;">لوحة التحقيق الجنائية نشطة الآن. قم بتنظيم الأدلة وتأكيد العلاقات لتجاوز النظام.</div>
+            `;
+        }
+    } else if (level === 5) {
+        if (selectedTeam === 'blue') {
+            if (stepBBadge) stepBBadge.textContent = "FINAL ACCUSATION — الاتهام النهائي";
+            if (stepBInstruction) {
+                stepBInstruction.innerHTML = `
+                    <div style="font-size: 1.15rem; font-weight: bold; color: var(--terminal-green); margin-bottom: 0.5rem;">✓ تم إثبات الهوية وتأكيد الاشتباه.</div>
+                    <div style="color: var(--text-muted); margin-bottom: 0.4rem;">قم بتقديم اللائحة الجنائية النهائية لتأكيد التهمة وإغلاق القضية.</div>
+                `;
+            }
+        } else {
+            if (stepBBadge) stepBBadge.textContent = "CASE CLOSURE — إغلاق التحقيق";
+            if (stepBInstruction) {
+                stepBInstruction.innerHTML = `
+                    <div style="font-size: 1.15rem; font-weight: bold; color: var(--neon-main); margin-bottom: 0.5rem;">✓ تم التحقق من هوية المنفذ.</div>
+                    <div style="color: var(--text-muted); margin-bottom: 0.4rem;">قم بإعادة بناء مسار الجثة وتحديد الوجهة النهائية لإنهاء القضية.</div>
+                `;
+            }
+        }
+    } else {
+        if (stepBBadge) stepBBadge.textContent = "المرحلة ب: التجاوز الرقمي للنظام";
+        if (stepBInstruction) stepBInstruction.textContent = "الرمز المادي صحيح! قم بحل اللغز التفاعلي التالي لفتح ملفات الظرف:";
+    }
 
     // Render input based on level/team
     const correctPass = ENVELOPE_DATA[selectedTeam].passwords[level];
@@ -406,6 +609,26 @@ function loadLevel(level) {
         const input = document.getElementById('stepAWordInput');
         if (input) {
             input.placeholder = "اسم الطبيب...";
+        }
+    } else if (level === 5) {
+        if (selectedTeam === 'blue') {
+            if (instructionEl) {
+                instructionEl.textContent = "أدخل الاسم الكامل للقاتل المتسلسل (بالإنجليزية) لتأكيد هويته في النظام:";
+            }
+            renderWordInput();
+            const input = document.getElementById('stepAWordInput');
+            if (input) {
+                input.placeholder = "";
+            }
+        } else {
+            if (instructionEl) {
+                instructionEl.textContent = "أدخل الاسم الكامل للطبيب المسؤول عن نقل الجثة (بالإنجليزية) لفتح بروتوكول الإغلاق:";
+            }
+            renderWordInput();
+            const input = document.getElementById('stepAWordInput');
+            if (input) {
+                input.placeholder = "";
+            }
         }
     } else {
         if (instructionEl) {
@@ -478,18 +701,28 @@ function renderWordInput() {
 // --- Dynamic Digit Inputs Renderer ---
 function renderDigitInputs(length) {
     digitInputContainer.innerHTML = '';
+    const isLevel5 = (currentLevel === 4);
+    const regexChar = isLevel5 ? /^[a-zA-Z0-9_]$/ : /^[0-9]$/;
+    const regexPaste = isLevel5 ? /^[a-zA-Z0-9_]+$/ : /^[0-9]+$/;
+
     for (let i = 0; i < length; i++) {
         const input = document.createElement('input');
         input.type = 'text';
-        input.inputMode = 'numeric';
+        input.inputMode = isLevel5 ? 'text' : 'numeric';
         input.maxLength = 1;
         input.className = 'digit-input';
+        if (isLevel5) {
+            input.style.textTransform = 'uppercase';
+        }
         input.dataset.index = i;
 
         input.addEventListener('input', (e) => {
-            const val = e.target.value;
-            // Clean value, allow only digits
-            if (!/^[0-9]$/.test(val)) {
+            let val = e.target.value;
+            if (isLevel5) {
+                val = val.toUpperCase();
+                e.target.value = val;
+            }
+            if (!regexChar.test(val)) {
                 e.target.value = '';
                 return;
             }
@@ -516,6 +749,36 @@ function renderDigitInputs(length) {
                 e.preventDefault();
                 submitStepABtn.click();
             }
+        });
+
+        // Add paste handler to support pasting complete password
+        input.addEventListener('paste', (e) => {
+            e.preventDefault();
+            let pastedData = (e.clipboardData || window.clipboardData).getData('text').trim();
+            if (isLevel5) {
+                pastedData = pastedData.toUpperCase();
+            }
+            // Reject if doesn't match regex
+            if (!regexPaste.test(pastedData)) {
+                return;
+            }
+            const digits = pastedData.split('');
+            const inputs = digitInputContainer.querySelectorAll('.digit-input');
+            const startIndex = parseInt(input.dataset.index);
+
+            digits.forEach((digit, idx) => {
+                const targetInput = inputs[startIndex + idx];
+                if (targetInput) {
+                    targetInput.value = digit;
+                }
+            });
+
+            // Focus target element (last pasted input or the next empty one)
+            const nextFocusIndex = Math.min(startIndex + digits.length, inputs.length - 1);
+            if (inputs[nextFocusIndex]) {
+                inputs[nextFocusIndex].focus();
+            }
+            playTickSound();
         });
 
         digitInputContainer.appendChild(input);
@@ -550,24 +813,78 @@ submitStepABtn.addEventListener('click', () => {
         const acceptedAnswers = ['danielroth', 'دانيالروث'];
         isCorrect = acceptedAnswers.includes(normalizedInput);
     }
+    if (currentLevel === 5) {
+        const cleanInput = userInput.toUpperCase().replace(/[^A-Z\u0621-\u064A]/g, '');
+        if (selectedTeam === 'blue') {
+            const accepted = ['DANIELROTH', 'دانيالروث', 'دانييلروث'];
+            isCorrect = accepted.includes(cleanInput);
+        } else if (selectedTeam === 'red') {
+            const accepted = [
+                'VICTORHARTMANN', 'DRVICTORHARTMANN', 'DOCTORVICTORHARTMANN',
+                'فيكتورهارتمن', 'دكتورفيكتورهارتمن', 'فيكتورهارتمان', 'دكتورفيكتورهارتمان'
+            ];
+            isCorrect = accepted.includes(cleanInput);
+        }
+    }
 
     if (isCorrect) {
-        playSuccessChime();
-        stepABox.classList.add('hidden');
-        stepBBox.classList.remove('hidden');
-        
-        // Focus or activate the digital puzzle
-        let successMsg = "نجاح: تم التحقق من الرمز المادي للظرف. بروتوكول الأمان الرقمي قيد التجهيز...";
-        if (selectedTeam === 'blue' && currentLevel === 1) {
-            successMsg = "✓ تم تحديد صاحب البصمة.";
+        if (selectedTeam === 'blue' && currentLevel === 3) {
+            // Trigger transition before showing stepB
+            runBlueLevel4Transition(() => {
+                stepABox.classList.add('hidden');
+                stepBBox.classList.remove('hidden');
+                updateStepProgressUI();
+            });
+            showToast("✓ TIMESTAMP VERIFIED", "success");
+        } else if (selectedTeam === 'red' && currentLevel === 3) {
+            // Trigger transition before showing stepB
+            runRedLevel4Transition(() => {
+                stepABox.classList.add('hidden');
+                stepBBox.classList.remove('hidden');
+                updateStepProgressUI();
+            });
+            showToast("ACCESS GRANTED", "success");
+        } else {
+            playSuccessChime();
+            stepABox.classList.add('hidden');
+            stepBBox.classList.remove('hidden');
+            
+            // Focus or activate the digital puzzle
+            let successMsg = "نجاح: تم التحقق من الرمز المادي للظرف. بروتوكول الأمان الرقمي قيد التجهيز...";
+            if (selectedTeam === 'blue' && currentLevel === 1) {
+                successMsg = "✓ تم تحديد صاحب البصمة.";
+            } else if (selectedTeam === 'blue' && currentLevel === 2) {
+                successMsg = "✓ تم تحليل نمط الأدلة بنجاح.";
+            } else if (currentLevel === 4) {
+                successMsg = "✓ تم التحقق من رمز الملف الأسود. تفعيل لوحة التحقيق الجنائي...";
+            } else if (currentLevel === 5) {
+                successMsg = selectedTeam === 'blue' ? "✓ تم كشف هوية القاتل. فتح لوحة الاتهام..." : "✓ تم التحقق من الهوية. فتح لوحة تتبع الجثة...";
+            }
+            showToast(successMsg, "success");
+            
+            updateStepProgressUI();
         }
-        showToast(successMsg, "success");
-        
-        updateStepProgressUI();
     } else {
         playErrorAlarm();
-        stepAError.textContent = "رمز فك التشفير غير صالح. حاول مرة أخرى للتطابق مع قاعدة البيانات.";
-        showToast("خطأ: تطابق الرمز المادي فشل! حظر لوحة التحكم مؤقتاً.", "error");
+        if (selectedTeam === 'blue' && currentLevel === 2) {
+            stepAError.textContent = "⚠ رمز القضية غير صحيح.";
+            showToast("⚠ رمز القضية غير صحيح.", "error");
+        } else if (selectedTeam === 'blue' && currentLevel === 3) {
+            stepAError.textContent = "⚠ التوقيت غير صحيح.";
+            showToast("⚠ التوقيت غير صحيح.", "error");
+        } else if (selectedTeam === 'red' && currentLevel === 3) {
+            stepAError.textContent = "⚠ الوقت غير صحيح.";
+            showToast("⚠ الوقت غير صحيح.", "error");
+        } else if (currentLevel === 4) {
+            stepAError.textContent = "⚠ رمز الملف الأسود غير صحيح.";
+            showToast("⚠ رمز الملف الأسود غير صحيح.", "error");
+        } else if (currentLevel === 5) {
+            stepAError.textContent = selectedTeam === 'blue' ? "⚠ هوية القاتل غير صحيحة." : "⚠ الهوية غير صحيحة.";
+            showToast(selectedTeam === 'blue' ? "⚠ هوية القاتل غير صحيحة." : "⚠ الهوية غير صحيحة.", "error");
+        } else {
+            stepAError.textContent = "رمز فك التشفير غير صالح. حاول مرة أخرى للتطابق مع قاعدة البيانات.";
+            showToast("خطأ: تطابق الرمز المادي فشل! حظر لوحة التحكم مؤقتاً.", "error");
+        }
         
         // Clear digits/inputs and focus first
         const wordInput = document.getElementById('stepAWordInput');
@@ -605,16 +922,26 @@ function buildDigitalPuzzle(level) {
             }
             break;
         case 2:
-            initFrequencyTuningGame();
+            if (selectedTeam === 'blue') {
+                initBlueLevel3SerialPatternGame();
+            } else {
+                initFrequencyTuningGame();
+            }
             break;
         case 3:
-            initSequenceMatchingGame();
+            if (selectedTeam === 'red') {
+                initRedLevel4BlueprintGame();
+            } else if (selectedTeam === 'blue') {
+                initBlueLevel4PhotoForensicsGame();
+            } else {
+                initSequenceMatchingGame();
+            }
             break;
         case 4:
-            initHexSearchGame();
+            initLevel5BlackFileBoard();
             break;
         case 5:
-            initReactorOverloadGame();
+            initLevel6FinalInvestigationBoard();
             break;
     }
 }
@@ -1303,7 +1630,516 @@ function initBlueLevel2TimelineGame() {
     renderCards();
 }
 
+/* ==========================================================================
+   MINI-GAME 2.5: Serial Killer Pattern Analysis (Blue Team Level 3)
+   ========================================================================== */
+function initBlueLevel3SerialPatternGame() {
+    document.getElementById('stepBInstruction').innerHTML = `
+        <div style="font-size: 1.15rem; font-weight: bold; color: var(--terminal-green); margin-bottom: 0.5rem;">✓ تم تحليل نمط الأدلة بنجاح.</div>
+        <div style="color: var(--text-muted); margin-bottom: 0.4rem;">لقد عرفت كيف يقرأ القاتل الأدلة. الآن حاول أن تعرف أين سيترك دليله التالي.</div>
+    `;
 
+    digitalPuzzleArea.innerHTML = `
+        <div class="serial-killer-container">
+            <div class="evidence-cards-grid">
+                <div class="evidence-card" data-card="A">
+                    <div class="evidence-tag">أثر A</div>
+                    <div class="evidence-row"><span>الوقت:</span> <strong>02:17</strong></div>
+                    <div class="evidence-row"><span>الاتجاه:</span> <strong>NORTH</strong></div>
+                    <div class="evidence-row"><span>العلامة:</span> <strong style="color: #bbb;">BLACK</strong></div>
+                </div>
+                <div class="evidence-card" data-card="B">
+                    <div class="evidence-tag">أثر B</div>
+                    <div class="evidence-row"><span>الوقت:</span> <strong>03:42</strong></div>
+                    <div class="evidence-row"><span>الاتجاه:</span> <strong>SOUTH</strong></div>
+                    <div class="evidence-row"><span>العلامة:</span> <strong style="color: #fff;">WHITE</strong></div>
+                </div>
+                <div class="evidence-card" data-card="C">
+                    <div class="evidence-tag">أثر C</div>
+                    <div class="evidence-row"><span>الوقت:</span> <strong>02:17</strong></div>
+                    <div class="evidence-row"><span>الاتجاه:</span> <strong>EAST</strong></div>
+                    <div class="evidence-row"><span>العلامة:</span> <strong style="color: #bbb;">BLACK</strong></div>
+                </div>
+                <div class="evidence-card" data-card="D">
+                    <div class="evidence-tag">أثر D</div>
+                    <div class="evidence-row"><span>الوقت:</span> <strong>04:03</strong></div>
+                    <div class="evidence-row"><span>الاتجاه:</span> <strong>WEST</strong></div>
+                    <div class="evidence-row"><span>العلامة:</span> <strong style="color: #ff0055;">RED</strong></div>
+                </div>
+            </div>
+
+            <div class="pattern-selector-section">
+                <div class="pattern-stage-indicator" id="patternStageIndicator">المرحلة 1: اختر الوقت الصحيح للجريمة التالية (TIME)</div>
+                
+                <div class="selector-groups">
+                    <div class="selector-group-box" id="time-selector-box">
+                        <div class="group-label">TIME (الوقت)</div>
+                        <div class="selector-buttons">
+                            <button type="button" class="pattern-btn" data-type="time" data-val="02:17">02:17</button>
+                            <button type="button" class="pattern-btn" data-type="time" data-val="03:42">03:42</button>
+                            <button type="button" class="pattern-btn" data-type="time" data-val="04:03">04:03</button>
+                        </div>
+                    </div>
+
+                    <div class="selector-group-box disabled" id="direction-selector-box">
+                        <div class="group-label">DIRECTION (الاتجاه)</div>
+                        <div class="selector-buttons">
+                            <button type="button" class="pattern-btn" data-type="dir" data-val="NORTH">NORTH</button>
+                            <button type="button" class="pattern-btn" data-type="dir" data-val="SOUTH">SOUTH</button>
+                            <button type="button" class="pattern-btn" data-type="dir" data-val="EAST">EAST</button>
+                            <button type="button" class="pattern-btn" data-type="dir" data-val="WEST">WEST</button>
+                        </div>
+                    </div>
+
+                    <div class="selector-group-box disabled" id="mark-selector-box">
+                        <div class="group-label">MARK (العلامة)</div>
+                        <div class="selector-buttons">
+                            <button type="button" class="pattern-btn" data-type="mark" data-val="BLACK">BLACK</button>
+                            <button type="button" class="pattern-btn" data-type="mark" data-val="WHITE">WHITE</button>
+                            <button type="button" class="pattern-btn" data-type="mark" data-val="RED">RED</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+
+    const indicator = document.getElementById('patternStageIndicator');
+    const timeBox = document.getElementById('time-selector-box');
+    const dirBox = document.getElementById('direction-selector-box');
+    const markBox = document.getElementById('mark-selector-box');
+    const btns = digitalPuzzleArea.querySelectorAll('.pattern-btn');
+
+    let stage = 1;
+    let chosenTime = null;
+    let chosenDir = null;
+    let chosenMark = null;
+
+    function resetPatternGame() {
+        stage = 1;
+        chosenTime = null;
+        chosenDir = null;
+        chosenMark = null;
+        
+        indicator.textContent = "المرحلة 1: اختر الوقت الصحيح للجريمة التالية (TIME)";
+        indicator.style.color = "var(--terminal-green)";
+        
+        timeBox.classList.remove('disabled');
+        dirBox.classList.add('disabled');
+        markBox.classList.add('disabled');
+        
+        btns.forEach(btn => {
+            btn.classList.remove('active', 'correct', 'wrong');
+            btn.disabled = false;
+        });
+    }
+
+    btns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            if (isLockedOut) return;
+            
+            const type = btn.getAttribute('data-type');
+            const val = btn.getAttribute('data-val');
+
+            if (type === 'time' && stage === 1) {
+                if (val === '02:17') {
+                    chosenTime = val;
+                    btn.classList.add('correct');
+                    timeBox.querySelectorAll('.pattern-btn').forEach(b => {
+                        if (b !== btn) b.disabled = true;
+                    });
+                    playSuccessChime();
+                    stage = 2;
+                    dirBox.classList.remove('disabled');
+                    indicator.textContent = "المرحلة 2: اختر الاتجاه الصحيح لمسرح الجريمة التالي (DIRECTION)";
+                } else {
+                    btn.classList.add('wrong');
+                    showToast("خطأ: الوقت المحدد لا يتطابق مع نمط الجرائم السابقة.", "error");
+                    triggerGlobalLockout(10);
+                    setTimeout(resetPatternGame, 1000);
+                }
+            } else if (type === 'dir' && stage === 2) {
+                if (val === 'EAST') {
+                    chosenDir = val;
+                    btn.classList.add('correct');
+                    dirBox.querySelectorAll('.pattern-btn').forEach(b => {
+                        if (b !== btn) b.disabled = true;
+                    });
+                    playSuccessChime();
+                    stage = 3;
+                    markBox.classList.remove('disabled');
+                    indicator.textContent = "المرحلة 3: اختر العلامة الصحيحة لموقع الجريمة التالي (MARK)";
+                } else {
+                    btn.classList.add('wrong');
+                    showToast("خطأ: الاتجاه غير متناسق مع التوزيع الجغرافي للضحايا.", "error");
+                    triggerGlobalLockout(10);
+                    setTimeout(resetPatternGame, 1000);
+                }
+            } else if (type === 'mark' && stage === 3) {
+                if (val === 'BLACK') {
+                    chosenMark = val;
+                    btn.classList.add('correct');
+                    markBox.querySelectorAll('.pattern-btn').forEach(b => {
+                        if (b !== btn) b.disabled = true;
+                    });
+                    playSuccessChime();
+                    
+                    indicator.textContent = "🔎 تم تحديد النمط بنجاح.";
+                    indicator.style.color = "var(--terminal-green)";
+                    
+                    setTimeout(() => {
+                        solveStepB();
+                    }, 1200);
+                } else {
+                    btn.classList.add('wrong');
+                    showToast("خطأ: العلامة لا تتطابق مع الأثر المتروك.", "error");
+                    triggerGlobalLockout(10);
+                    setTimeout(resetPatternGame, 1000);
+                }
+            }
+        });
+    });
+}
+
+/* ==========================================================================
+   MINI-GAME 2.6: Ward 13 Floor Plan Analysis (Red Team Level 4)
+   ========================================================================== */
+function initRedLevel4BlueprintGame() {
+    document.getElementById('stepBInstruction').innerHTML = `
+        <div style="font-size: 1.15rem; font-weight: bold; color: #ff3344; margin-bottom: 0.5rem;">الخريطة الرسمية تحتوي على 12 غرفة.</div>
+        <div style="color: var(--text-muted); margin-bottom: 0.4rem;">لكن تقرير الصيانة يتحدث عن باب رابع عشر...</div>
+        <div style="color: #fff; font-weight: bold;">أي باب لا ينتمي إلى أي غرفة؟</div>
+    `;
+
+    digitalPuzzleArea.innerHTML = `
+        <div class="blueprint-container">
+            <div class="blueprint-floorplan">
+                <div class="blueprint-room br1" data-room="01">01<small>NORTH</small></div>
+                <div class="blueprint-room br2" data-room="02">02<small>NORTH</small></div>
+                <div class="blueprint-room br3" data-room="03">03<small>NORTH</small></div>
+                <div class="blueprint-room br4" data-room="04">04<small>NORTH</small></div>
+                
+                <div class="blueprint-room br5" data-room="05">05<small>WEST</small></div>
+                <div class="blueprint-room br6" data-room="06">06<small>WEST</small></div>
+                <div class="blueprint-room br7" data-room="07">07<small>EAST</small></div>
+                <div class="blueprint-room br8" data-room="08">08<small>EAST</small></div>
+                
+                <div class="blueprint-room br9" data-room="09">09<small>SOUTH</small></div>
+                <div class="blueprint-room br10" data-room="10">10<small>SOUTH</small></div>
+                <div class="blueprint-room br11" data-room="11">11<small>SOUTH</small></div>
+                <div class="blueprint-room br12" data-room="12">12<small>SOUTH</small></div>
+                
+                <div class="blueprint-unexplained-door" id="blueprintSecretDoor"></div>
+                
+                <div class="blueprint-hidden-room-reveal" id="hiddenRoomReveal">
+                    <div class="hidden-corridor"></div>
+                    <div class="hidden-room">13</div>
+                </div>
+            </div>
+            
+            <div class="blueprint-terminal-log" id="blueprintLog">AWAITING INPUT...</div>
+            
+            <div class="symbol-puzzle-box hidden" id="symbolPuzzleBox" style="width: 100%; margin-top: 1rem;">
+                <div style="font-size: 0.95rem; margin-bottom: 0.8rem; line-height: 1.6; color: #ff8080; text-align: center;">
+                    Four symbols were found in Dr. Victor's notes.
+                </div>
+                <div class="symbol-values-grid" style="display: flex; gap: 1rem; justify-content: center; margin-bottom: 1rem; font-family: monospace; font-size: 1.1rem; color: #a58c67;">
+                    <div>□ = 1</div>
+                    <div>△ = 2</div>
+                    <div>○ = 4</div>
+                    <div>✕ = 9</div>
+                </div>
+                <div style="text-align: center; margin-bottom: 1rem;">
+                    <span style="font-size: 1.4rem; color: #ff3344; letter-spacing: 0.5rem; font-weight: bold;">△ ○ □ ✕</span>
+                </div>
+                <div class="answer-slots" style="display: flex; justify-content: center; gap: 8px; margin-bottom: 1rem;">
+                    <input type="text" maxlength="1" class="symbol-digit-input" data-idx="0" inputmode="numeric">
+                    <input type="text" maxlength="1" class="symbol-digit-input" data-idx="1" inputmode="numeric">
+                    <input type="text" maxlength="1" class="symbol-digit-input" data-idx="2" inputmode="numeric">
+                    <input type="text" maxlength="1" class="symbol-digit-input" data-idx="3" inputmode="numeric">
+                </div>
+                <button type="button" class="terminal-btn" id="submitSymbolsBtn" style="width: 100%; border-color: #6e1515; color: #ff3344; background: rgba(0,0,0,0.5);">تأكيد الرمز الجنائي</button>
+            </div>
+        </div>
+    `;
+
+    const log = document.getElementById('blueprintLog');
+    const secretDoor = document.getElementById('blueprintSecretDoor');
+    const symbolBox = document.getElementById('symbolPuzzleBox');
+    const rooms = digitalPuzzleArea.querySelectorAll('.blueprint-room');
+
+    rooms.forEach(room => {
+        room.addEventListener('click', () => {
+            if (isLockedOut) return;
+            const roomNum = room.getAttribute('data-room');
+            playSynthTone(300, 'triangle', 0.1, 0.05);
+            log.innerHTML = `ROOM ${roomNum} — REGISTERED`;
+        });
+    });
+
+    secretDoor.addEventListener('click', () => {
+        if (isLockedOut) return;
+        playSynthTone(500, 'sawtooth', 0.2, 0.08);
+        log.innerHTML = `UNREGISTERED ACCESS POINT FOUND.<br>THIS DOOR DOES NOT BELONG TO THE FLOOR PLAN.`;
+        
+        // Show second puzzle
+        symbolBox.classList.remove('hidden');
+        
+        // Focus first symbol input
+        const firstInput = symbolBox.querySelector('.symbol-digit-input[data-idx="0"]');
+        if (firstInput) firstInput.focus();
+    });
+
+    // Auto-advance and backspace for symbol inputs
+    const symbolInputs = symbolBox.querySelectorAll('.symbol-digit-input');
+    symbolInputs.forEach((inp, idx) => {
+        inp.addEventListener('input', (e) => {
+            const val = e.target.value;
+            if (!/^[0-9]$/.test(val)) {
+                e.target.value = '';
+                return;
+            }
+            playTickSound();
+            const next = symbolBox.querySelector(`.symbol-digit-input[data-idx="${idx + 1}"]`);
+            if (next) {
+                next.focus();
+            }
+        });
+
+        inp.addEventListener('keydown', (e) => {
+            if (e.key === 'Backspace') {
+                if (e.target.value === '') {
+                    const prev = symbolBox.querySelector(`.symbol-digit-input[data-idx="${idx - 1}"]`);
+                    if (prev) {
+                        prev.focus();
+                        prev.value = '';
+                        e.preventDefault();
+                    }
+                } else {
+                    e.target.value = '';
+                }
+            } else if (e.key === 'Enter') {
+                e.preventDefault();
+                document.getElementById('submitSymbolsBtn').click();
+            }
+        });
+
+        // Paste support
+        inp.addEventListener('paste', (e) => {
+            e.preventDefault();
+            const pastedData = (e.clipboardData || window.clipboardData).getData('text').trim();
+            if (!/^[0-9]+$/.test(pastedData)) return;
+
+            const digits = pastedData.split('');
+            symbolInputs.forEach((symbolInp, sIdx) => {
+                if (sIdx >= idx && digits[sIdx - idx]) {
+                    symbolInp.value = digits[sIdx - idx];
+                }
+            });
+
+            const nextFocusIndex = Math.min(idx + digits.length, symbolInputs.length - 1);
+            if (symbolInputs[nextFocusIndex]) {
+                symbolInputs[nextFocusIndex].focus();
+            }
+            playTickSound();
+        });
+    });
+
+    const submitBtn = document.getElementById('submitSymbolsBtn');
+    submitBtn.addEventListener('click', () => {
+        if (isLockedOut) return;
+
+        let code = '';
+        symbolInputs.forEach(symbolInp => code += symbolInp.value);
+
+        if (code === '2419') {
+            // Success
+            symbolBox.classList.add('hidden');
+            log.innerHTML = 'SYMBOL SEQUENCE ACCEPTED.';
+            playSuccessChime();
+
+            setTimeout(() => {
+                log.innerHTML += '<br>ROOM 13 WAS NEVER ON THE OFFICIAL MAP.';
+            }, 1200);
+
+            setTimeout(() => {
+                log.innerHTML += '<br>BUT SOMEONE BUILT IT.';
+                document.getElementById('hiddenRoomReveal').classList.add('revealed');
+                playSynthTone(150, 'sawtooth', 0.8, 0.1);
+            }, 2600);
+
+            setTimeout(() => {
+                log.innerHTML += '<br><br><span style="color: var(--terminal-green); font-weight: bold;">ROOM 13 LOCATED.</span>';
+            }, 4000);
+
+            setTimeout(() => {
+                log.innerHTML += '<br><br><em>Dr. Victor did not hide the room.<br>HE HID THE WAY TO IT.</em>';
+            }, 5500);
+
+            setTimeout(() => {
+                solveStepB();
+            }, 7500);
+        } else {
+            // Failure
+            showToast("خطأ: تسلسل الرموز غير صالح.", "error");
+            triggerGlobalLockout(10);
+            
+            // Clear inputs
+            symbolInputs.forEach(symbolInp => symbolInp.value = '');
+            if (symbolInputs[0]) symbolInputs[0].focus();
+        }
+    });
+}
+
+/* ==========================================================================
+   MINI-GAME 2.7: Thermal Forensics Decoder (Blue Team Level 4)
+   ========================================================================== */
+function initBlueLevel4PhotoForensicsGame() {
+    document.getElementById('stepBInstruction').innerHTML = `
+        <div style="font-size: 1.15rem; font-weight: bold; color: var(--terminal-green); margin-bottom: 0.5rem;">🔥 THERMAL IMAGING ACTIVATED</div>
+        <div style="color: var(--text-muted); margin-bottom: 0.4rem;">تفحص صورة مسرح الجريمة الحرارية. اضغط على النقاط الساخنة بترتيب تصاعدي (من الأبرد للأسخن) لاستخراج رمز الدليل.</div>
+    `;
+
+    // Define thermal hotspots with temperature and hidden digit
+    const thermalSpots = [
+        { id: 'spot-1', digit: '1', temp: 32, x: '15%', y: '25%' },
+        { id: 'spot-7', digit: '7', temp: 45, x: '70%', y: '40%' },
+        { id: 'spot-0', digit: '0', temp: 58, x: '35%', y: '70%' },
+        { id: 'spot-4', digit: '4', temp: 72, x: '80%', y: '75%' }
+    ];
+
+    digitalPuzzleArea.innerHTML = `
+        <div class="thermal-forensics-container" style="width: 100%; max-width: 600px; margin: 0 auto;">
+            <div class="thermal-image-viewer" style="position: relative; width: 100%; aspect-ratio: 4/3; background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0f1425 100%); border: 2px solid var(--panel-border); border-radius: 8px; overflow: hidden; margin-bottom: 1.5rem;">
+                <!-- Thermal background pattern -->
+                <div style="position: absolute; inset: 0; background: 
+                    radial-gradient(circle at 15% 25%, rgba(255, 80, 0, 0.25) 0%, transparent 15%),
+                    radial-gradient(circle at 70% 40%, rgba(255, 120, 0, 0.28) 0%, transparent 12%),
+                    radial-gradient(circle at 35% 70%, rgba(255, 160, 0, 0.3) 0%, transparent 14%),
+                    radial-gradient(circle at 80% 75%, rgba(255, 220, 0, 0.35) 0%, transparent 16%);
+                    pointer-events: none;"></div>
+                
+                <!-- Thermal hotspots -->
+                ${thermalSpots.map(spot => `
+                    <div class="thermal-hotspot" data-digit="${spot.digit}" data-temp="${spot.temp}" 
+                         style="position: absolute; left: ${spot.x}; top: ${spot.y}; transform: translate(-50%, -50%); cursor: pointer; transition: all 0.2s;">
+                        <div style="width: 60px; height: 60px; border-radius: 50%; background: radial-gradient(circle at 30% 30%, rgba(255, 200, 0, 0.8), rgba(255, 100, 0, 0.4)); border: 2px solid rgba(255, 150, 0, 0.6); display: flex; align-items: center; justify-content: center; font-weight: bold; color: #000; font-size: 1.2rem; box-shadow: 0 0 20px rgba(255, 150, 0, 0.5);">
+                            ${spot.temp}°C
+                        </div>
+                    </div>
+                `).join('')}
+            </div>
+
+            <div style="background: rgba(0, 0, 0, 0.6); border: 1px solid var(--panel-border); border-radius: 6px; padding: 1rem; margin-bottom: 1rem; text-align: center;">
+                <div style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.8rem;">اتبع مسار الحركة: من الأبرد للأسخن</div>
+                <div style="font-size: 1rem; font-weight: bold; color: var(--terminal-green); letter-spacing: 0.3em;">
+                    الرقم المستخرج: <span id="thermalCode" style="color: var(--neon-blue); font-family: monospace;">----</span>
+                </div>
+            </div>
+
+            <div class="blueprint-terminal-log" id="thermalLog">AWAITING THERMAL ANALYSIS...</div>
+        </div>
+    `;
+
+    const log = document.getElementById('thermalLog');
+    const codeDisplay = document.getElementById('thermalCode');
+    let extractedCode = '';
+    let clickedSpots = new Set();
+    const hotspots = digitalPuzzleArea.querySelectorAll('.thermal-hotspot');
+
+    // Sort spots by temperature for reference
+    const sortedByTemp = Array.from(thermalSpots).sort((a, b) => a.temp - b.temp);
+
+    hotspots.forEach(spot => {
+        spot.addEventListener('click', () => {
+            if (isLockedOut) return;
+
+            const digit = spot.getAttribute('data-digit');
+            const temp = parseInt(spot.getAttribute('data-temp'));
+            const spotId = `${digit}-${temp}`;
+
+            if (clickedSpots.has(spotId)) {
+                showToast("هذه النقطة تم تحليلها بالفعل.", "warning");
+                return;
+            }
+
+            // Play thermal detection sound
+            playSynthTone(400 + temp * 3, 'sine', 0.2, 0.1);
+            
+            clickedSpots.add(spotId);
+            extractedCode += digit;
+            
+            // Visual feedback
+            spot.style.transform = 'translate(-50%, -50%) scale(1.2)';
+            spot.style.opacity = '0.7';
+            
+            codeDisplay.textContent = extractedCode.padEnd(4, '-');
+            log.innerHTML = `THERMAL POINT DETECTED: ${temp}°C<br>CODE PROGRESS: ${extractedCode || '...'}`;
+
+            // Check if code matches the expected sequence (1->7->0->4 based on temperature order)
+            if (extractedCode.length === 4) {
+                if (extractedCode === '1704') {
+                    // Success - correct order
+                    setTimeout(() => {
+                        log.innerHTML = '✓ THERMAL TRAIL VERIFIED.';
+                        playSuccessChime();
+                        codeDisplay.style.color = 'var(--terminal-green)';
+                    }, 300);
+
+                    setTimeout(() => {
+                        log.innerHTML += '<br>MOVEMENT PATTERN ANALYZED.';
+                    }, 1500);
+
+                    setTimeout(() => {
+                        log.innerHTML += '<br>المريب تحرك من الزاوية الباردة إلى الأسخن.';
+                    }, 2800);
+
+                    setTimeout(() => {
+                        log.innerHTML += '<br><br><span style="color: var(--terminal-green); font-weight: bold;">الحركة تحدد الدليل التالي.</span>';
+                    }, 4200);
+
+                    setTimeout(() => {
+                        solveStepB();
+                    }, 6200);
+                } else {
+                    // Failure - wrong order
+                    showToast("ترتيب التحليل الحراري خاطئ. أعد المحاولة.", "error");
+                    triggerGlobalLockout(10);
+                    
+                    // Reset
+                    extractedCode = '';
+                    clickedSpots.clear();
+                    codeDisplay.textContent = '----';
+                    codeDisplay.style.color = 'var(--neon-blue)';
+                    hotspots.forEach(h => {
+                        h.style.transform = 'translate(-50%, -50%) scale(1)';
+                        h.style.opacity = '1';
+                    });
+                    log.innerHTML = 'THERMAL SCAN FAILED. RESTART ANALYSIS...';
+                }
+            }
+        });
+
+        // Hover effect
+        spot.addEventListener('mouseenter', () => {
+            if (!isLockedOut) {
+                spot.style.transform = 'translate(-50%, -50%) scale(1.1)';
+            }
+        });
+
+        spot.addEventListener('mouseleave', () => {
+            const digit = spot.getAttribute('data-digit');
+            const temp = parseInt(spot.getAttribute('data-temp'));
+            const spotId = `${digit}-${temp}`;
+            
+            if (clickedSpots.has(spotId)) {
+                spot.style.transform = 'translate(-50%, -50%) scale(1.2)';
+            } else {
+                spot.style.transform = 'translate(-50%, -50%) scale(1)';
+            }
+        });
+    });
+}
 
 /* ==========================================================================
    MINI-GAME 3: Wave Tuning (Frequency Slider)
@@ -1514,70 +2350,400 @@ function initHexSearchGame() {
 
 
 /* ==========================================================================
-   MINI-GAME 6: Reactor Overload Stabilizer
+   MINI-GAME 6: Level 6 Forensic Final Board
    ========================================================================== */
-function initReactorOverloadGame() {
-    document.getElementById('stepBInstruction').textContent = "الرمز صحيح! مفاعل النظام على وشك الانفجار. استقر العقد غير المستقرة لمنع الضغط الكلي (100%):";
+function initLevel6FinalInvestigationBoard() {
+    const isBlue = (selectedTeam === 'blue');
+    
+    document.getElementById('stepBInstruction').textContent = isBlue ? 
+        "أدخل اللائحة النهائية لربط المشتبه به بمسار الجريمة والقرائن المادية لإدانته:" :
+        "قم بإعادة بناء خط النقل والقرائن الزمنية والمستندات لإغلاق تحقيق الجناح 13:";
 
-    digitalPuzzleArea.innerHTML = `
-        <div class="reactor-grid">
-            <div class="reactor-node" id="rn0"><div class="reactor-fill"></div><span>SYS1</span></div>
-            <div class="reactor-node" id="rn1"><div class="reactor-fill"></div><span>SYS2</span></div>
-            <div class="reactor-node" id="rn2"><div class="reactor-fill"></div><span>SYS3</span></div>
-            <div class="reactor-node" id="rn3"><div class="reactor-fill"></div><span>SYS4</span></div>
-            <div class="reactor-node" id="rn4"><div class="reactor-fill"></div><span>SYS5</span></div>
-        </div>
-        <div class="circuit-sum-display" style="margin-top: 1rem;">الاستقرار الحالي: <span id="stabilizedCount">0</span> / 10</div>
-    `;
+    if (isBlue) {
+        digitalPuzzleArea.innerHTML = `
+            <div class="level6-board">
+                <div class="level6-grid">
+                    <!-- LEFT COLUMN: Dropdowns -->
+                    <div class="level5-panel">
+                        <div class="level5-panel-title">
+                            <span>اللائحة النهائية للاتهام</span>
+                            <span style="font-size:0.75rem; opacity:0.7;">Accusation List</span>
+                        </div>
+                        
+                        <div class="level6-field-group">
+                            <label class="level6-label">من هو القاتل؟ (Suspect Identity)</label>
+                            <select class="level6-select" id="l6BlueSuspect">
+                                <option value="">-- اختر المشتبه به --</option>
+                                <option value="david_miller">David Miller (ديفيد ميلر)</option>
+                                <option value="daniel_roth">Daniel Roth (دانيال روث)</option>
+                                <option value="thomas_cole">Thomas Cole (توماس كول)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="level6-field-group">
+                            <label class="level6-label">ما هو التوقيت المطابق للنمط؟ (Pattern Time)</label>
+                            <select class="level6-select" id="l6BlueTime">
+                                <option value="">-- اختر التوقيت --</option>
+                                <option value="23:17">23:17</option>
+                                <option value="23:36">23:36</option>
+                                <option value="02:17">02:17</option>
+                                <option value="22:08">22:08</option>
+                            </select>
+                        </div>
+                        
+                        <div class="level6-field-group">
+                            <label class="level6-label">ما هو الاتجاه الموثق؟ (Pattern Direction)</label>
+                            <select class="level6-select" id="l6BlueDirection">
+                                <option value="">-- اختر الاتجاه --</option>
+                                <option value="west">WEST (غرب)</option>
+                                <option value="east">EAST (شرق)</option>
+                                <option value="north">NORTH (شمال)</option>
+                                <option value="south">SOUTH (جنوب)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="level6-field-group">
+                            <label class="level6-label">ما هي علامة النمط؟ (Pattern Mark)</label>
+                            <select class="level6-select" id="l6BlueMark">
+                                <option value="">-- اختر علامة النمط --</option>
+                                <option value="red">RED (أحمر)</option>
+                                <option value="blue">BLUE (أزرق)</option>
+                                <option value="black">BLACK (أسود)</option>
+                                <option value="white">WHITE (أبيض)</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <!-- RIGHT COLUMN: Checkboxes -->
+                    <div class="level5-panel">
+                        <div class="level5-panel-title">
+                            <span>الأدلة والقرائن الرابطة</span>
+                            <span style="font-size:0.75rem; opacity:0.7;">Evidence Linking</span>
+                        </div>
+                        <div style="font-size:0.8rem; color:var(--text-muted); margin-bottom:0.2rem;">
+                            حدد الأدلة المادية التي تربط المشتبه به بمسرح الجريمة بشكل قاطع:
+                        </div>
+                        
+                        <div class="level6-checkbox-list">
+                            <label class="level6-checkbox-item">
+                                <input type="checkbox" id="l6BlueEv1" value="ev1">
+                                <span>بصمة الإصبع B-3 على التقارير تطابق المشتبه به (Fingerprint B-3 match)</span>
+                            </label>
+                            <label class="level6-checkbox-item">
+                                <input type="checkbox" id="l6BlueEv2" value="ev2">
+                                <span>موقع الهاتف الجوال للمشتبه به داخل EAST-04 عند 02:17</span>
+                            </label>
+                            <label class="level6-checkbox-item">
+                                <input type="checkbox" id="l6BlueEv3" value="ev3">
+                                <span>سجل الدخول يثبت عبور شخص للممر الشرقي عند 02:17</span>
+                            </label>
+                            <label class="level6-checkbox-item">
+                                <input type="checkbox" id="l6BlueEv4" value="ev4">
+                                <span>مكالمة مكتب التحقيق الواردة عند الساعة 23:21</span>
+                            </label>
+                            <label class="level6-checkbox-item">
+                                <input type="checkbox" id="l6BlueEv5" value="ev5">
+                                <span>توقيع المشرف المفقود من سجل الإغلاق الورقي</span>
+                            </label>
+                        </div>
+                        
+                        <!-- Terminal Log -->
+                        <div class="level6-terminal-log" id="l6TerminalLog">
+                            <div>[SYSTEM] Final Case Accusation Engine online.</div>
+                            <div>[SYSTEM] Awaiting forensic input matrix...</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <button type="button" class="terminal-btn" id="l6SubmitBtn" style="width:100%; padding:0.8rem; font-size:1.1rem; border:2px solid var(--panel-border); margin-top:0.5rem;">
+                    تقديم لائحة الاتهام النهائية وإغلاق القضية
+                </button>
+            </div>
+        `;
+    } else {
+        digitalPuzzleArea.innerHTML = `
+            <div class="level6-board">
+                <div class="level6-grid">
+                    <!-- LEFT COLUMN: Dropdowns -->
+                    <div class="level5-panel">
+                        <div class="level5-panel-title">
+                            <span>إعادة بناء مسار نقل الجثة</span>
+                            <span style="font-size:0.75rem; opacity:0.7;">Reconstruction List</span>
+                        </div>
+                        
+                        <div class="level6-field-group">
+                            <label class="level6-label">من المسؤول عن نقل جثة المريض 404؟</label>
+                            <select class="level6-select" id="l6RedSuspect">
+                                <option value="">-- اختر الفاعل --</option>
+                                <option value="nurse_eleanor">Nurse Eleanor (الممرضة إلينور)</option>
+                                <option value="dr_victor">Dr. Victor Hartmann (د. فيكتور هارتمان)</option>
+                                <option value="patient_404">Patient 404 (المريض 404 نفسه)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="level6-field-group">
+                            <label class="level6-label">ما هو وقت الوفاة الفعلي المسجل؟</label>
+                            <select class="level6-select" id="l6RedTimeDeath">
+                                <option value="">-- اختر وقت الوفاة --</option>
+                                <option value="21:49">21:49</option>
+                                <option value="21:56">21:56</option>
+                                <option value="22:08">22:08</option>
+                                <option value="22:12">22:12</option>
+                            </select>
+                        </div>
+                        
+                        <div class="level6-field-group">
+                            <label class="level6-label">ما هو وقت اكتشاف اختفاء الجثة؟</label>
+                            <select class="level6-select" id="l6RedTimeMissing">
+                                <option value="">-- اختر وقت اكتشاف الاختفاء --</option>
+                                <option value="21:56">21:56</option>
+                                <option value="22:08">22:08</option>
+                                <option value="22:12">22:12</option>
+                                <option value="22:31">22:31</option>
+                            </select>
+                        </div>
+                        
+                        <div class="level6-field-group">
+                            <label class="level6-label">ما هو مسار النقل السري المستخدم؟</label>
+                            <select class="level6-select" id="l6RedRoute">
+                                <option value="">-- اختر مسار النقل --</option>
+                                <option value="main_lobby">Main lobby (البهو الرئيسي)</option>
+                                <option value="east_corridor">East corridor (الممر الشرقي)</option>
+                                <option value="service_corridor">Service corridor (ممر الخدمة السري)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="level6-field-group">
+                            <label class="level6-label">ما هي الوجهة النهائية للجثة؟</label>
+                            <select class="level6-select" id="l6RedDestination">
+                                <option value="">-- اختر الوجهة النهائية --</option>
+                                <option value="morgue_bed">Morgue bed (سرير المشرحة)</option>
+                                <option value="lower_chamber">Lower chamber / Room 13 (الحجرة السفلية)</option>
+                                <option value="ward_12">Ward 12 (الجناح 12)</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <!-- RIGHT COLUMN: Checkboxes -->
+                    <div class="level5-panel">
+                        <div class="level5-panel-title">
+                            <span>القرائن والأدلة المادية</span>
+                            <span style="font-size:0.75rem; opacity:0.7;">Proof & Logs</span>
+                        </div>
+                        <div style="font-size:0.8rem; color:var(--text-muted); margin-bottom:0.2rem;">
+                            حدد القرائن وسجلات الأنظمة التي تثبت واقعة النقل والتوقيت:
+                        </div>
+                        
+                        <div class="level6-checkbox-list">
+                            <label class="level6-checkbox-item">
+                                <input type="checkbox" id="l6RedProof1" value="proof1">
+                                <span>سجل باب الخدمة: فتح 22:09 وأغلق 22:16</span>
+                            </label>
+                            <label class="level6-checkbox-item">
+                                <input type="checkbox" id="l6RedProof2" value="proof2">
+                                <span>انقطاع بث الكاميرا CAM-13 عند الساعة 22:07</span>
+                            </label>
+                            <label class="level6-checkbox-item">
+                                <input type="checkbox" id="l6RedProof3" value="proof3">
+                                <span>دخول عربة النقل المحملة للمنطقة غير المسجلة 22:10</span>
+                            </label>
+                            <label class="level6-checkbox-item">
+                                <input type="checkbox" id="l6RedProof4" value="proof4">
+                                <span>حركة سرير المشرحة المسجلة عند الساعة 21:56</span>
+                            </label>
+                            <label class="level6-checkbox-item">
+                                <input type="checkbox" id="l6RedProof5" value="proof5">
+                                <span>تقرير الصيانة الخاص بالجناح 13 ومفاتيح التشغيل</span>
+                            </label>
+                        </div>
+                        
+                        <!-- Terminal Log -->
+                        <div class="level6-terminal-log" id="l6TerminalLog">
+                            <div>[SYSTEM] Body Route Reconstruction Engine online.</div>
+                            <div>[SYSTEM] Awaiting corridor logging data...</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <button type="button" class="terminal-btn" id="l6SubmitBtn" style="width:100%; padding:0.8rem; font-size:1.1rem; border:2px solid var(--panel-border); margin-top:0.5rem;">
+                    تقديم التقرير النهائي وإغلاق القضية
+                </button>
+            </div>
+        `;
+    }
 
-    const nodes = [
-        { el: document.getElementById('rn0'), fill: 20 },
-        { el: document.getElementById('rn1'), fill: 40 },
-        { el: document.getElementById('rn2'), fill: 10 },
-        { el: document.getElementById('rn3'), fill: 50 },
-        { el: document.getElementById('rn4'), fill: 30 }
-    ];
+    const terminalLogEl = document.getElementById('l6TerminalLog');
+    const submitBtn = document.getElementById('l6SubmitBtn');
 
-    const stabDisplay = document.getElementById('stabilizedCount');
-    let successfulClicks = 0;
-    let gameOver = false;
+    function appendLog(message, color = 'var(--terminal-green)') {
+        const line = document.createElement('div');
+        line.style.color = color;
+        line.textContent = `> ${message}`;
+        terminalLogEl.appendChild(line);
+        terminalLogEl.scrollTop = terminalLogEl.scrollHeight;
+    }
 
-    // Run dynamic fill loop
-    const fillInterval = setInterval(() => {
-        if (gameOver || isLockedOut) return;
-        
-        nodes.forEach(node => {
-            if (node.el.classList.contains('stable')) return;
-            node.fill += Math.floor(Math.random() * 5) + 3; // Fill increase
-            node.el.querySelector('.reactor-fill').style.height = `${node.fill}%`;
+    // Attach change listeners to log user actions in real-time
+    if (isBlue) {
+        document.getElementById('l6BlueSuspect').addEventListener('change', (e) => {
+            if (e.target.value) {
+                appendLog(`Suspect focused: Daniel Roth (ID target)`, 'var(--neon-main)');
+                playTickSound();
+            }
+        });
+        document.getElementById('l6BlueTime').addEventListener('change', (e) => {
+            if (e.target.value) {
+                appendLog(`Time window selected: ${e.target.value}`, 'var(--text-main)');
+                playTickSound();
+            }
+        });
+        document.getElementById('l6BlueDirection').addEventListener('change', (e) => {
+            if (e.target.value) {
+                appendLog(`Direction vector set: ${e.target.value.toUpperCase()}`, 'var(--text-main)');
+                playTickSound();
+            }
+        });
+        document.getElementById('l6BlueMark').addEventListener('change', (e) => {
+            if (e.target.value) {
+                appendLog(`Mark pattern color: ${e.target.value.toUpperCase()}`, 'var(--text-main)');
+                playTickSound();
+            }
+        });
+        document.querySelectorAll('.level6-checkbox-item input').forEach(box => {
+            box.addEventListener('change', () => {
+                appendLog(`Evidence matrix updated: ${box.value.toUpperCase()} = ${box.checked}`, 'var(--text-muted)');
+                playTickSound();
+            });
+        });
+    } else {
+        document.getElementById('l6RedSuspect').addEventListener('change', (e) => {
+            if (e.target.value) {
+                appendLog(`Primary subject set: Dr. Victor Hartmann`, 'var(--neon-main)');
+                playTickSound();
+            }
+        });
+        document.getElementById('l6RedTimeDeath').addEventListener('change', (e) => {
+            if (e.target.value) {
+                appendLog(`Death time window: ${e.target.value}`, 'var(--text-main)');
+                playTickSound();
+            }
+        });
+        document.getElementById('l6RedTimeMissing').addEventListener('change', (e) => {
+            if (e.target.value) {
+                appendLog(`Disappearance alert time: ${e.target.value}`, 'var(--text-main)');
+                playTickSound();
+            }
+        });
+        document.getElementById('l6RedRoute').addEventListener('change', (e) => {
+            if (e.target.value) {
+                appendLog(`Transport pathway selected: ${e.target.value.toUpperCase()}`, 'var(--text-main)');
+                playTickSound();
+            }
+        });
+        document.getElementById('l6RedDestination').addEventListener('change', (e) => {
+            if (e.target.value) {
+                appendLog(`Destination terminal chamber: ${e.target.value.toUpperCase()}`, 'var(--text-main)');
+                playTickSound();
+            }
+        });
+        document.querySelectorAll('.level6-checkbox-item input').forEach(box => {
+            box.addEventListener('change', () => {
+                appendLog(`Reconstruction log updated: ${box.value.toUpperCase()} = ${box.checked}`, 'var(--text-muted)');
+                playTickSound();
+            });
+        });
+    }
 
-            if (node.fill >= 100) {
-                gameOver = true;
-                clearInterval(fillInterval);
+    // Submit Validation Logic
+    submitBtn.addEventListener('click', () => {
+        if (isLockedOut) return;
+
+        appendLog("Analyzing submission parameters...", "var(--neon-main)");
+
+        let isCorrect = false;
+
+        if (isBlue) {
+            const suspect = document.getElementById('l6BlueSuspect').value;
+            const time = document.getElementById('l6BlueTime').value;
+            const dir = document.getElementById('l6BlueDirection').value;
+            const mark = document.getElementById('l6BlueMark').value;
+            const ev1 = document.getElementById('l6BlueEv1').checked;
+            const ev2 = document.getElementById('l6BlueEv2').checked;
+            const ev3 = document.getElementById('l6BlueEv3').checked;
+            const ev4 = document.getElementById('l6BlueEv4').checked;
+            const ev5 = document.getElementById('l6BlueEv5').checked;
+
+            if (suspect === 'daniel_roth' && 
+                time === '02:17' && 
+                dir === 'east' && 
+                mark === 'black' && 
+                ev1 && ev2 && ev3 && 
+                !ev4 && !ev5) {
+                isCorrect = true;
+            }
+        } else {
+            const suspect = document.getElementById('l6RedSuspect').value;
+            const timeDeath = document.getElementById('l6RedTimeDeath').value;
+            const timeMissing = document.getElementById('l6RedTimeMissing').value;
+            const route = document.getElementById('l6RedRoute').value;
+            const dest = document.getElementById('l6RedDestination').value;
+            const p1 = document.getElementById('l6RedProof1').checked;
+            const p2 = document.getElementById('l6RedProof2').checked;
+            const p3 = document.getElementById('l6RedProof3').checked;
+            const p4 = document.getElementById('l6RedProof4').checked;
+            const p5 = document.getElementById('l6RedProof5').checked;
+
+            if (suspect === 'dr_victor' && 
+                timeDeath === '21:49' && 
+                timeMissing === '22:08' && 
+                route === 'service_corridor' && 
+                dest === 'lower_chamber' && 
+                p1 && p2 && p3 && 
+                !p4 && !p5) {
+                isCorrect = true;
+            }
+        }
+
+        setTimeout(() => {
+            if (isCorrect) {
+                appendLog("CASE SOLVED. Verification success.", "var(--terminal-green)");
+                if (isBlue) {
+                    appendLog("THE SERIAL KILLER HAS BEEN IDENTIFIED: DANIEL ROTH", "var(--terminal-green)");
+                    showToast("✓ تم كشف هوية القاتل المتسلسل بنجاح!", "success");
+
+                    document.getElementById('stepBInstruction').innerHTML = `
+                        <div style="font-size: 1.25rem; font-weight: bold; color: var(--terminal-green); margin-bottom: 0.5rem;">✓ CASE SOLVED - تم حل القضية بالكامل</div>
+                        <div style="color: var(--text-main); margin-bottom: 0.6rem; font-size: 1.05rem; font-weight: bold;">
+                            تم كشف وتوثيق هوية القاتل المتسلسل: دانيال روث (Daniel Roth).
+                        </div>
+                        <div style="color: var(--text-muted); font-size: 0.9rem;">
+                            تم إنقاذ ملفات القضية وتوثيق السلسلة الجنائية. اضغط على الزر أدناه للحصول على الرمز النهائي لفتح القفل المادي.
+                        </div>
+                    `;
+                } else {
+                    appendLog("BODY DISPLACEMENT PATHWAY CONFIRMED: DR. VICTOR HARTMANN", "var(--terminal-green)");
+                    showToast("✓ تم كشف مسار نقل الجثة بنجاح!", "success");
+
+                    document.getElementById('stepBInstruction').innerHTML = `
+                        <div style="font-size: 1.25rem; font-weight: bold; color: var(--terminal-green); margin-bottom: 0.5rem;">✓ CASE SOLVED - تم حل القضية بالكامل</div>
+                        <div style="color: var(--text-main); margin-bottom: 0.6rem; font-size: 1.05rem; font-weight: bold;">
+                            تم إثبات نقل جثة المريض 404 بواسطة الدكتور فيكتور هارتمان (Dr. Victor Hartmann) إلى الحجرة السفلية الملحقة بالغرفة 13.
+                        </div>
+                        <div style="color: var(--text-muted); font-size: 0.9rem;">
+                            تم تتبع الجثة وكشف الحقيقة كاملة. اضغط على الزر أدناه للحصول على الرمز النهائي لفتح القفل المادي.
+                        </div>
+                    `;
+                }
+
+                setTimeout(solveStepB, 1800);
+            } else {
                 playErrorAlarm();
-                showToast("انفجار المفاعل! تم حظر النظام لحماية النواة.", "error");
+                appendLog("[ERROR] Submission parameters verification failed.", "var(--neon-red)");
+                appendLog("[ERROR] Final deduction matrix mismatch.", "var(--neon-red)");
+                showToast("فشل التحقق: عناصر الاتهام/التحقيق غير متطابقة. تم حظر لوحة التحكم.", "error");
                 triggerGlobalLockout(10);
-                setTimeout(initReactorOverloadGame, 10500); // Restart after lockout
             }
-        });
-    }, 120);
-
-    nodes.forEach(node => {
-        node.el.addEventListener('click', () => {
-            if (gameOver || isLockedOut) return;
-            playSynthTone(400, 'triangle', 0.1, 0.1);
-            node.fill = 0; // Reset fill
-            node.el.querySelector('.reactor-fill').style.height = `0%`;
-            
-            successfulClicks++;
-            stabDisplay.textContent = successfulClicks;
-
-            if (successfulClicks >= 10) {
-                gameOver = true;
-                clearInterval(fillInterval);
-                setTimeout(solveStepB, 500);
-            }
-        });
+        }, 1200);
     });
 }
 
@@ -1596,6 +2762,523 @@ function triggerVictoryState() {
 
     playSuccessChime();
     showToast("تهانينا! تم كسر الحماية النهائية بنجاح.", "success");
+
+    // Trigger premium confetti rain
+    if (typeof confetti === 'function') {
+        const duration = 4000;
+        const animationEnd = Date.now() + duration;
+        const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 1600 };
+
+        function randomInRange(min, max) {
+            return Math.random() * (max - min) + min;
+        }
+
+        const interval = setInterval(function() {
+            const timeLeft = animationEnd - Date.now();
+
+            if (timeLeft <= 0) {
+                return clearInterval(interval);
+            }
+
+            const particleCount = 50 * (timeLeft / duration);
+            confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
+            confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
+        }, 250);
+    }
+}
+
+
+/* ==========================================================================
+   MINI-GAME 5: Level 5 - The Black File (الملف الأسود)
+   ========================================================================== */
+function initLevel5BlackFileBoard() {
+    // 1. Data Definition
+    const blueData = [
+        { id: "CARD A", time: "23:17", desc: "فتح باب الممر الشرقي. يقول سجل الباب إن الباب فُتح، لكن كاميرا 02 لا تسجل مرور شخص.", letter: "C", verified: true, echo: true },
+        { id: "CARD B", time: "23:21", desc: "اتصال وارد لمكتب التحقيق انتهى 23:25:12. ميكروفون المكتب سجل حركة كرسي في 23:23.", letter: "Y", verified: true, echo: true },
+        { id: "CARD C", time: "23:27", desc: "بطاقة الموظف #17 دخلت غرفة الملفات. كاميرا الممر سجلت خروج الشخص نفسه من الممر الشرقي قبلها بدقيقتين.", letter: "P", verified: true, echo: true },
+        { id: "CARD D", time: "23:31", desc: "باب المختبر فُتح 19 ثانية. سجل الإنذار يؤكد أن الباب لم يُفتح من الداخل.", letter: "H", verified: true, echo: true },
+        { id: "CARD E", time: "23:36", desc: "التقاط صورة الدليل #221. ساعة الكاميرا وساعة الخادم متزامنتان، لكن ساعة الحائط في الصورة لا تطابقهما.", letter: "E", verified: true, echo: false },
+        { id: "CARD F", time: "23:42", desc: "اتصال صادر من مكتب التحقيق يبدأ 23:42:11. سجل المقسم يطابق البداية والنهاية.", letter: "R", verified: true, echo: true },
+        { id: "CARD G", time: "23:49", desc: "قفل الممر الشرقي. السجل الرقمي يحمل توقيعاً صحيحاً، لكن النسخة المطبوعة لا تحمل توقيع المشرف.", letter: "M", verified: false, echo: false },
+        { id: "CARD H", time: "23:27", desc: "بطاقة الموظف #17. رقم البطاقة صحيح، لكن سجل الخادم يضعها في غرفة 07 بدلاً من غرفة الملفات.", letter: "Q", verified: false, echo: false }
+    ];
+
+    const redData = [
+        { id: "CARD A", time: "21:49", desc: "باب الجناح 13 فُتح. سجل الطاقة يثبت تشغيل قفل الباب في اللحظة نفسها.", letter: "G", verified: true, echo: true },
+        { id: "CARD B", time: "21:53", desc: "العينة 404-A سُحبت. سجل الثلاجة يسجل إدخال العينة بعد 21:53 مباشرة.", letter: "H", verified: true, echo: true },
+        { id: "CARD C", time: "22:01", desc: "جهاز التخدير يعمل. سجل الصيانة يسجل دورة تشغيل بدأت 22:01:08.", letter: "O", verified: true, echo: true },
+        { id: "CARD D", time: "22:07", desc: "الكاميرا 13 انقطعت. سجل الشبكة يؤكد انقطاع 41 ثانية.", letter: "S", verified: true, echo: true },
+        { id: "CARD E", time: "22:12", desc: "إغلاق الجناح. سجل الطاقة لا يسجل أي فتح حتى 22:24.", letter: "T", verified: true, echo: true },
+        { id: "CARD F", time: "22:18", desc: "توقيع V.H. موجود على الورقة، لكن سجل القلم الرقمي يضع التوقيع في 22:41.", letter: "L", verified: false, echo: false },
+        { id: "CARD G", time: "22:24", desc: "باب الخدمة فُتح. سجل الكاميرا الخلفية لا يرى الباب، لكن حساس القفل يؤكد الفتح.", letter: "N", verified: false, echo: false },
+        { id: "CARD H", time: "22:31", desc: "باب الخدمة أُغلق. سجل الحساس صحيح، لكن توقيت نسخة الورق متأخر 7 دقائق.", letter: "Q", verified: false, echo: false }
+    ];
+
+    const targetCards = selectedTeam === 'blue' ? blueData : redData;
+    const numSlots = selectedTeam === 'blue' ? 6 : 5;
+
+    // 2. State Management
+    let userClassifications = {};
+    targetCards.forEach(card => {
+        userClassifications[card.id] = {
+            status: 'unclassified', // 'verified', 'rejected'
+            isEcho: false
+        };
+    });
+
+    let timelineSlots = Array(numSlots).fill(null); // stores card IDs
+    let selectedCard = null;
+    let currentHintIdx = 0;
+
+    const hints = [
+        "قبل أن تبحث عن كلمة، حدّد أي الأحداث يمكن إثباتها.",
+        "الدليل الواحد لا يكفي.",
+        "ابحث عن مصدر مستقل يؤكد الحدث نفسه.",
+        "بعد التحقق، رتّب الأحداث زمنيًا.",
+        "أنت حصلت على كلمة... لكن الملف لم ينتهِ.",
+        "ما الذي تكرر فعلًا في مصدر مستقل؟",
+        "ليس كل Verified Event هو Echo."
+    ];
+
+    // 3. Render HTML Layout inside digitalPuzzleArea
+    digitalPuzzleArea.innerHTML = `
+        <div class="level5-board">
+            <div class="level5-main-layout">
+                <!-- LEFT: Evidence List -->
+                <div class="level5-panel">
+                    <div class="level5-panel-title">
+                        <span>قائمة الأدلة</span>
+                        <span style="font-size:0.75rem; opacity:0.7;">Evidence List</span>
+                    </div>
+                    <div class="level5-evidence-list" id="l5EvidenceList"></div>
+                </div>
+
+                <!-- CENTER: Timeline & Board -->
+                <div class="level5-panel" style="gap:0.8rem;">
+                    <div class="level5-panel-title">
+                        <span>لوحة التحقيق الجنائي والترتيب الزمني</span>
+                        <button type="button" class="terminal-btn" id="l5HintBtn" style="padding: 2px 10px; font-size: 0.8rem;">طلب تلميح 💡</button>
+                    </div>
+
+                    <div style="font-size:0.8rem; color:var(--text-muted); line-height:1.5;">
+                        قم بتصنيف كل بطاقة على اليمين (مؤكد أو مستبعد). الكروت المؤكدة فقط تظهر في الخيارات لوضعها في الخط الزمني الأدناه لترتيبها زمنياً من الأقدم إلى الأحدث.
+                    </div>
+
+                    <!-- Timeline Slots -->
+                    <div class="level5-timeline" id="l5Timeline"></div>
+
+                    <!-- Extracted Word -->
+                    <div class="level5-extracted-container">
+                        <span>الكلمة المستخرجة:</span>
+                        <span class="level5-extracted-word" id="l5ExtractedWord">------</span>
+                    </div>
+
+                    <!-- Terminal Status / Logs -->
+                    <div class="level5-terminal-log" id="l5TerminalLog">
+                        <div>[SYSTEM] File L5 Decryption Engine initialized.</div>
+                        <div>[SYSTEM] Awaiting forensic input classification...</div>
+                    </div>
+                </div>
+
+                <!-- RIGHT: Detail / Verification Panel -->
+                <div class="level5-panel">
+                    <div class="level5-panel-title">
+                        <span>تفاصيل الدليل</span>
+                        <span style="font-size:0.75rem; opacity:0.7;">Evidence Details</span>
+                    </div>
+                    <div class="level5-details-box" id="l5DetailsBox"></div>
+                </div>
+            </div>
+
+            <!-- BOTTOM: Submit Button -->
+            <button type="button" class="terminal-btn" id="l5SubmitBtn" style="width: 100%; padding: 0.8rem 1.5rem; font-size: 1.1rem; margin-top: 0.5rem; border: 2px solid var(--panel-border);">
+                تقديم التحقيق الجنائي وتأكيد السلسلة الجنائية
+            </button>
+        </div>
+    `;
+
+    const evidenceListEl = document.getElementById('l5EvidenceList');
+    const timelineEl = document.getElementById('l5Timeline');
+    const detailsBoxEl = document.getElementById('l5DetailsBox');
+    const extractedWordEl = document.getElementById('l5ExtractedWord');
+    const terminalLogEl = document.getElementById('l5TerminalLog');
+    const submitBtn = document.getElementById('l5SubmitBtn');
+    const hintBtn = document.getElementById('l5HintBtn');
+
+    // 4. Update Terminal Log Helper
+    function appendLog(message, color = 'var(--terminal-green)') {
+        const line = document.createElement('div');
+        line.style.color = color;
+        line.textContent = `> ${message}`;
+        terminalLogEl.appendChild(line);
+        terminalLogEl.scrollTop = terminalLogEl.scrollHeight;
+    }
+
+    // 5. Hint Mechanism
+    hintBtn.addEventListener('click', () => {
+        if (isLockedOut) return;
+        const hint = hints[currentHintIdx];
+        appendLog(`[HINT] ${hint}`, 'var(--neon-main)');
+        currentHintIdx = (currentHintIdx + 1) % hints.length;
+        playTickSound();
+    });
+
+    // 6. Timeline Slot Choice Handler
+    function openSlotSelectionModal(slotIndex) {
+        if (isLockedOut) return;
+
+        // Get all cards classified as verified
+        const verifiedCardIds = targetCards
+            .filter(card => userClassifications[card.id].status === 'verified')
+            .map(card => card.id);
+
+        if (verifiedCardIds.length === 0) {
+            showToast("يجب تصنيف دليل واحد على الأقل كـ (مؤكد) ليظهر في خيارات الخط الزمني.", "error");
+            return;
+        }
+
+        const overlay = document.createElement('div');
+        overlay.className = 'level5-modal-overlay';
+
+        overlay.innerHTML = `
+            <div class="level5-modal">
+                <div class="level5-modal-title">اختر الدليل المناسب للسلسلة:</div>
+                <div class="level5-modal-options">
+                    <div class="level5-modal-option" data-card-id="REMOVE" style="color:var(--neon-red); font-weight:bold; justify-content:center;">
+                        [ إزالة الكارت من هذه الخانة ]
+                    </div>
+                    ${targetCards.map(card => {
+                        const isVerified = userClassifications[card.id].status === 'verified';
+                        if (!isVerified) return '';
+                        return `
+                            <div class="level5-modal-option" data-card-id="${card.id}">
+                                <span>${card.id} (${card.time})</span>
+                                <span style="font-weight:bold; color:var(--neon-main);">${card.letter}</span>
+                            </div>
+                        `;
+                    }).join('')}
+                </div>
+                <button type="button" class="terminal-btn level5-modal-close" id="l5ModalCloseBtn">إلغاء</button>
+            </div>
+        `;
+
+        document.body.appendChild(overlay);
+
+        const options = overlay.querySelectorAll('.level5-modal-option');
+        options.forEach(opt => {
+            opt.addEventListener('click', () => {
+                const cardId = opt.getAttribute('data-card-id');
+                if (cardId === 'REMOVE') {
+                    timelineSlots[slotIndex] = null;
+                    appendLog(`Slot ${slotIndex + 1} cleared.`);
+                } else {
+                    // Check if card is already placed elsewhere, and clear it
+                    const existingIdx = timelineSlots.indexOf(cardId);
+                    if (existingIdx !== -1) {
+                        timelineSlots[existingIdx] = null;
+                    }
+                    timelineSlots[slotIndex] = cardId;
+                    const card = targetCards.find(c => c.id === cardId);
+                    appendLog(`Slot ${slotIndex + 1} assigned to ${cardId} (${card.time}).`);
+                }
+                overlay.remove();
+                playTickSound();
+                renderTimeline();
+                updateExtractedWord();
+            });
+        });
+
+        const closeBtn = overlay.querySelector('#l5ModalCloseBtn');
+        closeBtn.addEventListener('click', () => {
+            overlay.remove();
+            playTickSound();
+        });
+    }
+
+    // 7. Update Extracted Word Helper
+    function updateExtractedWord() {
+        let word = '';
+        for (let i = 0; i < numSlots; i++) {
+            const cardId = timelineSlots[i];
+            if (cardId) {
+                const card = targetCards.find(c => c.id === cardId);
+                word += card.letter;
+            } else {
+                word += '_';
+            }
+        }
+        extractedWordEl.textContent = word;
+    }
+
+    // 8. Render List of Cards
+    function renderEvidenceList() {
+        evidenceListEl.innerHTML = targetCards.map(card => {
+            const classif = userClassifications[card.id];
+            let badgeClass = 'badge-unclassified';
+            let badgeText = 'غير مصنف';
+            if (classif.status === 'verified') {
+                badgeClass = 'badge-verified';
+                badgeText = 'مؤكد ✓';
+            } else if (classif.status === 'rejected') {
+                badgeClass = 'badge-rejected';
+                badgeText = 'مستبعد ✗';
+            }
+
+            const itemClass = `level5-evidence-item ${classif.status} ${selectedCard && selectedCard.id === card.id ? 'selected' : ''}`;
+
+            return `
+                <div class="${itemClass}" data-card-id="${card.id}">
+                    <span style="font-family:'Share Tech Mono', monospace; font-weight:bold;">${card.id}</span>
+                    <span class="level5-badge ${badgeClass}">${badgeText}</span>
+                </div>
+            `;
+        }).join('');
+
+        // Bind clicks
+        evidenceListEl.querySelectorAll('.level5-evidence-item').forEach(item => {
+            item.addEventListener('click', () => {
+                const cardId = item.getAttribute('data-card-id');
+                selectedCard = targetCards.find(c => c.id === cardId);
+                playTickSound();
+                renderEvidenceList();
+                renderDetails();
+            });
+        });
+    }
+
+    // 9. Render Timeline Slots
+    function renderTimeline() {
+        timelineEl.innerHTML = '';
+        for (let i = 0; i < numSlots; i++) {
+            const cardId = timelineSlots[i];
+            const slot = document.createElement('div');
+            slot.className = `level5-timeline-slot ${cardId ? 'filled' : ''}`;
+            slot.dataset.index = i;
+
+            if (cardId) {
+                const card = targetCards.find(c => c.id === cardId);
+                slot.innerHTML = `
+                    <div class="level5-slot-number">SLOT ${i + 1}</div>
+                    <div class="level5-slot-letter">${card.letter}</div>
+                    <div class="level5-slot-time">${card.time}</div>
+                `;
+            } else {
+                slot.innerHTML = `
+                    <div class="level5-slot-number">SLOT ${i + 1}</div>
+                    <div style="font-size:1.8rem; opacity:0.3; font-weight:bold;">?</div>
+                    <div style="font-size:0.7rem; color:var(--text-muted);">انقر للاختيار</div>
+                `;
+            }
+
+            slot.addEventListener('click', () => {
+                openSlotSelectionModal(i);
+            });
+
+            timelineEl.appendChild(slot);
+        }
+    }
+
+    // 10. Render Right Details Panel
+    function renderDetails() {
+        if (!selectedCard) {
+            detailsBoxEl.innerHTML = `
+                <div class="level5-details-empty">
+                    <span>💡 اختر بطاقة أثر من القائمة الجانبية لعرض محتوياتها الجنائية وإجراء التحقق.</span>
+                </div>
+            `;
+            return;
+        }
+
+        const classif = userClassifications[selectedCard.id];
+
+        detailsBoxEl.innerHTML = `
+            <div class="level5-details-content">
+                <div class="level5-details-field">
+                    <span class="level5-field-label">رقم الدليل</span>
+                    <span class="level5-field-value highlight">${selectedCard.id}</span>
+                </div>
+                <div class="level5-details-field">
+                    <span class="level5-field-label">الوقت المسجل</span>
+                    <span class="level5-field-value highlight">${selectedCard.time}</span>
+                </div>
+                <div class="level5-details-field">
+                    <span class="level5-field-label">الحرف المشفر</span>
+                    <span class="level5-field-value highlight">${selectedCard.letter}</span>
+                </div>
+                <div class="level5-details-field">
+                    <span class="level5-field-label">محتوى الأثر</span>
+                    <span class="level5-field-value" style="font-size: 0.85rem;">${selectedCard.desc}</span>
+                </div>
+
+                <div style="border-top: 1px solid var(--panel-border); margin: 0.5rem 0; padding-top: 0.5rem;"></div>
+
+                <div class="level5-field-label" style="margin-bottom: 0.4rem;">تصنيف موثوقية الأثر:</div>
+                <div style="display:flex; gap:0.5rem;">
+                    <button type="button" class="level5-action-btn btn-verify ${classif.status === 'verified' ? 'active' : ''}" id="btnVerifyCard">
+                        مؤكد ✓
+                    </button>
+                    <button type="button" class="level5-action-btn btn-reject ${classif.status === 'rejected' ? 'active' : ''}" id="btnRejectCard">
+                        مستبعد ✗
+                    </button>
+                </div>
+
+                <div class="level5-echo-switch">
+                    <div class="level5-echo-label">
+                        <span class="level5-echo-title">له صدى مستقل (Echo)</span>
+                        <span class="level5-echo-desc">يتطابق مع مصدرين مستقلين</span>
+                    </div>
+                    <input type="checkbox" class="level5-echo-checkbox" id="echoCheckbox" ${classif.isEcho ? 'checked' : ''}>
+                </div>
+            </div>
+        `;
+
+        // Bind verification buttons
+        const btnVerify = detailsBoxEl.querySelector('#btnVerifyCard');
+        const btnReject = detailsBoxEl.querySelector('#btnRejectCard');
+        const echoCheckbox = detailsBoxEl.querySelector('#echoCheckbox');
+
+        btnVerify.addEventListener('click', () => {
+            if (isLockedOut) return;
+            userClassifications[selectedCard.id].status = 'verified';
+            appendLog(`${selectedCard.id} marked as VERIFIED.`);
+            playTickSound();
+            renderEvidenceList();
+            renderDetails();
+            renderTimeline();
+        });
+
+        btnReject.addEventListener('click', () => {
+            if (isLockedOut) return;
+            userClassifications[selectedCard.id].status = 'rejected';
+            // If it was in the timeline, remove it
+            const idx = timelineSlots.indexOf(selectedCard.id);
+            if (idx !== -1) {
+                timelineSlots[idx] = null;
+                renderTimeline();
+                updateExtractedWord();
+            }
+            appendLog(`${selectedCard.id} marked as REJECTED.`);
+            playTickSound();
+            renderEvidenceList();
+            renderDetails();
+        });
+
+        echoCheckbox.addEventListener('change', (e) => {
+            if (isLockedOut) {
+                e.preventDefault();
+                echoCheckbox.checked = classif.isEcho;
+                return;
+            }
+            userClassifications[selectedCard.id].isEcho = e.target.checked;
+            appendLog(`${selectedCard.id} Echo property set to ${e.target.checked}.`);
+            playTickSound();
+        });
+    }
+
+    // 11. Submit / Verification Logic
+    submitBtn.addEventListener('click', () => {
+        if (isLockedOut) return;
+
+        appendLog("System checking forensic logic alignment...", "var(--neon-main)");
+
+        // 11a. Check Classification correctness
+        let classificationError = false;
+        let incorrectVerified = [];
+        let incorrectRejected = [];
+
+        targetCards.forEach(card => {
+            const classif = userClassifications[card.id];
+            if (card.verified && classif.status !== 'verified') {
+                classificationError = true;
+                incorrectVerified.push(card.id);
+            }
+            if (!card.verified && classif.status !== 'rejected') {
+                classificationError = true;
+                incorrectRejected.push(card.id);
+            }
+        });
+
+        // 11b. Check Timeline correctness
+        let timelineError = false;
+        // Correct chronological order cards: A to F (for blue) or A to E (for red)
+        for (let i = 0; i < numSlots; i++) {
+            const slotCardId = timelineSlots[i];
+            const expectedCard = targetCards[i]; // cards are defined in chronological order in array
+            if (!slotCardId || slotCardId !== expectedCard.id) {
+                timelineError = true;
+            }
+        }
+
+        // 11c. Check Echo correctness
+        let echoError = false;
+        let cardEHasEchoSelected = false;
+
+        targetCards.forEach(card => {
+            const classif = userClassifications[card.id];
+            if (card.echo !== classif.isEcho) {
+                echoError = true;
+            }
+            // For Blue Team card E check
+            if (selectedTeam === 'blue' && card.id === 'CARD E' && classif.isEcho) {
+                cardEHasEchoSelected = true;
+            }
+        });
+
+        // Evaluate Results
+        setTimeout(() => {
+            if (!classificationError && !timelineError && !echoError) {
+                // SUCCESS SCREEN
+                appendLog("Forensic chain verified successfully.", "var(--terminal-green)");
+                appendLog("BLACK FILE DECRYPTED.", "var(--terminal-green)");
+                appendLog("Evidence chain reconstructed.", "var(--terminal-green)");
+                appendLog("LEVEL 6 ACCESS GRANTED.", "var(--terminal-green)");
+                
+                showToast("✓ تم فك تشفير الملف الأسود بنجاح!", "success");
+
+                // Customize Step B instruction after success
+                document.getElementById('stepBInstruction').innerHTML = `
+                    <div style="font-size: 1.25rem; font-weight: bold; color: var(--terminal-green); margin-bottom: 0.5rem;">✓ BLACK FILE DECRYPTED</div>
+                    <div style="color: var(--text-main); margin-bottom: 0.6rem; font-size: 1.05rem; font-weight: bold;">
+                        تم ربط السلسلة الزمنية بنجاح. كل شيء قمت بحله حتى الآن يشير إلى حدث واحد مشترك...
+                    </div>
+                    <div style="color: var(--text-muted); font-size: 0.9rem;">
+                        تم كشف الحقيقة جزئياً. استعد لفك تشفير بروتوكول الأمان الأخير.
+                    </div>
+                `;
+
+                setTimeout(solveStepB, 1800);
+            } else {
+                // FAILURE / Lockout
+                playErrorAlarm();
+                
+                if (classificationError) {
+                    appendLog("[ERROR] Evidence classification mismatch.", "var(--neon-red)");
+                }
+                if (timelineError) {
+                    appendLog("[ERROR] Timeline chronological mismatch.", "var(--neon-red)");
+                }
+                if (echoError) {
+                    appendLog("[ERROR] Echo independent confirmation mismatch.", "var(--neon-red)");
+                    if (cardEHasEchoSelected) {
+                        appendLog("[WARNING] VERIFIED does not always mean ECHO.", "var(--neon-red)");
+                        showToast("تنبيه: مؤكد (VERIFIED) لا يعني دائماً صدى مستقل (ECHO).", "error");
+                    }
+                }
+
+                if (!cardEHasEchoSelected || (!classificationError && !timelineError)) {
+                    showToast("فشل التحقق: السلسلة الجنائية غير متطابقة. تم حظر لوحة التحكم.", "error");
+                }
+
+                triggerGlobalLockout(10);
+            }
+        }, 1200);
+    });
+
+    // 12. Run Initial Layout Render
+    renderEvidenceList();
+    renderTimeline();
+    renderDetails();
 }
 
 

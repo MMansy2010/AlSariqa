@@ -1,0 +1,611 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="utf-8">
+    <title>LEVEL 5 - RED TEAM</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Courier+Prime:wght@400;700&family=Share+Tech+Mono&display=swap');
+
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: #140909;
+            color: #292d30;
+            font-family: 'Cairo', sans-serif;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        .print-controls {
+            text-align: center;
+            padding: 24px;
+        }
+
+        .print-btn {
+            background: #5c1313;
+            color: #eee7d8;
+            border: 2px solid #a9937c;
+            padding: 12px 28px;
+            font-family: 'Cairo', sans-serif;
+            font-weight: 900;
+            cursor: pointer;
+            border-radius: 4px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            transition: .2s;
+        }
+
+        .print-btn:hover {
+            background: #7e1e1e;
+            transform: translateY(-2px);
+        }
+
+        .page {
+            width: 210mm;
+            height: 297mm;
+            margin: 25px auto;
+            padding: 16mm;
+            background: 
+                repeating-linear-gradient(
+                    0deg,
+                    rgba(110, 21, 21, .015) 0px,
+                    rgba(110, 21, 21, .015) 1px,
+                    transparent 1px,
+                    transparent 4px
+                ),
+                #f6f2e8;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #c9bca0;
+            box-shadow: 
+                0 15px 45px rgba(0, 0, 0, .45),
+                inset 0 0 40px rgba(110, 21, 21, .05);
+            page-break-after: always;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .page:last-child {
+            page-break-after: auto;
+        }
+
+        h1, h2, h3 {
+            margin: 0 0 10px;
+            color: #5c1313;
+        }
+
+        h1 {
+            font-size: 26px;
+            font-weight: 900;
+            letter-spacing: 1px;
+        }
+
+        h2 {
+            font-size: 20px;
+            border-bottom: 2px double #6e1515;
+            padding-bottom: 6px;
+            font-weight: 700;
+        }
+
+        h3 {
+            font-size: 15px;
+            font-weight: 700;
+            color: #6e1515;
+        }
+
+        p, li, td, th {
+            font-size: 12.5px;
+            line-height: 1.7;
+            color: #2d3748;
+        }
+
+        .small {
+            font-size: 11px;
+            color: #718096;
+        }
+
+        .mono {
+            font-family: 'Share Tech Mono', 'Courier Prime', monospace;
+            font-weight: bold;
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        .stamp {
+            display: inline-block;
+            padding: 6px 16px;
+            border: 3px double #8a1c1c;
+            color: #8a1c1c;
+            transform: rotate(-3deg);
+            font-weight: 900;
+            font-size: 13px;
+            letter-spacing: 1.5px;
+            font-family: 'Courier Prime', monospace;
+            box-shadow: 0 0 1px rgba(138, 28, 28, 0.2);
+            background: rgba(138, 28, 28, 0.03);
+        }
+
+        .warning {
+            border: 2px solid #8a1c1c;
+            border-right: 6px solid #8a1c1c;
+            padding: 12px 16px;
+            margin: 14px 0;
+            background: #faeceb;
+            color: #741b1b;
+            border-radius: 2px;
+        }
+
+        .note {
+            border-right: 5px solid #8a1c1c;
+            padding: 10px 14px;
+            background: #f5eae4;
+            color: #4a1c1c;
+            margin: 12px 0;
+            border-radius: 2px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin: 10px 0;
+        }
+
+        .card {
+            border: 1px solid #c9c3b4;
+            border-top: 4px solid #8a1c1c;
+            padding: 12px;
+            background: #ffffff;
+            min-height: 120px;
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.04);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .card p {
+            margin: 0 0 8px;
+            font-size: 11.5px;
+            line-height: 1.6;
+        }
+
+        .card .id {
+            font-family: 'Share Tech Mono', monospace;
+            font-weight: 800;
+            color: #8a1c1c;
+            font-size: 12px;
+            border-bottom: 1px dashed #cbd5e0;
+            padding-bottom: 4px;
+            margin-bottom: 6px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 14px 0;
+            background: #ffffff;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+        }
+
+        th, td {
+            border: 1px solid #cbd5e0;
+            padding: 8px 10px;
+            vertical-align: top;
+        }
+
+        th {
+            background: #f2e5df;
+            color: #2d1a12;
+            font-weight: bold;
+            text-align: right;
+        }
+
+        .blank {
+            height: 38px;
+            border-bottom: 2px dashed #a0aec0;
+            margin: 10px 0;
+        }
+
+        .codebox {
+            border: 2px dashed #8a1c1c;
+            background: rgba(255,255,255,0.4);
+            padding: 16px;
+            text-align: center;
+            margin-top: 14px;
+            border-radius: 4px;
+        }
+
+        .bigcode {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 24px;
+            letter-spacing: 4px;
+            font-weight: bold;
+            color: #8a1c1c;
+        }
+
+        .rule {
+            display: flex;
+            gap: 10px;
+            margin: 8px 0;
+        }
+
+        .rule b {
+            min-width: 26px;
+            color: #8a1c1c;
+        }
+
+        .terminal {
+            background: #110909;
+            color: #ff3344;
+            padding: 16px;
+            font-family: 'Share Tech Mono', monospace;
+            border-radius: 4px;
+            border: 1px solid #281111;
+            box-shadow: inset 0 0 12px rgba(0,0,0,0.85);
+            position: relative;
+            overflow: hidden;
+            font-size: 12px;
+            line-height: 1.8;
+            text-align: left;
+            direction: ltr;
+        }
+
+        .terminal::after {
+            content: " ";
+            display: block;
+            position: absolute;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
+            background-size: 100% 4px;
+            pointer-events: none;
+        }
+
+        .red {
+            color: #c53030;
+            font-weight: bold;
+        }
+
+        .blue {
+            color: #2b6cb0;
+            font-weight: bold;
+        }
+
+        .footer {
+            margin-top: auto;
+            padding-top: 10px;
+            border-top: 1px solid #cbd5e0;
+            font-size: 9px;
+            color: #8c7373;
+            display: flex;
+            justify-content: space-between;
+            font-family: 'Courier Prime', monospace;
+            width: 100%;
+        }
+
+        .page-number {
+            font-family: 'Share Tech Mono', monospace;
+            font-weight: bold;
+        }
+
+        .two-col {
+            columns: 2;
+            column-gap: 20px;
+        }
+
+        .cut {
+            border-top: 2px dashed #a0aec0;
+            margin: 16px 0;
+            padding-top: 10px;
+        }
+
+        @media print {
+            body {
+                background: #fff;
+            }
+
+            .print-controls {
+                display: none;
+            }
+
+            .page {
+                margin: 0;
+                border: 0;
+                width: 210mm;
+                height: 297mm;
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="print-controls">
+        <button class="print-btn" onclick="window.print()">
+            🖨️ طباعة ملف الأدلة (A4)
+        </button>
+    </div>
+    <section class="page">
+        <div class="center" style="padding-top:55mm">
+            <div class="stamp">CONFIDENTIAL // CASE FILE</div>
+            <h1 style="margin-top:18px">RED TEAM // LEVEL 5</h1>
+            <h2 style="border:0">THE BLACK FILE</h2>
+            <p style="font-size:18px">أصعب مرحلة في التحقيق</p>
+            <div class="warning" style="max-width:145mm;margin:25px auto;text-align:right">
+                <b>تحذير:</b><br>
+                الأظرف السابقة اختبرت قدرتك على ملاحظة الأدلة. هذا الملف يختبر قدرتك على
+                <b>ربط الأدلة، استبعاد المعلومات غير الموثوقة، وإعادة بناء التسلسل الصحيح.</b>
+                لا يوجد دليل واحد يحمل الإجابة. لا تفترض أن أكثر ورقة وضوحًا هي الأهم.
+            </div>
+            <p class="mono">DO NOT TRUST A SINGLE SOURCE.</p>
+        </div>
+        <div class="footer"><span>RED TEAM // CONFIDENTIAL</span><span class="page-number">01</span></div>
+    </section>
+    <section class="page">
+        <h2>وثيقة 5-R — بروتوكول التحقيق</h2>
+        <div class="warning"><b>هذه النسخة ليست نسخة الأزرق.</b> الأدلة مختلفة، لكن القاعدة واحدة: لا تثق بمصدر واحد.
+        </div>
+        <ul>
+            <li>المخطط الرسمي لا يعني أنه كامل.</li>
+            <li>سجل المختبر وسجل الأبواب لا يملكان الأولوية تلقائيًا.</li>
+            <li>الحدث الحقيقي يجب أن ينجح في اختبار المصدرين.</li>
+            <li>بعد استخراج الكلمة، ابحث عن "الأثر المتكرر" لتكوين ECHO.</li>
+        </ul>
+        <div class="note"><b>ملاحظة مجهولة:</b><br>
+            "الغرفة التي لا تظهر على الخريطة قد تظهر في السجل. والسجل الذي يذكرها قد لا يكون كافيًا وحده."</div>
+        <h3>مهمتك</h3>
+        <p>أعد بناء سلسلة الأحداث المتعلقة بالجناح 13 والمريض 404 دون افتراض أن كل ما في الملف صحيح.</p>
+        <div class="footer"><span>RED TEAM // CONFIDENTIAL</span><span class="page-number">02</span></div>
+    </section>
+    <section class="page">
+        <h2>وثيقة 5-S — سجل المختبر</h2>
+        <table>
+            <tr>
+                <th>الوقت</th>
+                <th>الحدث</th>
+            </tr>
+            <tr>
+                <td>21:49</td>
+                <td>فتح باب الجناح 13 — سجل المختبر</td>
+            </tr>
+            <tr>
+                <td>21:53</td>
+                <td>سحب عينة 404-A</td>
+            </tr>
+            <tr>
+                <td>22:01</td>
+                <td>تشغيل جهاز التخدير</td>
+            </tr>
+            <tr>
+                <td>22:07</td>
+                <td>انقطاع قصير في الكاميرا 13</td>
+            </tr>
+            <tr>
+                <td>22:12</td>
+                <td>إغلاق باب الجناح</td>
+            </tr>
+            <tr>
+                <td>22:18</td>
+                <td>توقيع V.H. على سجل المريض</td>
+            </tr>
+            <tr>
+                <td>22:24</td>
+                <td>فتح باب الخدمة</td>
+            </tr>
+            <tr>
+                <td>22:31</td>
+                <td>إغلاق باب الخدمة</td>
+            </tr>
+        </table>
+        <div class="note">تذكّر: Level 4 أثبت أن Room 13 لم تكن على الخريطة الرسمية، لكنها كانت موجودة فعليًا.</div>
+        <div class="footer"><span>RED TEAM // CONFIDENTIAL</span><span class="page-number">03</span></div>
+    </section>
+    <section class="page">
+        <h2>وثيقة 5-T — بطاقات الأدلة</h2>
+        <div class="grid">
+            <div class="card">
+                <div class="id">CARD A</div>
+                <p>21:49 — باب الجناح 13 فُتح. سجل الطاقة يثبت تشغيل قفل الباب في اللحظة نفسها.</p><b>حرف البطاقة: G</b>
+            </div>
+            <div class="card">
+                <div class="id">CARD B</div>
+                <p>21:53 — العينة 404-A سُحبت. سجل الثلاجة يسجل إدخال العينة بعد 21:53 مباشرة.</p><b>حرف البطاقة: H</b>
+            </div>
+            <div class="card">
+                <div class="id">CARD C</div>
+                <p>22:01 — جهاز التخدير يعمل. سجل الصيانة يسجل دورة تشغيل بدأت 22:01:08.</p><b>حرف البطاقة: O</b>
+            </div>
+            <div class="card">
+                <div class="id">CARD D</div>
+                <p>22:07 — الكاميرا 13 انقطعت. سجل الشبكة يؤكد انقطاع 41 ثانية.</p><b>حرف البطاقة: S</b>
+            </div>
+            <div class="card">
+                <div class="id">CARD E</div>
+                <p>22:12 — إغلاق الجناح. سجل الطاقة لا يسجل أي فتح حتى 22:24.</p><b>حرف البطاقة: T</b>
+            </div>
+            <div class="card">
+                <div class="id">CARD F</div>
+                <p>22:18 — توقيع V.H. موجود على الورقة، لكن سجل القلم الرقمي يضع التوقيع في 22:41.</p><b>حرف البطاقة:
+                    L</b>
+            </div>
+            <div class="card">
+                <div class="id">CARD G</div>
+                <p>22:24 — باب الخدمة فُتح. سجل الكاميرا الخلفية لا يرى الباب، لكن حساس القفل يؤكد الفتح.</p><b>حرف
+                    البطاقة: N</b>
+            </div>
+            <div class="card">
+                <div class="id">CARD H</div>
+                <p>22:31 — باب الخدمة أُغلق. سجل الحساس صحيح، لكن توقيت نسخة الورق متأخر 7 دقائق.</p><b>حرف البطاقة:
+                    Q</b>
+            </div>
+        </div>
+        <div class="footer"><span>RED TEAM // CONFIDENTIAL</span><span class="page-number">04</span></div>
+    </section>
+    <section class="page">
+        <h2>وثيقة 5-U — سجل مستقل</h2>
+        <table>
+            <tr>
+                <th>الوقت</th>
+                <th>المصدر</th>
+                <th>النتيجة</th>
+            </tr>
+            <tr>
+                <td>21:49</td>
+                <td>POWER-13</td>
+                <td>قفل الباب نشط.</td>
+            </tr>
+            <tr>
+                <td>21:53</td>
+                <td>FREEZER-04</td>
+                <td>العينة 404-A ظهرت في الثلاجة.</td>
+            </tr>
+            <tr>
+                <td>22:01</td>
+                <td>MAINT-02</td>
+                <td>جهاز التخدير بدأ دورة تشغيل.</td>
+            </tr>
+            <tr>
+                <td>22:07</td>
+                <td>NETWORK</td>
+                <td>CAM-13 انقطعت 41 ثانية.</td>
+            </tr>
+            <tr>
+                <td>22:12</td>
+                <td>POWER-13</td>
+                <td>القفل أغلق.</td>
+            </tr>
+            <tr>
+                <td>22:18</td>
+                <td>TABLET-404</td>
+                <td>لا يوجد نشاط توقيع في هذا الوقت.</td>
+            </tr>
+            <tr>
+                <td>22:24</td>
+                <td>LOCK-SVC</td>
+                <td>باب الخدمة فُتح.</td>
+            </tr>
+            <tr>
+                <td>22:31</td>
+                <td>LOCK-SVC</td>
+                <td>باب الخدمة أُغلق.</td>
+            </tr>
+        </table>
+        <div class="note"><b>قاعدة:</b> لا تعتمد بطاقة لمجرد أن لها تفسيرًا ممكنًا. يجب أن يوجد لها مصدر مستقل يثبت
+            <b>نفس الحدث</b>.</div>
+        <div class="footer"><span>RED TEAM // CONFIDENTIAL</span><span class="page-number">05</span></div>
+    </section>
+    <section class="page">
+        <h2>وثيقة 5-V — قاعدة المصدرين</h2>
+        <div class="terminal">
+            VERIFIED EVENT<br><br>
+            TIME + EVENT + INDEPENDENT SOURCE<br>
+            must agree without contradiction.
+        </div>
+        <p>اكتب البطاقات التي تنجح في الاختبار، بالترتيب الزمني.</p>
+        <table>
+            <tr>
+                <th>الترتيب</th>
+                <th>البطاقة</th>
+                <th>الحرف</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>________</td>
+                <td>___</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>________</td>
+                <td>___</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>________</td>
+                <td>___</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>________</td>
+                <td>___</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>________</td>
+                <td>___</td>
+            </tr>
+        </table>
+        <div class="codebox">
+            <div class="bigcode">_ _ _ _ _</div>
+        </div>
+        <div class="footer"><span>RED TEAM // CONFIDENTIAL</span><span class="page-number">06</span></div>
+    </section>
+    <section class="page">
+        <h2>وثيقة 5-W — طبقة ECHO</h2>
+        <div class="note"><b>العبارة المتكررة:</b> "لا تثق بمصدر واحد."</div>
+        <p>كل حدث موثّق يجب أن يظهر في مصدرين مستقلين. احسب فقط الأحداث التي اجتازت الاختبار.</p>
+        <table>
+            <tr>
+                <th>حدث موثق</th>
+                <th>مصدر 1</th>
+                <th>مصدر 2</th>
+                <th>ECHO</th>
+            </tr>
+            <tr>
+                <td>________</td>
+                <td>________</td>
+                <td>________</td>
+                <td>□</td>
+            </tr>
+            <tr>
+                <td>________</td>
+                <td>________</td>
+                <td>________</td>
+                <td>□</td>
+            </tr>
+            <tr>
+                <td>________</td>
+                <td>________</td>
+                <td>________</td>
+                <td>□</td>
+            </tr>
+            <tr>
+                <td>________</td>
+                <td>________</td>
+                <td>________</td>
+                <td>□</td>
+            </tr>
+            <tr>
+                <td>________</td>
+                <td>________</td>
+                <td>________</td>
+                <td>□</td>
+            </tr>
+        </table>
+        <div class="warning">الناتج الثاني: <span class="mono">ECHO-___</span></div>
+        <div class="footer"><span>RED TEAM // CONFIDENTIAL</span><span class="page-number">07</span></div>
+    </section>
+    <section class="page">
+        <h2>وثيقة 5-X — كلمة العبور</h2>
+        <p>استخدم الحروف المستخرجة من البطاقات الموثقة، ثم طبّق الصيغة:</p>
+        <div class="terminal center">WORD_ECHO_NUMBER</div>
+        <div class="codebox">
+            <div class="bigcode">________________</div>
+        </div>
+        <div class="warning"><b>رمز الظرف الخامس للفريق الأحمر.</b><br>لا تكتب أي تفسير في خانة الرمز؛ اكتب الصيغة فقط.
+        </div>
+        <div class="footer"><span>RED TEAM // CONFIDENTIAL</span><span class="page-number">08</span></div>
+    </section>
+</body>
+
+</html>

@@ -129,16 +129,64 @@
             </div>
         </div>
 
-        <!-- Victory Screen -->
+        <!-- Waiting Room Screen (Multi-player Lobby) -->
+        <div class="waiting-room-screen hidden" id="waitingRoomScreen">
+            <div class="waiting-content">
+                <div class="waiting-header">⏳ غرفة الانتظار - In Lobby</div>
+                <div class="team-info-waiting">
+                    <div class="waiting-team-display">
+                        <h2 id="waitingTeamName" class="team-display-large">الفريق الأزرق</h2>
+                        <span class="waiting-leader-text">القائد: <span id="waitingLeaderName">---</span></span>
+                    </div>
+                </div>
+                <p class="waiting-instruction">جاري الانتظار لدخول الفريق الثاني...</p>
+                <div class="waiting-animation">
+                    <div class="waiting-dot"></div>
+                    <div class="waiting-dot"></div>
+                    <div class="waiting-dot"></div>
+                    <div class="waiting-text">Waiting for opponent</div>
+                </div>
+                <div class="waiting-timer">
+                    <span>المتبقي:</span>
+                    <span id="waitingCountdown">120</span>
+                    <span>ثانية</span>
+                </div>
+                <button type="button" onclick="cancelWaiting()" class="terminal-btn cancel-btn">إلغاء ✕</button>
+            </div>
+        </div>
+
+        <!-- Victory Party Screen -->
         <div class="victory-screen hidden" id="victoryScreen">
+            <canvas id="confettiCanvas" class="confetti-canvas"></canvas>
             <div class="victory-content">
-                <div class="victory-header">✓ تم فك تشفير كافة الأدلة بنجاح!</div>
+                <div class="victory-header">🎊 تم فك تشفير كافة الأدلة بنجاح! 🎊</div>
                 <h1 class="victory-title font-glitch" data-text="قضية القصر المغلق: تم الحل">قضية القصر المغلق: تم الحل 🕵️‍♂️</h1>
+                
+                <div class="victory-team-info">
+                    <div class="team-victory-box">
+                        <h2 id="victoryTeamName">الفريق الفائز</h2>
+                        <div class="members-victory" id="victoryMembers">
+                            <span class="member-badge">---</span>
+                        </div>
+                    </div>
+                </div>
+                
                 <p class="victory-desc">تهانينا! لقد نجحت أنت وفريقك في فك تشفير جميع أظرف ملف القضية. هذا هو الرمز النهائي لفتح صندوق القفل المادي لتأمين الأدلة:</p>
                 
                 <div class="victory-code-box">
                     <span class="code-label">رمز فتح القفل الرقمي:</span>
-                    <span id="finalLockCode" class="code-value">0000</span>
+                    <span id="finalLockCode" class="code-value" style="font-size: 2.5rem;">0000</span>
+                </div>
+                
+                <div class="victory-stats">
+                    <div class="stat-item">
+                        <span class="stat-label">الوقت المستغرق:</span>
+                        <span id="victoryTime" class="stat-value">--:--</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">عدد الأخطاء:</span>
+                        <span id="victoryErrors" class="stat-value">0</span>
+                    </div>
                 </div>
                 
                 <button type="button" onclick="restartInvestigation()" class="terminal-btn retry-btn">إعادة المحاكاة ↺</button>
@@ -161,6 +209,7 @@
     <!-- Toast system -->
     <div class="toast-container" id="toastContainer"></div>
 
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <script src="dashboard_script.js"></script>
 </body>
 </html>

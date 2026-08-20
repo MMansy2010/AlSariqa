@@ -272,8 +272,9 @@ function showToast(message, type = 'error') {
 }
 
 // --- Submit & Redirect Validation ---
-startBtn.addEventListener('click', () => {
+startBtn.addEventListener('click', async () => {
     const leaderName = leaderInput.value.trim();
+    const roomCode = document.getElementById('roomCode') ? document.getElementById('roomCode').value.trim() : '';
 
     if (!leaderName) {
         showToast('فشل التفعيل: يجب إدخال اسم قائد ملف التحقيق لتوثيق الهوية.');
@@ -286,40 +287,237 @@ startBtn.addEventListener('click', () => {
         return;
     }
 
-    // Success Sequence
     playSuccess();
+
+    if (roomCode) {
+        // Multiplayer Waiting Room Mode
+        startBtn.innerHTML = `
+            <span class="glitch-btn-text">جاري الاتصال بالغرفة...</span>
+            <span class="btn-status">CONNECTING_ROOM_DB</span>
+        `;
+        startBtn.style.pointerEvents = 'none';
+
+        // Update database that we are ready
+        const myState = {
+            ready: true,
+            leader: leaderName,
+            members: teamMembers,
+            time: Date.now()
+        };
+
+        const updated = await updateRoomState(roomCode, selectedTeam, myState);
+        if (updated) {
+            startPollingRoom(roomCode, selectedTeam, leaderName, teamMembers);
+        } else {
+            showToast('خطأ في الاتصال بقاعدة البيانات. حاول مرة أخرى أو العب بدون رمز الغرفة.');
+            startBtn.innerHTML = `
+                <span class="glitch-btn-text">تفعيل بروتوكول التحقيق 🚀</span>
+                <span class="btn-status">READY_TO_LAUNCH</span>
+            `;
+            startBtn.style.pointerEvents = 'auto';
+        }
+    } else {
+        // Standalone Local Play Mode
+        startBtn.innerHTML = `
+            <span class="glitch-btn-text">جاري بدء التحقيق...</span>
+            <span class="btn-status">DECRYPTING_FILES_100%</span>
+        `;
+        startBtn.style.pointerEvents = 'none';
+        startBtn.style.borderColor = 'var(--terminal-green)';
+        startBtn.style.boxShadow = '0 0 40px rgba(0, 255, 102, 0.4)';
+
+        try {
+            localStorage.setItem('escape_leader', leaderName);
+            localStorage.setItem('escape_team', selectedTeam);
+            localStorage.setItem('escape_members', JSON.stringify(teamMembers));
+            localStorage.setItem('escape_level', '0');
+            localStorage.setItem('escape_start_time', Date.now().toString());
+            localStorage.removeItem('escape_room_code'); // Not a multiplayer room
+        } catch (e) {
+            console.error('localStorage error:', e);
+        }
+
+        setTimeout(() => {
+            document.querySelector('.terminal-shell').style.transition = 'all 0.8s ease';
+            document.querySelector('.terminal-shell').style.opacity = '0';
+            document.querySelector('.terminal-shell').style.transform = 'scale(0.95)';
+            
+            setTimeout(() => {
+                window.location.href = 'dashboard.html';
+            }, 800);
+        }, 1500);
+    }
+});
+
+// --- Waiting Room & Multiplayer Sync Logic ---
+let pollingInterval = null;
+const waitingRoomOverlay = document.getElementById('waitingRoomOverlay');
+const waitingRoomIdVal = document.getElementById('waitingRoomIdVal');
+const cancelWaitingBtn = document.getElementById('cancelWaitingBtn');
+const waitingCountdownBox = document.getElementById('waitingCountdownBox');
+const waitingCountdownNumber = document.getElementById('waitingCountdownNumber');
+
+// Base URL for free Key-Value Database
+const KV_BASE_URL = 'https://kvdb.io/AcdEscapeMansionRoom/';
+
+async function updateRoomState(roomCode, teamName, data) {
+    const url = `${KV_BASE_URL}${roomCode}`;
+    try {
+        let response = await fetch(url);
+        let state = {};
+        if (response.ok) {
+            const text = await response.text();
+            if (text.trim()) {
+                state = JSON.parse(text);
+            }
+        }
+        
+        state[teamName] = data;
+        
+        await fetch(url, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(state)
+        });
+        return state;
+    } catch (e) {
+        console.error("Error updating room state:", e);
+        return null;
+    }
+}
+
+async function getRoomState(roomCode) {
+    const url = `${KV_BASE_URL}${roomCode}`;
+    try {
+        let response = await fetch(url);
+        if (response.ok) {
+            const text = await response.text();
+            if (text.trim()) {
+                return JSON.parse(text);
+            }
+        }
+    } catch (e) {
+        console.error("Error fetching room state:", e);
+    }
+    return null;
+}
+
+function startPollingRoom(roomCode, teamName, leaderName, members) {
+    waitingRoomIdVal.textContent = roomCode;
+    waitingRoomOverlay.classList.remove('hidden');
+    
+    updateTeamStatusUI(teamName, true, leaderName);
+    updateTeamStatusUI(teamName === 'blue' ? 'red' : 'blue', false);
+    
+    let isCountdownStarted = false;
+    
+    pollingInterval = setInterval(async () => {
+        const state = await getRoomState(roomCode);
+        if (!state) return;
+        
+        // Update Blue Team Status
+        if (state.blue && state.blue.ready) {
+            updateTeamStatusUI('blue', true, state.blue.leader);
+        } else {
+            updateTeamStatusUI('blue', false);
+        }
+        
+        // Update Red Team Status
+        if (state.red && state.red.ready) {
+            updateTeamStatusUI('red', true, state.red.leader);
+        } else {
+            updateTeamStatusUI('red', false);
+        }
+        
+        // If both are ready
+        if (state.blue && state.blue.ready && state.red && state.red.ready) {
+            if (!isCountdownStarted) {
+                isCountdownStarted = true;
+                
+                let startTime = state.start_time;
+                if (!startTime) {
+                    startTime = Date.now() + 4000; // 4 seconds synchronized buffer
+                    state.start_time = startTime;
+                    
+                    await fetch(`${KV_BASE_URL}${roomCode}`, {
+                        method: 'PUT',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(state)
+                    });
+                }
+                
+                startSynchronizedCountdown(startTime, leaderName, teamName, members);
+            }
+        }
+    }, 1500);
+}
+
+function updateTeamStatusUI(team, isReady, leaderName = '') {
+    const box = document.getElementById(`${team}TeamStatus`);
+    if (!box) return;
+    
+    const icon = box.querySelector('.status-icon');
+    const stateText = box.querySelector('.status-state');
+    
+    if (isReady) {
+        box.classList.add('ready');
+        if (icon) icon.textContent = '✓';
+        if (stateText) stateText.textContent = `جاهز (القائد: ${leaderName})`;
+    } else {
+        box.classList.remove('ready');
+        if (icon) icon.textContent = '⌛';
+        if (stateText) stateText.textContent = 'في انتظار الدخول...';
+    }
+}
+
+function startSynchronizedCountdown(targetTime, leaderName, teamName, members) {
+    clearInterval(pollingInterval);
+    waitingCountdownBox.classList.remove('hidden');
+    cancelWaitingBtn.style.display = 'none'; // Lock cancel button
+    
+    const timerInterval = setInterval(() => {
+        const timeRemaining = Math.max(0, Math.ceil((targetTime - Date.now()) / 1000));
+        waitingCountdownNumber.textContent = timeRemaining;
+        
+        if (timeRemaining <= 0) {
+            clearInterval(timerInterval);
+            
+            try {
+                localStorage.setItem('escape_leader', leaderName);
+                localStorage.setItem('escape_team', teamName);
+                localStorage.setItem('escape_members', JSON.stringify(members));
+                localStorage.setItem('escape_level', '0');
+                localStorage.setItem('escape_start_time', targetTime.toString());
+                localStorage.setItem('escape_room_code', waitingRoomIdVal.textContent);
+            } catch (e) {
+                console.error(e);
+            }
+            
+            document.querySelector('.waiting-room-content').style.transition = 'all 0.8s ease';
+            document.querySelector('.waiting-room-content').style.opacity = '0';
+            document.querySelector('.waiting-room-content').style.transform = 'scale(0.95)';
+            
+            setTimeout(() => {
+                window.location.href = 'dashboard.html';
+            }, 800);
+        }
+    }, 200);
+}
+
+cancelWaitingBtn.addEventListener('click', async () => {
+    playClick();
+    clearInterval(pollingInterval);
+    waitingRoomOverlay.classList.add('hidden');
+    waitingCountdownBox.classList.add('hidden');
     
     startBtn.innerHTML = `
-        <span class="glitch-btn-text">جاري بدء التحقيق...</span>
-        <span class="btn-status">DECRYPTING_FILES_100%</span>
+        <span class="glitch-btn-text">تفعيل بروتوكول التحقيق 🚀</span>
+        <span class="btn-status">READY_TO_LAUNCH</span>
     `;
-    startBtn.style.pointerEvents = 'none';
-    startBtn.style.borderColor = 'var(--terminal-green)';
-    startBtn.style.boxShadow = '0 0 40px rgba(0, 255, 102, 0.4)';
+    startBtn.style.pointerEvents = 'auto';
 
-    // Save escape protocol meta to local storage - BEFORE any navigation
-    try {
-        localStorage.setItem('escape_leader', leaderName);
-        localStorage.setItem('escape_team', selectedTeam);
-        localStorage.setItem('escape_members', JSON.stringify(teamMembers));
-        localStorage.setItem('escape_level', '0');
-        localStorage.setItem('escape_start_time', Date.now().toString());
-        
-        // Verify data was saved
-        const testTeam = localStorage.getItem('escape_team');
-        console.log('Team saved:', testTeam);
-    } catch (e) {
-        console.error('localStorage error:', e);
+    const roomCode = document.getElementById('roomCode') ? document.getElementById('roomCode').value.trim() : '';
+    if (roomCode && selectedTeam) {
+        await updateRoomState(roomCode, selectedTeam, null);
     }
-
-    // Fade terminal container out before redirect
-    setTimeout(() => {
-        document.querySelector('.terminal-shell').style.transition = 'all 0.8s ease';
-        document.querySelector('.terminal-shell').style.opacity = '0';
-        document.querySelector('.terminal-shell').style.transform = 'scale(0.95)';
-        
-        setTimeout(() => {
-            window.location.href = 'dashboard.html';
-        }, 800);
-    }, 1500);
 });
